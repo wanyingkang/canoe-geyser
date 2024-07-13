@@ -1,0 +1,44 @@
+#! /bin/bash
+export RUNNAME=$1   
+export TODO=$2
+export BASERUN=$3
+export CASEROOT=`pwd`
+export CASENAME=`echo $CASEROOT |rev| cut -d'/' -f1|rev`
+[ -z "$BASERUN" ] || export BASERUN=_${BASERUN}
+export OUTPUT=/net/fs06/d0/${USER}/athena/data_${CASENAME}_${RUNNAME}/
+export MyExp=/home/wanying/canoe
+
+if [[ $TODO == *"clean"* || $TODO == *"recreate"* ]]; then
+    echo cleaning ${CASENAME}_${RUNNAME}
+    rm -rf $OUTPUT
+    rm -rf _${RUNNAME}
+    rm data_${CASENAME}_${RUNNAME}
+fi
+
+if [[ -z "$TODO" || $TODO == *"create"*  ]]; then
+    echo ${CASENAME}${BASERUN} =\> ${CASENAME}_${RUNNAME}
+    mkdir $CASEROOT/bin_${RUNNAME}
+    inputfile=`realpath $CASEROOT/bin${BASERUN}/${CASENAME}.inp`
+    cp -r $inputfile $CASEROOT/bin_${RUNNAME}/
+
+    mkdir $OUTPUT
+    ln -s $OUTPUT .
+    cd $OUTPUT
+    ln -s $CASEROOT/bin_${RUNNAME}/* . 
+    ln -s $CASEROOT/bin/${CASENAME}.release . 
+    cp $CASEROOT/data_${CASENAME}${BASERUN}/run.sub .
+    #cp $CASEROOT/data_${CASENAME}${BASERUN}/cleandata .
+    #cp $CASEROOT/data_${CASENAME}${BASERUN}/deleterun .
+    sed -i "s/${CASENAME}${BASERUN}/${CASENAME}_${RUNNAME}/g" run.sub
+    ORIGBRIEF=`echo ${CASENAME}${BASERUN}|rev|cut -d '_' -f 1|rev`
+    NEWBRIEF=`echo ${CASENAME}_${RUNNAME}|rev|cut -d '_' -f 1|rev`
+    sed -i "s/-J ${ORIGBRIEF}/-J ${NEWBRIEF}/g" run.sub
+    linnum_currentiter=`grep -n -m1 'export currentiter=' run.sub | awk -F: '{print $1}'`
+    sed -i "${linnum_currentiter}c export currentiter=0" run.sub
+
+fi
+
+if [[ $TODO == *"borrow"* ]]; then
+    echo to be developed
+fi
+

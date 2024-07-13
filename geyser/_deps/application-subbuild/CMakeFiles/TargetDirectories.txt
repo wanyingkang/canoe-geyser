@@ -1,0 +1,3 @@
+/home/wanying/canoe/geyser/_deps/application-subbuild/CMakeFiles/application-populate.dir
+/home/wanying/canoe/geyser/_deps/application-subbuild/CMakeFiles/edit_cache.dir
+/home/wanying/canoe/geyser/_deps/application-subbuild/CMakeFiles/rebuild_cache.dir

@@ -1,0 +1,91 @@
+# This is a basic workflow to help you get started with Actions
+
+name: Build
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the "main" branch
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+env:
+  BUILD_TYPE: Release
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  greeting:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "The job was automatically triggered by a ${{ github.event_name }} event."
+      - run: echo "This job is now running on a ${{ runner.os }} server hosted by ${{runner.name}}"
+      - run: echo "The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
+      - name: Check out repository code
+        uses: actions/checkout@v3
+      - run: echo "The ${{ github.repository }} repository has been cloned to the runner."
+      - run: echo "The workspace, ${{ github.workspace }}, is now ready to test your code on the runner."
+
+  build:
+    runs-on: ubuntu-latest
+    needs: greeting
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v3
+
+      - name: install python modules
+        run: sudo pip install -r requirements.txt
+
+      - name: create build directory
+        run: cmake -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -B ${{github.workspace}}/build
+
+      - name: Build
+        run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
+
+      - name: Test
+        working-directory: ${{github.workspace}}/build/tests
+        run: ctest -C ${{env.BUILD_TYPE}}
+
+      - name: Compare A
+        run: cat ${{github.workspace}}/build/tests/A.out | wc > A.check && diff -b A.check ${{github.workspace}}/tests/A.check
+
+      - name: Compare B
+        run: cat ${{github.workspace}}/build/tests/B.out | wc > B.check && diff -b B.check ${{github.workspace}}/tests/B.check
+
+      - name: Compare main
+        run: cat ${{github.workspace}}/build/tests/main.out | wc > main.check && diff -b main.check ${{github.workspace}}/tests/main.check
+
+  build-mpi:
+    runs-on: ubuntu-latest
+    needs: greeting
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v3
+
+      - name: install python modules
+        run: sudo pip install -r requirements.txt
+
+      - name: install mpi
+        run: sudo apt install mpich
+
+      - name: create build directory
+        run: cmake -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -DMPI_OPTION=MPI_PARALLEL -B ${{github.workspace}}/build
+
+      - name: Build
+        run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
+
+      - name: Test
+        working-directory: ${{github.workspace}}/build/tests
+        run: ctest -C ${{env.BUILD_TYPE}}
+
+      - name: Compare A
+        run: cat ${{github.workspace}}/build/tests/A.out | wc > A.check && diff -b A.check ${{github.workspace}}/tests/A.check
+
+      - name: Compare B
+        run: cat ${{github.workspace}}/build/tests/B.out | wc > B.check && diff -b B.check ${{github.workspace}}/tests/B.check
+
+      - name: Compare main
+        run: cat ${{github.workspace}}/build/tests/main.out | wc > main.check && diff -b main.check ${{github.workspace}}/tests/main.check

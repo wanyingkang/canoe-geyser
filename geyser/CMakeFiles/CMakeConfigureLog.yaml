@@ -1,0 +1,1438 @@
+
+---
+events:
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/home/software/cmake/3.26.4/share/cmake-3.26/Modules/CMakeDetermineSystem.cmake:204 (message)"
+      - "CMakeLists.txt:7 (project)"
+    message: |
+      The system is: Linux - 4.17.14-102.fc27.x86_64 - x86_64
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/home/software/cmake/3.26.4/share/cmake-3.26/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
+      - "/home/software/cmake/3.26.4/share/cmake-3.26/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "/home/software/cmake/3.26.4/share/cmake-3.26/Modules/CMakeDetermineCXXCompiler.cmake:126 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "CMakeLists.txt:7 (project)"
+    message: |
+      Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" succeeded.
+      Compiler: /usr/bin/c++ 
+      Build flags: 
+      Id flags:  
+      
+      The output was:
+      0
+      
+      
+      Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "a.out"
+      
+      The CXX compiler identification is GNU, found in:
+        /home/wanying/canoe/geyser/CMakeFiles/3.26.4/CompilerIdCXX/a.out
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/home/software/cmake/3.26.4/share/cmake-3.26/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
+      - "/home/software/cmake/3.26.4/share/cmake-3.26/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "/home/software/cmake/3.26.4/share/cmake-3.26/Modules/CMakeDetermineCCompiler.cmake:123 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "CMakeLists.txt:7 (project)"
+    message: |
+      Compiling the C compiler identification source file "CMakeCCompilerId.c" succeeded.
+      Compiler: /usr/bin/cc 
+      Build flags: 
+      Id flags:  
+      
+      The output was:
+      0
+      
+      
+      Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "a.out"
+      
+      The C compiler identification is GNU, found in:
+        /home/wanying/canoe/geyser/CMakeFiles/3.26.4/CompilerIdC/a.out
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/home/software/cmake/3.26.4/share/cmake-3.26/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
+      - "/home/software/cmake/3.26.4/share/cmake-3.26/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "/home/software/cmake/3.26.4/share/cmake-3.26/Modules/CMakeDetermineFortranCompiler.cmake:179 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "CMakeLists.txt:7 (project)"
+    message: |
+      Compiling the Fortran compiler identification source file "CMakeFortranCompilerId.F" succeeded.
+      Compiler: /usr/bin/gfortran 
+      Build flags: 
+      Id flags: -v 
+      
+      The output was:
+      0
+      Driving: /usr/bin/gfortran -v CMakeFortranCompilerId.F -l gfortran -l m -shared-libgcc
+      Using built-in specs.
+      COLLECT_GCC=/usr/bin/gfortran
+      COLLECT_LTO_WRAPPER=/usr/libexec/gcc/x86_64-redhat-linux/7/lto-wrapper
+      OFFLOAD_TARGET_NAMES=nvptx-none
+      OFFLOAD_TARGET_DEFAULT=1
+      Target: x86_64-redhat-linux
+      Configured with: ../configure --enable-bootstrap --enable-languages=c,c++,objc,obj-c++,fortran,ada,go,lto --prefix=/usr --mandir=/usr/share/man --infodir=/usr/share/info --with-bugurl=http://bugzilla.redhat.com/bugzilla --enable-shared --enable-threads=posix --enable-checking=release --enable-multilib --with-system-zlib --enable-__cxa_atexit --disable-libunwind-exceptions --enable-gnu-unique-object --enable-linker-build-id --with-gcc-major-version-only --with-linker-hash-style=gnu --enable-plugin --enable-initfini-array --with-isl --enable-libmpx --enable-offload-targets=nvptx-none --without-cuda-driver --enable-gnu-indirect-function --with-tune=generic --with-arch_32=i686 --build=x86_64-redhat-linux
+      Thread model: posix
+      gcc version 7.3.1 20180712 (Red Hat 7.3.1-6) (GCC) 
+      COLLECT_GCC_OPTIONS='-v' '-shared-libgcc' '-mtune=generic' '-march=x86-64'
+       /usr/libexec/gcc/x86_64-redhat-linux/7/f951 CMakeFortranCompilerId.F -ffixed-form -cpp=/tmp/ccRoXrqJ.f90 -quiet -v CMakeFortranCompilerId.F -quiet -dumpbase CMakeFortranCompilerId.F -mtune=generic -march=x86-64 -auxbase CMakeFortranCompilerId -version -fintrinsic-modules-path /usr/lib/gcc/x86_64-redhat-linux/7/finclude -o /tmp/cc2u1i9e.s
+      GNU Fortran (GCC) version 7.3.1 20180712 (Red Hat 7.3.1-6) (x86_64-redhat-linux)
+      	compiled by GNU C version 7.3.1 20180712 (Red Hat 7.3.1-6), GMP version 6.1.2, MPFR version 3.1.6-p2, MPC version 1.0.2, isl version isl-0.16.1-GMP
+      
+      GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
+      ignoring nonexistent directory "/usr/lib/gcc/x86_64-redhat-linux/7/include-fixed"
+      ignoring nonexistent directory "/usr/lib/gcc/x86_64-redhat-linux/7/../../../../x86_64-redhat-linux/include"
+      #include "..." search starts here:
+      #include <...> search starts here:
+       /usr/lib/gcc/x86_64-redhat-linux/7/finclude
+       /home/software/gcc/6.3.1/pkg/openmpi/2.1.6/include
+       /home/software/gcc/6.3.1/pkg/netcdf/4.7.4/include
+       /usr/lib/gcc/x86_64-redhat-linux/7/include
+       /usr/local/include
+       /usr/include
+      End of search list.
+      GNU Fortran2008 (GCC) version 7.3.1 20180712 (Red Hat 7.3.1-6) (x86_64-redhat-linux)
+      	compiled by GNU C version 7.3.1 20180712 (Red Hat 7.3.1-6), GMP version 6.1.2, MPFR version 3.1.6-p2, MPC version 1.0.2, isl version isl-0.16.1-GMP
+      
+      GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
+      COLLECT_GCC_OPTIONS='-v' '-shared-libgcc' '-mtune=generic' '-march=x86-64'
+       as -v --64 -o /tmp/cc582scL.o /tmp/cc2u1i9e.s
+      GNU assembler version 2.29 (x86_64-redhat-linux) using BFD version version 2.29-13.fc27
+      Reading specs from /usr/lib/gcc/x86_64-redhat-linux/7/libgfortran.spec
+      rename spec lib to liborig
+      COLLECT_GCC_OPTIONS='-v' '-shared-libgcc' '-mtune=generic' '-march=x86-64'
+      COMPILER_PATH=/usr/libexec/gcc/x86_64-redhat-linux/7/:/usr/libexec/gcc/x86_64-redhat-linux/7/:/usr/libexec/gcc/x86_64-redhat-linux/:/usr/lib/gcc/x86_64-redhat-linux/7/:/usr/lib/gcc/x86_64-redhat-linux/
+      LIBRARY_PATH=/usr/lib/gcc/x86_64-redhat-linux/7/:/usr/lib/gcc/x86_64-redhat-linux/7/../../../../lib64/:/lib/../lib64/:/usr/lib/../lib64/:/home/software/gcc/6.3.1/pkg/openmpi/2.1.6/lib/:/home/software/gcc/6.3.1/pkg/netcdf/4.7.4/lib/:/usr/lib/gcc/x86_64-redhat-linux/7/../../../:/lib/:/usr/lib/
+      COLLECT_GCC_OPTIONS='-v' '-shared-libgcc' '-mtune=generic' '-march=x86-64'
+       /usr/libexec/gcc/x86_64-redhat-linux/7/collect2 -plugin /usr/libexec/gcc/x86_64-redhat-linux/7/liblto_plugin.so -plugin-opt=/usr/libexec/gcc/x86_64-redhat-linux/7/lto-wrapper -plugin-opt=-fresolution=/tmp/ccAz6wgh.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lquadmath -plugin-opt=-pass-through=-lm -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --build-id --no-add-needed --eh-frame-hdr --hash-style=gnu -m elf_x86_64 -dynamic-linker /lib64/ld-linux-x86-64.so.2 /usr/lib/gcc/x86_64-redhat-linux/7/../../../../lib64/crt1.o /usr/lib/gcc/x86_64-redhat-linux/7/../../../../lib64/crti.o /usr/lib/gcc/x86_64-redhat-linux/7/crtbegin.o -L/usr/lib/gcc/x86_64-redhat-linux/7 -L/usr/lib/gcc/x86_64-redhat-linux/7/../../../../lib64 -L/lib/../lib64 -L/usr/lib/../lib64 -L/home/software/gcc/6.3.1/pkg/openmpi/2.1.6/lib -L/home/software/gcc/6.3.1/pkg/netcdf/4.7.4/lib -L/usr/lib/gcc/x86_64-redhat-linux/7/../../.. /tmp/cc582scL.o -lgfortran -lm -lgcc_s -lgcc -lquadmath -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /usr/lib/gcc/x86_64-redhat-linux/7/crtend.o /usr/lib/gcc/x86_64-redhat-linux/7/../../../../lib64/crtn.o
+      COLLECT_GCC_OPTIONS='-v' '-shared-libgcc' '-mtune=generic' '-march=x86-64'
+      
+      
+      Compilation of the Fortran compiler identification source "CMakeFortranCompilerId.F" produced "a.out"
+      
+      The Fortran compiler identification is GNU, found in:
+        /home/wanying/canoe/geyser/CMakeFiles/3.26.4/CompilerIdFortran/a.out
+      
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/home/software/cmake/3.26.4/share/cmake-3.26/Modules/CMakeDetermineCompilerABI.cmake:57 (try_compile)"
+      - "/home/software/cmake/3.26.4/share/cmake-3.26/Modules/CMakeTestCXXCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:7 (project)"
+    checks:
+      - "Detecting CXX compiler ABI info"
+    directories:
+      source: "/home/wanying/canoe/geyser/CMakeFiles/CMakeScratch/TryCompile-PGV7qU"
+      binary: "/home/wanying/canoe/geyser/CMakeFiles/CMakeScratch/TryCompile-PGV7qU"
+    cmakeVariables:
+      CMAKE_CXX_FLAGS: ""
+      CMAKE_CXX_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+    buildResult:
+      variable: "CMAKE_CXX_ABI_COMPILED"
+      cached: true
+      stdout: |
+        Change Dir: /home/wanying/canoe/geyser/CMakeFiles/CMakeScratch/TryCompile-PGV7qU
+        
+        Run Build Command(s):/home/software/cmake/3.26.4/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_7bfd7/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_7bfd7.dir/build.make CMakeFiles/cmTC_7bfd7.dir/build
+        gmake[1]: Entering directory '/home/wanying/canoe/geyser/CMakeFiles/CMakeScratch/TryCompile-PGV7qU'
+        Building CXX object CMakeFiles/cmTC_7bfd7.dir/CMakeCXXCompilerABI.cpp.o
+        /usr/bin/c++   -std=c++1z   -v -o CMakeFiles/cmTC_7bfd7.dir/CMakeCXXCompilerABI.cpp.o -c /home/software/cmake/3.26.4/share/cmake-3.26/Modules/CMakeCXXCompilerABI.cpp
+        Using built-in specs.
+        COLLECT_GCC=/usr/bin/c++
+        OFFLOAD_TARGET_NAMES=nvptx-none
+        OFFLOAD_TARGET_DEFAULT=1
+        Target: x86_64-redhat-linux
+        Configured with: ../configure --enable-bootstrap --enable-languages=c,c++,objc,obj-c++,fortran,ada,go,lto --prefix=/usr --mandir=/usr/share/man --infodir=/usr/share/info --with-bugurl=http://bugzilla.redhat.com/bugzilla --enable-shared --enable-threads=posix --enable-checking=release --enable-multilib --with-system-zlib --enable-__cxa_atexit --disable-libunwind-exceptions --enable-gnu-unique-object --enable-linker-build-id --with-gcc-major-version-only --with-linker-hash-style=gnu --enable-plugin --enable-initfini-array --with-isl --enable-libmpx --enable-offload-targets=nvptx-none --without-cuda-driver --enable-gnu-indirect-function --with-tune=generic --with-arch_32=i686 --build=x86_64-redhat-linux
+        Thread model: posix
+        gcc version 7.3.1 20180712 (Red Hat 7.3.1-6) (GCC) 
+        COLLECT_GCC_OPTIONS='-std=c++1z' '-v' '-o' 'CMakeFiles/cmTC_7bfd7.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mtune=generic' '-march=x86-64'
+         /usr/libexec/gcc/x86_64-redhat-linux/7/cc1plus -quiet -v -D_GNU_SOURCE /home/software/cmake/3.26.4/share/cmake-3.26/Modules/CMakeCXXCompilerABI.cpp -quiet -dumpbase CMakeCXXCompilerABI.cpp -mtune=generic -march=x86-64 -auxbase-strip CMakeFiles/cmTC_7bfd7.dir/CMakeCXXCompilerABI.cpp.o -std=c++1z -version -o /tmp/ccWvRZOY.s
+        GNU C++14 (GCC) version 7.3.1 20180712 (Red Hat 7.3.1-6) (x86_64-redhat-linux)
+        	compiled by GNU C version 7.3.1 20180712 (Red Hat 7.3.1-6), GMP version 6.1.2, MPFR version 3.1.6-p2, MPC version 1.0.2, isl version isl-0.16.1-GMP
+        
+        GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
+        ignoring nonexistent directory "/usr/lib/gcc/x86_64-redhat-linux/7/include-fixed"
+        ignoring nonexistent directory "/usr/lib/gcc/x86_64-redhat-linux/7/../../../../x86_64-redhat-linux/include"
+        #include "..." search starts here:
+        #include <...> search starts here:
+         /home/software/gcc/6.3.1/pkg/openmpi/2.1.6/include
+         /home/software/gcc/6.3.1/pkg/netcdf/4.7.4/include
+         /usr/lib/gcc/x86_64-redhat-linux/7/../../../../include/c++/7
+         /usr/lib/gcc/x86_64-redhat-linux/7/../../../../include/c++/7/x86_64-redhat-linux
+         /usr/lib/gcc/x86_64-redhat-linux/7/../../../../include/c++/7/backward
+         /usr/lib/gcc/x86_64-redhat-linux/7/include
+         /usr/local/include
+         /usr/include
+        End of search list.
+        GNU C++14 (GCC) version 7.3.1 20180712 (Red Hat 7.3.1-6) (x86_64-redhat-linux)
+        	compiled by GNU C version 7.3.1 20180712 (Red Hat 7.3.1-6), GMP version 6.1.2, MPFR version 3.1.6-p2, MPC version 1.0.2, isl version isl-0.16.1-GMP
+        
+        GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
+        Compiler executable checksum: 56c08fb9092b53564843219296903b2e
+        COLLECT_GCC_OPTIONS='-std=c++1z' '-v' '-o' 'CMakeFiles/cmTC_7bfd7.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mtune=generic' '-march=x86-64'
+         as -v --64 -o CMakeFiles/cmTC_7bfd7.dir/CMakeCXXCompilerABI.cpp.o /tmp/ccWvRZOY.s
+        GNU assembler version 2.29 (x86_64-redhat-linux) using BFD version version 2.29-13.fc27
+        COMPILER_PATH=/usr/libexec/gcc/x86_64-redhat-linux/7/:/usr/libexec/gcc/x86_64-redhat-linux/7/:/usr/libexec/gcc/x86_64-redhat-linux/:/usr/lib/gcc/x86_64-redhat-linux/7/:/usr/lib/gcc/x86_64-redhat-linux/
+        LIBRARY_PATH=/usr/lib/gcc/x86_64-redhat-linux/7/:/usr/lib/gcc/x86_64-redhat-linux/7/../../../../lib64/:/lib/../lib64/:/usr/lib/../lib64/:/home/software/gcc/6.3.1/pkg/openmpi/2.1.6/lib/:/home/software/gcc/6.3.1/pkg/netcdf/4.7.4/lib/:/usr/lib/gcc/x86_64-redhat-linux/7/../../../:/lib/:/usr/lib/
+        COLLECT_GCC_OPTIONS='-std=c++1z' '-v' '-o' 'CMakeFiles/cmTC_7bfd7.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mtune=generic' '-march=x86-64'
+        Linking CXX executable cmTC_7bfd7
+        /home/software/cmake/3.26.4/bin/cmake -E cmake_link_script CMakeFiles/cmTC_7bfd7.dir/link.txt --verbose=1
+        /usr/bin/c++  -v CMakeFiles/cmTC_7bfd7.dir/CMakeCXXCompilerABI.cpp.o -o cmTC_7bfd7 
+        Using built-in specs.
+        COLLECT_GCC=/usr/bin/c++
+        COLLECT_LTO_WRAPPER=/usr/libexec/gcc/x86_64-redhat-linux/7/lto-wrapper
+        OFFLOAD_TARGET_NAMES=nvptx-none
+        OFFLOAD_TARGET_DEFAULT=1
+        Target: x86_64-redhat-linux
+        Configured with: ../configure --enable-bootstrap --enable-languages=c,c++,objc,obj-c++,fortran,ada,go,lto --prefix=/usr --mandir=/usr/share/man --infodir=/usr/share/info --with-bugurl=http://bugzilla.redhat.com/bugzilla --enable-shared --enable-threads=posix --enable-checking=release --enable-multilib --with-system-zlib --enable-__cxa_atexit --disable-libunwind-exceptions --enable-gnu-unique-object --enable-linker-build-id --with-gcc-major-version-only --with-linker-hash-style=gnu --enable-plugin --enable-initfini-array --with-isl --enable-libmpx --enable-offload-targets=nvptx-none --without-cuda-driver --enable-gnu-indirect-function --with-tune=generic --with-arch_32=i686 --build=x86_64-redhat-linux
+        Thread model: posix
+        gcc version 7.3.1 20180712 (Red Hat 7.3.1-6) (GCC) 
+        COMPILER_PATH=/usr/libexec/gcc/x86_64-redhat-linux/7/:/usr/libexec/gcc/x86_64-redhat-linux/7/:/usr/libexec/gcc/x86_64-redhat-linux/:/usr/lib/gcc/x86_64-redhat-linux/7/:/usr/lib/gcc/x86_64-redhat-linux/
+        LIBRARY_PATH=/usr/lib/gcc/x86_64-redhat-linux/7/:/usr/lib/gcc/x86_64-redhat-linux/7/../../../../lib64/:/lib/../lib64/:/usr/lib/../lib64/:/home/software/gcc/6.3.1/pkg/openmpi/2.1.6/lib/:/home/software/gcc/6.3.1/pkg/netcdf/4.7.4/lib/:/usr/lib/gcc/x86_64-redhat-linux/7/../../../:/lib/:/usr/lib/
+        COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_7bfd7' '-shared-libgcc' '-mtune=generic' '-march=x86-64'
+         /usr/libexec/gcc/x86_64-redhat-linux/7/collect2 -plugin /usr/libexec/gcc/x86_64-redhat-linux/7/liblto_plugin.so -plugin-opt=/usr/libexec/gcc/x86_64-redhat-linux/7/lto-wrapper -plugin-opt=-fresolution=/tmp/ccIW8uYZ.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --build-id --no-add-needed --eh-frame-hdr --hash-style=gnu -m elf_x86_64 -dynamic-linker /lib64/ld-linux-x86-64.so.2 -o cmTC_7bfd7 /usr/lib/gcc/x86_64-redhat-linux/7/../../../../lib64/crt1.o /usr/lib/gcc/x86_64-redhat-linux/7/../../../../lib64/crti.o /usr/lib/gcc/x86_64-redhat-linux/7/crtbegin.o -L/usr/lib/gcc/x86_64-redhat-linux/7 -L/usr/lib/gcc/x86_64-redhat-linux/7/../../../../lib64 -L/lib/../lib64 -L/usr/lib/../lib64 -L/home/software/gcc/6.3.1/pkg/openmpi/2.1.6/lib -L/home/software/gcc/6.3.1/pkg/netcdf/4.7.4/lib -L/usr/lib/gcc/x86_64-redhat-linux/7/../../.. CMakeFiles/cmTC_7bfd7.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /usr/lib/gcc/x86_64-redhat-linux/7/crtend.o /usr/lib/gcc/x86_64-redhat-linux/7/../../../../lib64/crtn.o
+        COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_7bfd7' '-shared-libgcc' '-mtune=generic' '-march=x86-64'
+        gmake[1]: Leaving directory '/home/wanying/canoe/geyser/CMakeFiles/CMakeScratch/TryCompile-PGV7qU'
+        
+      exitCode: 0
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/home/software/cmake/3.26.4/share/cmake-3.26/Modules/CMakeDetermineCompilerABI.cmake:127 (message)"
+      - "/home/software/cmake/3.26.4/share/cmake-3.26/Modules/CMakeTestCXXCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:7 (project)"
+    message: |
+      Parsed CXX implicit include dir info: rv=done
+        found start of include info
+        found start of implicit include info
+          add: [/home/software/gcc/6.3.1/pkg/openmpi/2.1.6/include]
+          add: [/home/software/gcc/6.3.1/pkg/netcdf/4.7.4/include]
+          add: [/usr/lib/gcc/x86_64-redhat-linux/7/../../../../include/c++/7]
+          add: [/usr/lib/gcc/x86_64-redhat-linux/7/../../../../include/c++/7/x86_64-redhat-linux]
+          add: [/usr/lib/gcc/x86_64-redhat-linux/7/../../../../include/c++/7/backward]
+          add: [/usr/lib/gcc/x86_64-redhat-linux/7/include]
+          add: [/usr/local/include]
+          add: [/usr/include]
+        end of search list found
+        collapse include dir [/home/software/gcc/6.3.1/pkg/openmpi/2.1.6/include] ==> [/home/software/gcc/6.3.1/pkg/openmpi/2.1.6/include]
+        collapse include dir [/home/software/gcc/6.3.1/pkg/netcdf/4.7.4/include] ==> [/home/software/gcc/6.3.1/pkg/netcdf/4.7.4/include]
+        collapse include dir [/usr/lib/gcc/x86_64-redhat-linux/7/../../../../include/c++/7] ==> [/usr/include/c++/7]
+        collapse include dir [/usr/lib/gcc/x86_64-redhat-linux/7/../../../../include/c++/7/x86_64-redhat-linux] ==> [/usr/include/c++/7/x86_64-redhat-linux]
+        collapse include dir [/usr/lib/gcc/x86_64-redhat-linux/7/../../../../include/c++/7/backward] ==> [/usr/include/c++/7/backward]
+        collapse include dir [/usr/lib/gcc/x86_64-redhat-linux/7/include] ==> [/usr/lib/gcc/x86_64-redhat-linux/7/include]
+        collapse include dir [/usr/local/include] ==> [/usr/local/include]
+        collapse include dir [/usr/include] ==> [/usr/include]
+        implicit include dirs: [/home/software/gcc/6.3.1/pkg/openmpi/2.1.6/include;/home/software/gcc/6.3.1/pkg/netcdf/4.7.4/include;/usr/include/c++/7;/usr/include/c++/7/x86_64-redhat-linux;/usr/include/c++/7/backward;/usr/lib/gcc/x86_64-redhat-linux/7/include;/usr/local/include;/usr/include]
+      
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/home/software/cmake/3.26.4/share/cmake-3.26/Modules/CMakeDetermineCompilerABI.cmake:152 (message)"
+      - "/home/software/cmake/3.26.4/share/cmake-3.26/Modules/CMakeTestCXXCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:7 (project)"
+    message: |
+      Parsed CXX implicit link information:
+        link line regex: [^( *|.*[/\\])(ld|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\\]+-)?ld|collect2)[^/\\]*( |$)]
+        ignore line: [Change Dir: /home/wanying/canoe/geyser/CMakeFiles/CMakeScratch/TryCompile-PGV7qU]
+        ignore line: []
+        ignore line: [Run Build Command(s):/home/software/cmake/3.26.4/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_7bfd7/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_7bfd7.dir/build.make CMakeFiles/cmTC_7bfd7.dir/build]
+        ignore line: [gmake[1]: Entering directory '/home/wanying/canoe/geyser/CMakeFiles/CMakeScratch/TryCompile-PGV7qU']
+        ignore line: [Building CXX object CMakeFiles/cmTC_7bfd7.dir/CMakeCXXCompilerABI.cpp.o]
+        ignore line: [/usr/bin/c++   -std=c++1z   -v -o CMakeFiles/cmTC_7bfd7.dir/CMakeCXXCompilerABI.cpp.o -c /home/software/cmake/3.26.4/share/cmake-3.26/Modules/CMakeCXXCompilerABI.cpp]
+        ignore line: [Using built-in specs.]
+        ignore line: [COLLECT_GCC=/usr/bin/c++]
+        ignore line: [OFFLOAD_TARGET_NAMES=nvptx-none]
+        ignore line: [OFFLOAD_TARGET_DEFAULT=1]
+        ignore line: [Target: x86_64-redhat-linux]
+        ignore line: [Configured with: ../configure --enable-bootstrap --enable-languages=c c++ objc obj-c++ fortran ada go lto --prefix=/usr --mandir=/usr/share/man --infodir=/usr/share/info --with-bugurl=http://bugzilla.redhat.com/bugzilla --enable-shared --enable-threads=posix --enable-checking=release --enable-multilib --with-system-zlib --enable-__cxa_atexit --disable-libunwind-exceptions --enable-gnu-unique-object --enable-linker-build-id --with-gcc-major-version-only --with-linker-hash-style=gnu --enable-plugin --enable-initfini-array --with-isl --enable-libmpx --enable-offload-targets=nvptx-none --without-cuda-driver --enable-gnu-indirect-function --with-tune=generic --with-arch_32=i686 --build=x86_64-redhat-linux]
+        ignore line: [Thread model: posix]
+        ignore line: [gcc version 7.3.1 20180712 (Red Hat 7.3.1-6) (GCC) ]
+        ignore line: [COLLECT_GCC_OPTIONS='-std=c++1z' '-v' '-o' 'CMakeFiles/cmTC_7bfd7.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mtune=generic' '-march=x86-64']
+        ignore line: [ /usr/libexec/gcc/x86_64-redhat-linux/7/cc1plus -quiet -v -D_GNU_SOURCE /home/software/cmake/3.26.4/share/cmake-3.26/Modules/CMakeCXXCompilerABI.cpp -quiet -dumpbase CMakeCXXCompilerABI.cpp -mtune=generic -march=x86-64 -auxbase-strip CMakeFiles/cmTC_7bfd7.dir/CMakeCXXCompilerABI.cpp.o -std=c++1z -version -o /tmp/ccWvRZOY.s]
+        ignore line: [GNU C++14 (GCC) version 7.3.1 20180712 (Red Hat 7.3.1-6) (x86_64-redhat-linux)]
+        ignore line: [	compiled by GNU C version 7.3.1 20180712 (Red Hat 7.3.1-6)  GMP version 6.1.2  MPFR version 3.1.6-p2  MPC version 1.0.2  isl version isl-0.16.1-GMP]
+        ignore line: []
+        ignore line: [GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072]
+        ignore line: [ignoring nonexistent directory "/usr/lib/gcc/x86_64-redhat-linux/7/include-fixed"]
+        ignore line: [ignoring nonexistent directory "/usr/lib/gcc/x86_64-redhat-linux/7/../../../../x86_64-redhat-linux/include"]
+        ignore line: [#include "..." search starts here:]
+        ignore line: [#include <...> search starts here:]
+        ignore line: [ /home/software/gcc/6.3.1/pkg/openmpi/2.1.6/include]
+        ignore line: [ /home/software/gcc/6.3.1/pkg/netcdf/4.7.4/include]
+        ignore line: [ /usr/lib/gcc/x86_64-redhat-linux/7/../../../../include/c++/7]
+        ignore line: [ /usr/lib/gcc/x86_64-redhat-linux/7/../../../../include/c++/7/x86_64-redhat-linux]
+        ignore line: [ /usr/lib/gcc/x86_64-redhat-linux/7/../../../../include/c++/7/backward]
+        ignore line: [ /usr/lib/gcc/x86_64-redhat-linux/7/include]
+        ignore line: [ /usr/local/include]
+        ignore line: [ /usr/include]
+        ignore line: [End of search list.]
+        ignore line: [GNU C++14 (GCC) version 7.3.1 20180712 (Red Hat 7.3.1-6) (x86_64-redhat-linux)]
+        ignore line: [	compiled by GNU C version 7.3.1 20180712 (Red Hat 7.3.1-6)  GMP version 6.1.2  MPFR version 3.1.6-p2  MPC version 1.0.2  isl version isl-0.16.1-GMP]
+        ignore line: []
+        ignore line: [GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072]
+        ignore line: [Compiler executable checksum: 56c08fb9092b53564843219296903b2e]
+        ignore line: [COLLECT_GCC_OPTIONS='-std=c++1z' '-v' '-o' 'CMakeFiles/cmTC_7bfd7.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mtune=generic' '-march=x86-64']
+        ignore line: [ as -v --64 -o CMakeFiles/cmTC_7bfd7.dir/CMakeCXXCompilerABI.cpp.o /tmp/ccWvRZOY.s]
+        ignore line: [GNU assembler version 2.29 (x86_64-redhat-linux) using BFD version version 2.29-13.fc27]
+        ignore line: [COMPILER_PATH=/usr/libexec/gcc/x86_64-redhat-linux/7/:/usr/libexec/gcc/x86_64-redhat-linux/7/:/usr/libexec/gcc/x86_64-redhat-linux/:/usr/lib/gcc/x86_64-redhat-linux/7/:/usr/lib/gcc/x86_64-redhat-linux/]
+        ignore line: [LIBRARY_PATH=/usr/lib/gcc/x86_64-redhat-linux/7/:/usr/lib/gcc/x86_64-redhat-linux/7/../../../../lib64/:/lib/../lib64/:/usr/lib/../lib64/:/home/software/gcc/6.3.1/pkg/openmpi/2.1.6/lib/:/home/software/gcc/6.3.1/pkg/netcdf/4.7.4/lib/:/usr/lib/gcc/x86_64-redhat-linux/7/../../../:/lib/:/usr/lib/]
+        ignore line: [COLLECT_GCC_OPTIONS='-std=c++1z' '-v' '-o' 'CMakeFiles/cmTC_7bfd7.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mtune=generic' '-march=x86-64']
+        ignore line: [Linking CXX executable cmTC_7bfd7]
+        ignore line: [/home/software/cmake/3.26.4/bin/cmake -E cmake_link_script CMakeFiles/cmTC_7bfd7.dir/link.txt --verbose=1]
+        ignore line: [/usr/bin/c++  -v CMakeFiles/cmTC_7bfd7.dir/CMakeCXXCompilerABI.cpp.o -o cmTC_7bfd7 ]
+        ignore line: [Using built-in specs.]
+        ignore line: [COLLECT_GCC=/usr/bin/c++]
+        ignore line: [COLLECT_LTO_WRAPPER=/usr/libexec/gcc/x86_64-redhat-linux/7/lto-wrapper]
+        ignore line: [OFFLOAD_TARGET_NAMES=nvptx-none]
+        ignore line: [OFFLOAD_TARGET_DEFAULT=1]
+        ignore line: [Target: x86_64-redhat-linux]
+        ignore line: [Configured with: ../configure --enable-bootstrap --enable-languages=c c++ objc obj-c++ fortran ada go lto --prefix=/usr --mandir=/usr/share/man --infodir=/usr/share/info --with-bugurl=http://bugzilla.redhat.com/bugzilla --enable-shared --enable-threads=posix --enable-checking=release --enable-multilib --with-system-zlib --enable-__cxa_atexit --disable-libunwind-exceptions --enable-gnu-unique-object --enable-linker-build-id --with-gcc-major-version-only --with-linker-hash-style=gnu --enable-plugin --enable-initfini-array --with-isl --enable-libmpx --enable-offload-targets=nvptx-none --without-cuda-driver --enable-gnu-indirect-function --with-tune=generic --with-arch_32=i686 --build=x86_64-redhat-linux]
+        ignore line: [Thread model: posix]
+        ignore line: [gcc version 7.3.1 20180712 (Red Hat 7.3.1-6) (GCC) ]
+        ignore line: [COMPILER_PATH=/usr/libexec/gcc/x86_64-redhat-linux/7/:/usr/libexec/gcc/x86_64-redhat-linux/7/:/usr/libexec/gcc/x86_64-redhat-linux/:/usr/lib/gcc/x86_64-redhat-linux/7/:/usr/lib/gcc/x86_64-redhat-linux/]
+        ignore line: [LIBRARY_PATH=/usr/lib/gcc/x86_64-redhat-linux/7/:/usr/lib/gcc/x86_64-redhat-linux/7/../../../../lib64/:/lib/../lib64/:/usr/lib/../lib64/:/home/software/gcc/6.3.1/pkg/openmpi/2.1.6/lib/:/home/software/gcc/6.3.1/pkg/netcdf/4.7.4/lib/:/usr/lib/gcc/x86_64-redhat-linux/7/../../../:/lib/:/usr/lib/]
+        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_7bfd7' '-shared-libgcc' '-mtune=generic' '-march=x86-64']
+        link line: [ /usr/libexec/gcc/x86_64-redhat-linux/7/collect2 -plugin /usr/libexec/gcc/x86_64-redhat-linux/7/liblto_plugin.so -plugin-opt=/usr/libexec/gcc/x86_64-redhat-linux/7/lto-wrapper -plugin-opt=-fresolution=/tmp/ccIW8uYZ.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --build-id --no-add-needed --eh-frame-hdr --hash-style=gnu -m elf_x86_64 -dynamic-linker /lib64/ld-linux-x86-64.so.2 -o cmTC_7bfd7 /usr/lib/gcc/x86_64-redhat-linux/7/../../../../lib64/crt1.o /usr/lib/gcc/x86_64-redhat-linux/7/../../../../lib64/crti.o /usr/lib/gcc/x86_64-redhat-linux/7/crtbegin.o -L/usr/lib/gcc/x86_64-redhat-linux/7 -L/usr/lib/gcc/x86_64-redhat-linux/7/../../../../lib64 -L/lib/../lib64 -L/usr/lib/../lib64 -L/home/software/gcc/6.3.1/pkg/openmpi/2.1.6/lib -L/home/software/gcc/6.3.1/pkg/netcdf/4.7.4/lib -L/usr/lib/gcc/x86_64-redhat-linux/7/../../.. CMakeFiles/cmTC_7bfd7.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /usr/lib/gcc/x86_64-redhat-linux/7/crtend.o /usr/lib/gcc/x86_64-redhat-linux/7/../../../../lib64/crtn.o]
+          arg [/usr/libexec/gcc/x86_64-redhat-linux/7/collect2] ==> ignore
+          arg [-plugin] ==> ignore
+          arg [/usr/libexec/gcc/x86_64-redhat-linux/7/liblto_plugin.so] ==> ignore
+          arg [-plugin-opt=/usr/libexec/gcc/x86_64-redhat-linux/7/lto-wrapper] ==> ignore
+          arg [-plugin-opt=-fresolution=/tmp/ccIW8uYZ.res] ==> ignore
+          arg [-plugin-opt=-pass-through=-lgcc_s] ==> ignore
+          arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
+          arg [-plugin-opt=-pass-through=-lc] ==> ignore
+          arg [-plugin-opt=-pass-through=-lgcc_s] ==> ignore
+          arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
+          arg [--build-id] ==> ignore
+          arg [--no-add-needed] ==> ignore
+          arg [--eh-frame-hdr] ==> ignore
+          arg [--hash-style=gnu] ==> ignore
+          arg [-m] ==> ignore
+          arg [elf_x86_64] ==> ignore
+          arg [-dynamic-linker] ==> ignore
+          arg [/lib64/ld-linux-x86-64.so.2] ==> ignore
+          arg [-o] ==> ignore
+          arg [cmTC_7bfd7] ==> ignore
+          arg [/usr/lib/gcc/x86_64-redhat-linux/7/../../../../lib64/crt1.o] ==> obj [/usr/lib/gcc/x86_64-redhat-linux/7/../../../../lib64/crt1.o]
+          arg [/usr/lib/gcc/x86_64-redhat-linux/7/../../../../lib64/crti.o] ==> obj [/usr/lib/gcc/x86_64-redhat-linux/7/../../../../lib64/crti.o]
+          arg [/usr/lib/gcc/x86_64-redhat-linux/7/crtbegin.o] ==> obj [/usr/lib/gcc/x86_64-redhat-linux/7/crtbegin.o]
+          arg [-L/usr/lib/gcc/x86_64-redhat-linux/7] ==> dir [/usr/lib/gcc/x86_64-redhat-linux/7]
+          arg [-L/usr/lib/gcc/x86_64-redhat-linux/7/../../../../lib64] ==> dir [/usr/lib/gcc/x86_64-redhat-linux/7/../../../../lib64]
+          arg [-L/lib/../lib64] ==> dir [/lib/../lib64]
+          arg [-L/usr/lib/../lib64] ==> dir [/usr/lib/../lib64]
+          arg [-L/home/software/gcc/6.3.1/pkg/openmpi/2.1.6/lib] ==> dir [/home/software/gcc/6.3.1/pkg/openmpi/2.1.6/lib]
+          arg [-L/home/software/gcc/6.3.1/pkg/netcdf/4.7.4/lib] ==> dir [/home/software/gcc/6.3.1/pkg/netcdf/4.7.4/lib]
+          arg [-L/usr/lib/gcc/x86_64-redhat-linux/7/../../..] ==> dir [/usr/lib/gcc/x86_64-redhat-linux/7/../../..]
+          arg [CMakeFiles/cmTC_7bfd7.dir/CMakeCXXCompilerABI.cpp.o] ==> ignore
+          arg [-lstdc++] ==> lib [stdc++]
+          arg [-lm] ==> lib [m]
+          arg [-lgcc_s] ==> lib [gcc_s]
+          arg [-lgcc] ==> lib [gcc]
+          arg [-lc] ==> lib [c]
+          arg [-lgcc_s] ==> lib [gcc_s]
+          arg [-lgcc] ==> lib [gcc]
+          arg [/usr/lib/gcc/x86_64-redhat-linux/7/crtend.o] ==> obj [/usr/lib/gcc/x86_64-redhat-linux/7/crtend.o]
+          arg [/usr/lib/gcc/x86_64-redhat-linux/7/../../../../lib64/crtn.o] ==> obj [/usr/lib/gcc/x86_64-redhat-linux/7/../../../../lib64/crtn.o]
+        collapse obj [/usr/lib/gcc/x86_64-redhat-linux/7/../../../../lib64/crt1.o] ==> [/usr/lib64/crt1.o]
+        collapse obj [/usr/lib/gcc/x86_64-redhat-linux/7/../../../../lib64/crti.o] ==> [/usr/lib64/crti.o]
+        collapse obj [/usr/lib/gcc/x86_64-redhat-linux/7/../../../../lib64/crtn.o] ==> [/usr/lib64/crtn.o]
+        collapse library dir [/usr/lib/gcc/x86_64-redhat-linux/7] ==> [/usr/lib/gcc/x86_64-redhat-linux/7]
+        collapse library dir [/usr/lib/gcc/x86_64-redhat-linux/7/../../../../lib64] ==> [/usr/lib64]
+        collapse library dir [/lib/../lib64] ==> [/lib64]
+        collapse library dir [/usr/lib/../lib64] ==> [/usr/lib64]
+        collapse library dir [/home/software/gcc/6.3.1/pkg/openmpi/2.1.6/lib] ==> [/home/software/gcc/6.3.1/pkg/openmpi/2.1.6/lib]
+        collapse library dir [/home/software/gcc/6.3.1/pkg/netcdf/4.7.4/lib] ==> [/home/software/gcc/6.3.1/pkg/netcdf/4.7.4/lib]
+        collapse library dir [/usr/lib/gcc/x86_64-redhat-linux/7/../../..] ==> [/usr/lib]
+        implicit libs: [stdc++;m;gcc_s;gcc;c;gcc_s;gcc]
+        implicit objs: [/usr/lib64/crt1.o;/usr/lib64/crti.o;/usr/lib/gcc/x86_64-redhat-linux/7/crtbegin.o;/usr/lib/gcc/x86_64-redhat-linux/7/crtend.o;/usr/lib64/crtn.o]
+        implicit dirs: [/usr/lib/gcc/x86_64-redhat-linux/7;/usr/lib64;/lib64;/home/software/gcc/6.3.1/pkg/openmpi/2.1.6/lib;/home/software/gcc/6.3.1/pkg/netcdf/4.7.4/lib;/usr/lib]
+        implicit fwks: []
+      
+      
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/home/software/cmake/3.26.4/share/cmake-3.26/Modules/CMakeDetermineCompilerABI.cmake:57 (try_compile)"
+      - "/home/software/cmake/3.26.4/share/cmake-3.26/Modules/CMakeTestCCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:7 (project)"
+    checks:
+      - "Detecting C compiler ABI info"
+    directories:
+      source: "/home/wanying/canoe/geyser/CMakeFiles/CMakeScratch/TryCompile-fOQe6q"
+      binary: "/home/wanying/canoe/geyser/CMakeFiles/CMakeScratch/TryCompile-fOQe6q"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+    buildResult:
+      variable: "CMAKE_C_ABI_COMPILED"
+      cached: true
+      stdout: |
+        Change Dir: /home/wanying/canoe/geyser/CMakeFiles/CMakeScratch/TryCompile-fOQe6q
+        
+        Run Build Command(s):/home/software/cmake/3.26.4/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_06a66/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_06a66.dir/build.make CMakeFiles/cmTC_06a66.dir/build
+        gmake[1]: Entering directory '/home/wanying/canoe/geyser/CMakeFiles/CMakeScratch/TryCompile-fOQe6q'
+        Building C object CMakeFiles/cmTC_06a66.dir/CMakeCCompilerABI.c.o
+        /usr/bin/cc   -v -o CMakeFiles/cmTC_06a66.dir/CMakeCCompilerABI.c.o -c /home/software/cmake/3.26.4/share/cmake-3.26/Modules/CMakeCCompilerABI.c
+        Using built-in specs.
+        COLLECT_GCC=/usr/bin/cc
+        OFFLOAD_TARGET_NAMES=nvptx-none
+        OFFLOAD_TARGET_DEFAULT=1
+        Target: x86_64-redhat-linux
+        Configured with: ../configure --enable-bootstrap --enable-languages=c,c++,objc,obj-c++,fortran,ada,go,lto --prefix=/usr --mandir=/usr/share/man --infodir=/usr/share/info --with-bugurl=http://bugzilla.redhat.com/bugzilla --enable-shared --enable-threads=posix --enable-checking=release --enable-multilib --with-system-zlib --enable-__cxa_atexit --disable-libunwind-exceptions --enable-gnu-unique-object --enable-linker-build-id --with-gcc-major-version-only --with-linker-hash-style=gnu --enable-plugin --enable-initfini-array --with-isl --enable-libmpx --enable-offload-targets=nvptx-none --without-cuda-driver --enable-gnu-indirect-function --with-tune=generic --with-arch_32=i686 --build=x86_64-redhat-linux
+        Thread model: posix
+        gcc version 7.3.1 20180712 (Red Hat 7.3.1-6) (GCC) 
+        COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_06a66.dir/CMakeCCompilerABI.c.o' '-c' '-mtune=generic' '-march=x86-64'
+         /usr/libexec/gcc/x86_64-redhat-linux/7/cc1 -quiet -v /home/software/cmake/3.26.4/share/cmake-3.26/Modules/CMakeCCompilerABI.c -quiet -dumpbase CMakeCCompilerABI.c -mtune=generic -march=x86-64 -auxbase-strip CMakeFiles/cmTC_06a66.dir/CMakeCCompilerABI.c.o -version -o /tmp/cc24FlVb.s
+        GNU C11 (GCC) version 7.3.1 20180712 (Red Hat 7.3.1-6) (x86_64-redhat-linux)
+        	compiled by GNU C version 7.3.1 20180712 (Red Hat 7.3.1-6), GMP version 6.1.2, MPFR version 3.1.6-p2, MPC version 1.0.2, isl version isl-0.16.1-GMP
+        
+        GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
+        ignoring nonexistent directory "/usr/lib/gcc/x86_64-redhat-linux/7/include-fixed"
+        ignoring nonexistent directory "/usr/lib/gcc/x86_64-redhat-linux/7/../../../../x86_64-redhat-linux/include"
+        #include "..." search starts here:
+        #include <...> search starts here:
+         /home/software/gcc/6.3.1/pkg/openmpi/2.1.6/include
+         /home/software/gcc/6.3.1/pkg/netcdf/4.7.4/include
+         /usr/lib/gcc/x86_64-redhat-linux/7/include
+         /usr/local/include
+         /usr/include
+        End of search list.
+        GNU C11 (GCC) version 7.3.1 20180712 (Red Hat 7.3.1-6) (x86_64-redhat-linux)
+        	compiled by GNU C version 7.3.1 20180712 (Red Hat 7.3.1-6), GMP version 6.1.2, MPFR version 3.1.6-p2, MPC version 1.0.2, isl version isl-0.16.1-GMP
+        
+        GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
+        Compiler executable checksum: 2a907b9582076e9245e03ace3c933795
+        COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_06a66.dir/CMakeCCompilerABI.c.o' '-c' '-mtune=generic' '-march=x86-64'
+         as -v --64 -o CMakeFiles/cmTC_06a66.dir/CMakeCCompilerABI.c.o /tmp/cc24FlVb.s
+        GNU assembler version 2.29 (x86_64-redhat-linux) using BFD version version 2.29-13.fc27
+        COMPILER_PATH=/usr/libexec/gcc/x86_64-redhat-linux/7/:/usr/libexec/gcc/x86_64-redhat-linux/7/:/usr/libexec/gcc/x86_64-redhat-linux/:/usr/lib/gcc/x86_64-redhat-linux/7/:/usr/lib/gcc/x86_64-redhat-linux/
+        LIBRARY_PATH=/usr/lib/gcc/x86_64-redhat-linux/7/:/usr/lib/gcc/x86_64-redhat-linux/7/../../../../lib64/:/lib/../lib64/:/usr/lib/../lib64/:/home/software/gcc/6.3.1/pkg/openmpi/2.1.6/lib/:/home/software/gcc/6.3.1/pkg/netcdf/4.7.4/lib/:/usr/lib/gcc/x86_64-redhat-linux/7/../../../:/lib/:/usr/lib/
+        COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_06a66.dir/CMakeCCompilerABI.c.o' '-c' '-mtune=generic' '-march=x86-64'
+        Linking C executable cmTC_06a66
+        /home/software/cmake/3.26.4/bin/cmake -E cmake_link_script CMakeFiles/cmTC_06a66.dir/link.txt --verbose=1
+        /usr/bin/cc  -v CMakeFiles/cmTC_06a66.dir/CMakeCCompilerABI.c.o -o cmTC_06a66 
+        Using built-in specs.
+        COLLECT_GCC=/usr/bin/cc
+        COLLECT_LTO_WRAPPER=/usr/libexec/gcc/x86_64-redhat-linux/7/lto-wrapper
+        OFFLOAD_TARGET_NAMES=nvptx-none
+        OFFLOAD_TARGET_DEFAULT=1
+        Target: x86_64-redhat-linux
+        Configured with: ../configure --enable-bootstrap --enable-languages=c,c++,objc,obj-c++,fortran,ada,go,lto --prefix=/usr --mandir=/usr/share/man --infodir=/usr/share/info --with-bugurl=http://bugzilla.redhat.com/bugzilla --enable-shared --enable-threads=posix --enable-checking=release --enable-multilib --with-system-zlib --enable-__cxa_atexit --disable-libunwind-exceptions --enable-gnu-unique-object --enable-linker-build-id --with-gcc-major-version-only --with-linker-hash-style=gnu --enable-plugin --enable-initfini-array --with-isl --enable-libmpx --enable-offload-targets=nvptx-none --without-cuda-driver --enable-gnu-indirect-function --with-tune=generic --with-arch_32=i686 --build=x86_64-redhat-linux
+        Thread model: posix
+        gcc version 7.3.1 20180712 (Red Hat 7.3.1-6) (GCC) 
+        COMPILER_PATH=/usr/libexec/gcc/x86_64-redhat-linux/7/:/usr/libexec/gcc/x86_64-redhat-linux/7/:/usr/libexec/gcc/x86_64-redhat-linux/:/usr/lib/gcc/x86_64-redhat-linux/7/:/usr/lib/gcc/x86_64-redhat-linux/
+        LIBRARY_PATH=/usr/lib/gcc/x86_64-redhat-linux/7/:/usr/lib/gcc/x86_64-redhat-linux/7/../../../../lib64/:/lib/../lib64/:/usr/lib/../lib64/:/home/software/gcc/6.3.1/pkg/openmpi/2.1.6/lib/:/home/software/gcc/6.3.1/pkg/netcdf/4.7.4/lib/:/usr/lib/gcc/x86_64-redhat-linux/7/../../../:/lib/:/usr/lib/
+        COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_06a66' '-mtune=generic' '-march=x86-64'
+         /usr/libexec/gcc/x86_64-redhat-linux/7/collect2 -plugin /usr/libexec/gcc/x86_64-redhat-linux/7/liblto_plugin.so -plugin-opt=/usr/libexec/gcc/x86_64-redhat-linux/7/lto-wrapper -plugin-opt=-fresolution=/tmp/cc3xvcLh.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s --build-id --no-add-needed --eh-frame-hdr --hash-style=gnu -m elf_x86_64 -dynamic-linker /lib64/ld-linux-x86-64.so.2 -o cmTC_06a66 /usr/lib/gcc/x86_64-redhat-linux/7/../../../../lib64/crt1.o /usr/lib/gcc/x86_64-redhat-linux/7/../../../../lib64/crti.o /usr/lib/gcc/x86_64-redhat-linux/7/crtbegin.o -L/usr/lib/gcc/x86_64-redhat-linux/7 -L/usr/lib/gcc/x86_64-redhat-linux/7/../../../../lib64 -L/lib/../lib64 -L/usr/lib/../lib64 -L/home/software/gcc/6.3.1/pkg/openmpi/2.1.6/lib -L/home/software/gcc/6.3.1/pkg/netcdf/4.7.4/lib -L/usr/lib/gcc/x86_64-redhat-linux/7/../../.. CMakeFiles/cmTC_06a66.dir/CMakeCCompilerABI.c.o -lgcc --as-needed -lgcc_s --no-as-needed -lc -lgcc --as-needed -lgcc_s --no-as-needed /usr/lib/gcc/x86_64-redhat-linux/7/crtend.o /usr/lib/gcc/x86_64-redhat-linux/7/../../../../lib64/crtn.o
+        COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_06a66' '-mtune=generic' '-march=x86-64'
+        gmake[1]: Leaving directory '/home/wanying/canoe/geyser/CMakeFiles/CMakeScratch/TryCompile-fOQe6q'
+        
+      exitCode: 0
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/home/software/cmake/3.26.4/share/cmake-3.26/Modules/CMakeDetermineCompilerABI.cmake:127 (message)"
+      - "/home/software/cmake/3.26.4/share/cmake-3.26/Modules/CMakeTestCCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:7 (project)"
+    message: |
+      Parsed C implicit include dir info: rv=done
+        found start of include info
+        found start of implicit include info
+          add: [/home/software/gcc/6.3.1/pkg/openmpi/2.1.6/include]
+          add: [/home/software/gcc/6.3.1/pkg/netcdf/4.7.4/include]
+          add: [/usr/lib/gcc/x86_64-redhat-linux/7/include]
+          add: [/usr/local/include]
+          add: [/usr/include]
+        end of search list found
+        collapse include dir [/home/software/gcc/6.3.1/pkg/openmpi/2.1.6/include] ==> [/home/software/gcc/6.3.1/pkg/openmpi/2.1.6/include]
+        collapse include dir [/home/software/gcc/6.3.1/pkg/netcdf/4.7.4/include] ==> [/home/software/gcc/6.3.1/pkg/netcdf/4.7.4/include]
+        collapse include dir [/usr/lib/gcc/x86_64-redhat-linux/7/include] ==> [/usr/lib/gcc/x86_64-redhat-linux/7/include]
+        collapse include dir [/usr/local/include] ==> [/usr/local/include]
+        collapse include dir [/usr/include] ==> [/usr/include]
+        implicit include dirs: [/home/software/gcc/6.3.1/pkg/openmpi/2.1.6/include;/home/software/gcc/6.3.1/pkg/netcdf/4.7.4/include;/usr/lib/gcc/x86_64-redhat-linux/7/include;/usr/local/include;/usr/include]
+      
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/home/software/cmake/3.26.4/share/cmake-3.26/Modules/CMakeDetermineCompilerABI.cmake:152 (message)"
+      - "/home/software/cmake/3.26.4/share/cmake-3.26/Modules/CMakeTestCCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:7 (project)"
+    message: |
+      Parsed C implicit link information:
+        link line regex: [^( *|.*[/\\])(ld|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\\]+-)?ld|collect2)[^/\\]*( |$)]
+        ignore line: [Change Dir: /home/wanying/canoe/geyser/CMakeFiles/CMakeScratch/TryCompile-fOQe6q]
+        ignore line: []
+        ignore line: [Run Build Command(s):/home/software/cmake/3.26.4/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_06a66/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_06a66.dir/build.make CMakeFiles/cmTC_06a66.dir/build]
+        ignore line: [gmake[1]: Entering directory '/home/wanying/canoe/geyser/CMakeFiles/CMakeScratch/TryCompile-fOQe6q']
+        ignore line: [Building C object CMakeFiles/cmTC_06a66.dir/CMakeCCompilerABI.c.o]
+        ignore line: [/usr/bin/cc   -v -o CMakeFiles/cmTC_06a66.dir/CMakeCCompilerABI.c.o -c /home/software/cmake/3.26.4/share/cmake-3.26/Modules/CMakeCCompilerABI.c]
+        ignore line: [Using built-in specs.]
+        ignore line: [COLLECT_GCC=/usr/bin/cc]
+        ignore line: [OFFLOAD_TARGET_NAMES=nvptx-none]
+        ignore line: [OFFLOAD_TARGET_DEFAULT=1]
+        ignore line: [Target: x86_64-redhat-linux]
+        ignore line: [Configured with: ../configure --enable-bootstrap --enable-languages=c c++ objc obj-c++ fortran ada go lto --prefix=/usr --mandir=/usr/share/man --infodir=/usr/share/info --with-bugurl=http://bugzilla.redhat.com/bugzilla --enable-shared --enable-threads=posix --enable-checking=release --enable-multilib --with-system-zlib --enable-__cxa_atexit --disable-libunwind-exceptions --enable-gnu-unique-object --enable-linker-build-id --with-gcc-major-version-only --with-linker-hash-style=gnu --enable-plugin --enable-initfini-array --with-isl --enable-libmpx --enable-offload-targets=nvptx-none --without-cuda-driver --enable-gnu-indirect-function --with-tune=generic --with-arch_32=i686 --build=x86_64-redhat-linux]
+        ignore line: [Thread model: posix]
+        ignore line: [gcc version 7.3.1 20180712 (Red Hat 7.3.1-6) (GCC) ]
+        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_06a66.dir/CMakeCCompilerABI.c.o' '-c' '-mtune=generic' '-march=x86-64']
+        ignore line: [ /usr/libexec/gcc/x86_64-redhat-linux/7/cc1 -quiet -v /home/software/cmake/3.26.4/share/cmake-3.26/Modules/CMakeCCompilerABI.c -quiet -dumpbase CMakeCCompilerABI.c -mtune=generic -march=x86-64 -auxbase-strip CMakeFiles/cmTC_06a66.dir/CMakeCCompilerABI.c.o -version -o /tmp/cc24FlVb.s]
+        ignore line: [GNU C11 (GCC) version 7.3.1 20180712 (Red Hat 7.3.1-6) (x86_64-redhat-linux)]
+        ignore line: [	compiled by GNU C version 7.3.1 20180712 (Red Hat 7.3.1-6)  GMP version 6.1.2  MPFR version 3.1.6-p2  MPC version 1.0.2  isl version isl-0.16.1-GMP]
+        ignore line: []
+        ignore line: [GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072]
+        ignore line: [ignoring nonexistent directory "/usr/lib/gcc/x86_64-redhat-linux/7/include-fixed"]
+        ignore line: [ignoring nonexistent directory "/usr/lib/gcc/x86_64-redhat-linux/7/../../../../x86_64-redhat-linux/include"]
+        ignore line: [#include "..." search starts here:]
+        ignore line: [#include <...> search starts here:]
+        ignore line: [ /home/software/gcc/6.3.1/pkg/openmpi/2.1.6/include]
+        ignore line: [ /home/software/gcc/6.3.1/pkg/netcdf/4.7.4/include]
+        ignore line: [ /usr/lib/gcc/x86_64-redhat-linux/7/include]
+        ignore line: [ /usr/local/include]
+        ignore line: [ /usr/include]
+        ignore line: [End of search list.]
+        ignore line: [GNU C11 (GCC) version 7.3.1 20180712 (Red Hat 7.3.1-6) (x86_64-redhat-linux)]
+        ignore line: [	compiled by GNU C version 7.3.1 20180712 (Red Hat 7.3.1-6)  GMP version 6.1.2  MPFR version 3.1.6-p2  MPC version 1.0.2  isl version isl-0.16.1-GMP]
+        ignore line: []
+        ignore line: [GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072]
+        ignore line: [Compiler executable checksum: 2a907b9582076e9245e03ace3c933795]
+        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_06a66.dir/CMakeCCompilerABI.c.o' '-c' '-mtune=generic' '-march=x86-64']
+        ignore line: [ as -v --64 -o CMakeFiles/cmTC_06a66.dir/CMakeCCompilerABI.c.o /tmp/cc24FlVb.s]
+        ignore line: [GNU assembler version 2.29 (x86_64-redhat-linux) using BFD version version 2.29-13.fc27]
+        ignore line: [COMPILER_PATH=/usr/libexec/gcc/x86_64-redhat-linux/7/:/usr/libexec/gcc/x86_64-redhat-linux/7/:/usr/libexec/gcc/x86_64-redhat-linux/:/usr/lib/gcc/x86_64-redhat-linux/7/:/usr/lib/gcc/x86_64-redhat-linux/]
+        ignore line: [LIBRARY_PATH=/usr/lib/gcc/x86_64-redhat-linux/7/:/usr/lib/gcc/x86_64-redhat-linux/7/../../../../lib64/:/lib/../lib64/:/usr/lib/../lib64/:/home/software/gcc/6.3.1/pkg/openmpi/2.1.6/lib/:/home/software/gcc/6.3.1/pkg/netcdf/4.7.4/lib/:/usr/lib/gcc/x86_64-redhat-linux/7/../../../:/lib/:/usr/lib/]
+        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_06a66.dir/CMakeCCompilerABI.c.o' '-c' '-mtune=generic' '-march=x86-64']
+        ignore line: [Linking C executable cmTC_06a66]
+        ignore line: [/home/software/cmake/3.26.4/bin/cmake -E cmake_link_script CMakeFiles/cmTC_06a66.dir/link.txt --verbose=1]
+        ignore line: [/usr/bin/cc  -v CMakeFiles/cmTC_06a66.dir/CMakeCCompilerABI.c.o -o cmTC_06a66 ]
+        ignore line: [Using built-in specs.]
+        ignore line: [COLLECT_GCC=/usr/bin/cc]
+        ignore line: [COLLECT_LTO_WRAPPER=/usr/libexec/gcc/x86_64-redhat-linux/7/lto-wrapper]
+        ignore line: [OFFLOAD_TARGET_NAMES=nvptx-none]
+        ignore line: [OFFLOAD_TARGET_DEFAULT=1]
+        ignore line: [Target: x86_64-redhat-linux]
+        ignore line: [Configured with: ../configure --enable-bootstrap --enable-languages=c c++ objc obj-c++ fortran ada go lto --prefix=/usr --mandir=/usr/share/man --infodir=/usr/share/info --with-bugurl=http://bugzilla.redhat.com/bugzilla --enable-shared --enable-threads=posix --enable-checking=release --enable-multilib --with-system-zlib --enable-__cxa_atexit --disable-libunwind-exceptions --enable-gnu-unique-object --enable-linker-build-id --with-gcc-major-version-only --with-linker-hash-style=gnu --enable-plugin --enable-initfini-array --with-isl --enable-libmpx --enable-offload-targets=nvptx-none --without-cuda-driver --enable-gnu-indirect-function --with-tune=generic --with-arch_32=i686 --build=x86_64-redhat-linux]
+        ignore line: [Thread model: posix]
+        ignore line: [gcc version 7.3.1 20180712 (Red Hat 7.3.1-6) (GCC) ]
+        ignore line: [COMPILER_PATH=/usr/libexec/gcc/x86_64-redhat-linux/7/:/usr/libexec/gcc/x86_64-redhat-linux/7/:/usr/libexec/gcc/x86_64-redhat-linux/:/usr/lib/gcc/x86_64-redhat-linux/7/:/usr/lib/gcc/x86_64-redhat-linux/]
+        ignore line: [LIBRARY_PATH=/usr/lib/gcc/x86_64-redhat-linux/7/:/usr/lib/gcc/x86_64-redhat-linux/7/../../../../lib64/:/lib/../lib64/:/usr/lib/../lib64/:/home/software/gcc/6.3.1/pkg/openmpi/2.1.6/lib/:/home/software/gcc/6.3.1/pkg/netcdf/4.7.4/lib/:/usr/lib/gcc/x86_64-redhat-linux/7/../../../:/lib/:/usr/lib/]
+        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_06a66' '-mtune=generic' '-march=x86-64']
+        link line: [ /usr/libexec/gcc/x86_64-redhat-linux/7/collect2 -plugin /usr/libexec/gcc/x86_64-redhat-linux/7/liblto_plugin.so -plugin-opt=/usr/libexec/gcc/x86_64-redhat-linux/7/lto-wrapper -plugin-opt=-fresolution=/tmp/cc3xvcLh.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s --build-id --no-add-needed --eh-frame-hdr --hash-style=gnu -m elf_x86_64 -dynamic-linker /lib64/ld-linux-x86-64.so.2 -o cmTC_06a66 /usr/lib/gcc/x86_64-redhat-linux/7/../../../../lib64/crt1.o /usr/lib/gcc/x86_64-redhat-linux/7/../../../../lib64/crti.o /usr/lib/gcc/x86_64-redhat-linux/7/crtbegin.o -L/usr/lib/gcc/x86_64-redhat-linux/7 -L/usr/lib/gcc/x86_64-redhat-linux/7/../../../../lib64 -L/lib/../lib64 -L/usr/lib/../lib64 -L/home/software/gcc/6.3.1/pkg/openmpi/2.1.6/lib -L/home/software/gcc/6.3.1/pkg/netcdf/4.7.4/lib -L/usr/lib/gcc/x86_64-redhat-linux/7/../../.. CMakeFiles/cmTC_06a66.dir/CMakeCCompilerABI.c.o -lgcc --as-needed -lgcc_s --no-as-needed -lc -lgcc --as-needed -lgcc_s --no-as-needed /usr/lib/gcc/x86_64-redhat-linux/7/crtend.o /usr/lib/gcc/x86_64-redhat-linux/7/../../../../lib64/crtn.o]
+          arg [/usr/libexec/gcc/x86_64-redhat-linux/7/collect2] ==> ignore
+          arg [-plugin] ==> ignore
+          arg [/usr/libexec/gcc/x86_64-redhat-linux/7/liblto_plugin.so] ==> ignore
+          arg [-plugin-opt=/usr/libexec/gcc/x86_64-redhat-linux/7/lto-wrapper] ==> ignore
+          arg [-plugin-opt=-fresolution=/tmp/cc3xvcLh.res] ==> ignore
+          arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
+          arg [-plugin-opt=-pass-through=-lgcc_s] ==> ignore
+          arg [-plugin-opt=-pass-through=-lc] ==> ignore
+          arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
+          arg [-plugin-opt=-pass-through=-lgcc_s] ==> ignore
+          arg [--build-id] ==> ignore
+          arg [--no-add-needed] ==> ignore
+          arg [--eh-frame-hdr] ==> ignore
+          arg [--hash-style=gnu] ==> ignore
+          arg [-m] ==> ignore
+          arg [elf_x86_64] ==> ignore
+          arg [-dynamic-linker] ==> ignore
+          arg [/lib64/ld-linux-x86-64.so.2] ==> ignore
+          arg [-o] ==> ignore
+          arg [cmTC_06a66] ==> ignore
+          arg [/usr/lib/gcc/x86_64-redhat-linux/7/../../../../lib64/crt1.o] ==> obj [/usr/lib/gcc/x86_64-redhat-linux/7/../../../../lib64/crt1.o]
+          arg [/usr/lib/gcc/x86_64-redhat-linux/7/../../../../lib64/crti.o] ==> obj [/usr/lib/gcc/x86_64-redhat-linux/7/../../../../lib64/crti.o]
+          arg [/usr/lib/gcc/x86_64-redhat-linux/7/crtbegin.o] ==> obj [/usr/lib/gcc/x86_64-redhat-linux/7/crtbegin.o]
+          arg [-L/usr/lib/gcc/x86_64-redhat-linux/7] ==> dir [/usr/lib/gcc/x86_64-redhat-linux/7]
+          arg [-L/usr/lib/gcc/x86_64-redhat-linux/7/../../../../lib64] ==> dir [/usr/lib/gcc/x86_64-redhat-linux/7/../../../../lib64]
+          arg [-L/lib/../lib64] ==> dir [/lib/../lib64]
+          arg [-L/usr/lib/../lib64] ==> dir [/usr/lib/../lib64]
+          arg [-L/home/software/gcc/6.3.1/pkg/openmpi/2.1.6/lib] ==> dir [/home/software/gcc/6.3.1/pkg/openmpi/2.1.6/lib]
+          arg [-L/home/software/gcc/6.3.1/pkg/netcdf/4.7.4/lib] ==> dir [/home/software/gcc/6.3.1/pkg/netcdf/4.7.4/lib]
+          arg [-L/usr/lib/gcc/x86_64-redhat-linux/7/../../..] ==> dir [/usr/lib/gcc/x86_64-redhat-linux/7/../../..]
+          arg [CMakeFiles/cmTC_06a66.dir/CMakeCCompilerABI.c.o] ==> ignore
+          arg [-lgcc] ==> lib [gcc]
+          arg [--as-needed] ==> ignore
+          arg [-lgcc_s] ==> lib [gcc_s]
+          arg [--no-as-needed] ==> ignore
+          arg [-lc] ==> lib [c]
+          arg [-lgcc] ==> lib [gcc]
+          arg [--as-needed] ==> ignore
+          arg [-lgcc_s] ==> lib [gcc_s]
+          arg [--no-as-needed] ==> ignore
+          arg [/usr/lib/gcc/x86_64-redhat-linux/7/crtend.o] ==> obj [/usr/lib/gcc/x86_64-redhat-linux/7/crtend.o]
+          arg [/usr/lib/gcc/x86_64-redhat-linux/7/../../../../lib64/crtn.o] ==> obj [/usr/lib/gcc/x86_64-redhat-linux/7/../../../../lib64/crtn.o]
+        collapse obj [/usr/lib/gcc/x86_64-redhat-linux/7/../../../../lib64/crt1.o] ==> [/usr/lib64/crt1.o]
+        collapse obj [/usr/lib/gcc/x86_64-redhat-linux/7/../../../../lib64/crti.o] ==> [/usr/lib64/crti.o]
+        collapse obj [/usr/lib/gcc/x86_64-redhat-linux/7/../../../../lib64/crtn.o] ==> [/usr/lib64/crtn.o]
+        collapse library dir [/usr/lib/gcc/x86_64-redhat-linux/7] ==> [/usr/lib/gcc/x86_64-redhat-linux/7]
+        collapse library dir [/usr/lib/gcc/x86_64-redhat-linux/7/../../../../lib64] ==> [/usr/lib64]
+        collapse library dir [/lib/../lib64] ==> [/lib64]
+        collapse library dir [/usr/lib/../lib64] ==> [/usr/lib64]
+        collapse library dir [/home/software/gcc/6.3.1/pkg/openmpi/2.1.6/lib] ==> [/home/software/gcc/6.3.1/pkg/openmpi/2.1.6/lib]
+        collapse library dir [/home/software/gcc/6.3.1/pkg/netcdf/4.7.4/lib] ==> [/home/software/gcc/6.3.1/pkg/netcdf/4.7.4/lib]
+        collapse library dir [/usr/lib/gcc/x86_64-redhat-linux/7/../../..] ==> [/usr/lib]
+        implicit libs: [gcc;gcc_s;c;gcc;gcc_s]
+        implicit objs: [/usr/lib64/crt1.o;/usr/lib64/crti.o;/usr/lib/gcc/x86_64-redhat-linux/7/crtbegin.o;/usr/lib/gcc/x86_64-redhat-linux/7/crtend.o;/usr/lib64/crtn.o]
+        implicit dirs: [/usr/lib/gcc/x86_64-redhat-linux/7;/usr/lib64;/lib64;/home/software/gcc/6.3.1/pkg/openmpi/2.1.6/lib;/home/software/gcc/6.3.1/pkg/netcdf/4.7.4/lib;/usr/lib]
+        implicit fwks: []
+      
+      
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/home/software/cmake/3.26.4/share/cmake-3.26/Modules/CMakeDetermineCompilerABI.cmake:57 (try_compile)"
+      - "/home/software/cmake/3.26.4/share/cmake-3.26/Modules/CMakeTestFortranCompiler.cmake:20 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:7 (project)"
+    checks:
+      - "Detecting Fortran compiler ABI info"
+    directories:
+      source: "/home/wanying/canoe/geyser/CMakeFiles/CMakeScratch/TryCompile-lpxz5X"
+      binary: "/home/wanying/canoe/geyser/CMakeFiles/CMakeScratch/TryCompile-lpxz5X"
+    cmakeVariables:
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_Fortran_FLAGS: ""
+      CMAKE_Fortran_FLAGS_DEBUG: "-g"
+    buildResult:
+      variable: "CMAKE_Fortran_ABI_COMPILED"
+      cached: true
+      stdout: |
+        Change Dir: /home/wanying/canoe/geyser/CMakeFiles/CMakeScratch/TryCompile-lpxz5X
+        
+        Run Build Command(s):/home/software/cmake/3.26.4/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_c4a8f/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_c4a8f.dir/build.make CMakeFiles/cmTC_c4a8f.dir/build
+        gmake[1]: Entering directory '/home/wanying/canoe/geyser/CMakeFiles/CMakeScratch/TryCompile-lpxz5X'
+        Building Fortran object CMakeFiles/cmTC_c4a8f.dir/CMakeFortranCompilerABI.F90.o
+        /usr/bin/gfortran   -v -c /home/software/cmake/3.26.4/share/cmake-3.26/Modules/CMakeFortranCompilerABI.F90 -o CMakeFiles/cmTC_c4a8f.dir/CMakeFortranCompilerABI.F90.o
+        Using built-in specs.
+        COLLECT_GCC=/usr/bin/gfortran
+        OFFLOAD_TARGET_NAMES=nvptx-none
+        OFFLOAD_TARGET_DEFAULT=1
+        Target: x86_64-redhat-linux
+        Configured with: ../configure --enable-bootstrap --enable-languages=c,c++,objc,obj-c++,fortran,ada,go,lto --prefix=/usr --mandir=/usr/share/man --infodir=/usr/share/info --with-bugurl=http://bugzilla.redhat.com/bugzilla --enable-shared --enable-threads=posix --enable-checking=release --enable-multilib --with-system-zlib --enable-__cxa_atexit --disable-libunwind-exceptions --enable-gnu-unique-object --enable-linker-build-id --with-gcc-major-version-only --with-linker-hash-style=gnu --enable-plugin --enable-initfini-array --with-isl --enable-libmpx --enable-offload-targets=nvptx-none --without-cuda-driver --enable-gnu-indirect-function --with-tune=generic --with-arch_32=i686 --build=x86_64-redhat-linux
+        Thread model: posix
+        gcc version 7.3.1 20180712 (Red Hat 7.3.1-6) (GCC) 
+        COLLECT_GCC_OPTIONS='-v' '-c' '-o' 'CMakeFiles/cmTC_c4a8f.dir/CMakeFortranCompilerABI.F90.o' '-mtune=generic' '-march=x86-64'
+         /usr/libexec/gcc/x86_64-redhat-linux/7/f951 /home/software/cmake/3.26.4/share/cmake-3.26/Modules/CMakeFortranCompilerABI.F90 -cpp=/tmp/ccwY6Rfr.f90 -quiet -v /home/software/cmake/3.26.4/share/cmake-3.26/Modules/CMakeFortranCompilerABI.F90 -quiet -dumpbase CMakeFortranCompilerABI.F90 -mtune=generic -march=x86-64 -auxbase-strip CMakeFiles/cmTC_c4a8f.dir/CMakeFortranCompilerABI.F90.o -version -fintrinsic-modules-path /usr/lib/gcc/x86_64-redhat-linux/7/finclude -o /tmp/ccsOB1lY.s
+        GNU Fortran (GCC) version 7.3.1 20180712 (Red Hat 7.3.1-6) (x86_64-redhat-linux)
+        	compiled by GNU C version 7.3.1 20180712 (Red Hat 7.3.1-6), GMP version 6.1.2, MPFR version 3.1.6-p2, MPC version 1.0.2, isl version isl-0.16.1-GMP
+        
+        GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
+        ignoring nonexistent directory "/usr/lib/gcc/x86_64-redhat-linux/7/include-fixed"
+        ignoring nonexistent directory "/usr/lib/gcc/x86_64-redhat-linux/7/../../../../x86_64-redhat-linux/include"
+        #include "..." search starts here:
+        #include <...> search starts here:
+         /usr/lib/gcc/x86_64-redhat-linux/7/finclude
+         /home/software/gcc/6.3.1/pkg/openmpi/2.1.6/include
+         /home/software/gcc/6.3.1/pkg/netcdf/4.7.4/include
+         /usr/lib/gcc/x86_64-redhat-linux/7/include
+         /usr/local/include
+         /usr/include
+        End of search list.
+        GNU Fortran2008 (GCC) version 7.3.1 20180712 (Red Hat 7.3.1-6) (x86_64-redhat-linux)
+        	compiled by GNU C version 7.3.1 20180712 (Red Hat 7.3.1-6), GMP version 6.1.2, MPFR version 3.1.6-p2, MPC version 1.0.2, isl version isl-0.16.1-GMP
+        
+        GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
+        COLLECT_GCC_OPTIONS='-v' '-c' '-o' 'CMakeFiles/cmTC_c4a8f.dir/CMakeFortranCompilerABI.F90.o' '-mtune=generic' '-march=x86-64'
+         as -v --64 -o CMakeFiles/cmTC_c4a8f.dir/CMakeFortranCompilerABI.F90.o /tmp/ccsOB1lY.s
+        GNU assembler version 2.29 (x86_64-redhat-linux) using BFD version version 2.29-13.fc27
+        COMPILER_PATH=/usr/libexec/gcc/x86_64-redhat-linux/7/:/usr/libexec/gcc/x86_64-redhat-linux/7/:/usr/libexec/gcc/x86_64-redhat-linux/:/usr/lib/gcc/x86_64-redhat-linux/7/:/usr/lib/gcc/x86_64-redhat-linux/
+        LIBRARY_PATH=/usr/lib/gcc/x86_64-redhat-linux/7/:/usr/lib/gcc/x86_64-redhat-linux/7/../../../../lib64/:/lib/../lib64/:/usr/lib/../lib64/:/home/software/gcc/6.3.1/pkg/openmpi/2.1.6/lib/:/home/software/gcc/6.3.1/pkg/netcdf/4.7.4/lib/:/usr/lib/gcc/x86_64-redhat-linux/7/../../../:/lib/:/usr/lib/
+        COLLECT_GCC_OPTIONS='-v' '-c' '-o' 'CMakeFiles/cmTC_c4a8f.dir/CMakeFortranCompilerABI.F90.o' '-mtune=generic' '-march=x86-64'
+        Linking Fortran executable cmTC_c4a8f
+        /home/software/cmake/3.26.4/bin/cmake -E cmake_link_script CMakeFiles/cmTC_c4a8f.dir/link.txt --verbose=1
+        /usr/bin/gfortran  -v CMakeFiles/cmTC_c4a8f.dir/CMakeFortranCompilerABI.F90.o -o cmTC_c4a8f 
+        Driving: /usr/bin/gfortran -v CMakeFiles/cmTC_c4a8f.dir/CMakeFortranCompilerABI.F90.o -o cmTC_c4a8f -l gfortran -l m -shared-libgcc
+        Using built-in specs.
+        COLLECT_GCC=/usr/bin/gfortran
+        COLLECT_LTO_WRAPPER=/usr/libexec/gcc/x86_64-redhat-linux/7/lto-wrapper
+        OFFLOAD_TARGET_NAMES=nvptx-none
+        OFFLOAD_TARGET_DEFAULT=1
+        Target: x86_64-redhat-linux
+        Configured with: ../configure --enable-bootstrap --enable-languages=c,c++,objc,obj-c++,fortran,ada,go,lto --prefix=/usr --mandir=/usr/share/man --infodir=/usr/share/info --with-bugurl=http://bugzilla.redhat.com/bugzilla --enable-shared --enable-threads=posix --enable-checking=release --enable-multilib --with-system-zlib --enable-__cxa_atexit --disable-libunwind-exceptions --enable-gnu-unique-object --enable-linker-build-id --with-gcc-major-version-only --with-linker-hash-style=gnu --enable-plugin --enable-initfini-array --with-isl --enable-libmpx --enable-offload-targets=nvptx-none --without-cuda-driver --enable-gnu-indirect-function --with-tune=generic --with-arch_32=i686 --build=x86_64-redhat-linux
+        Thread model: posix
+        gcc version 7.3.1 20180712 (Red Hat 7.3.1-6) (GCC) 
+        Reading specs from /usr/lib/gcc/x86_64-redhat-linux/7/libgfortran.spec
+        rename spec lib to liborig
+        COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_c4a8f' '-shared-libgcc' '-mtune=generic' '-march=x86-64'
+        COMPILER_PATH=/usr/libexec/gcc/x86_64-redhat-linux/7/:/usr/libexec/gcc/x86_64-redhat-linux/7/:/usr/libexec/gcc/x86_64-redhat-linux/:/usr/lib/gcc/x86_64-redhat-linux/7/:/usr/lib/gcc/x86_64-redhat-linux/
+        LIBRARY_PATH=/usr/lib/gcc/x86_64-redhat-linux/7/:/usr/lib/gcc/x86_64-redhat-linux/7/../../../../lib64/:/lib/../lib64/:/usr/lib/../lib64/:/home/software/gcc/6.3.1/pkg/openmpi/2.1.6/lib/:/home/software/gcc/6.3.1/pkg/netcdf/4.7.4/lib/:/usr/lib/gcc/x86_64-redhat-linux/7/../../../:/lib/:/usr/lib/
+        COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_c4a8f' '-shared-libgcc' '-mtune=generic' '-march=x86-64'
+         /usr/libexec/gcc/x86_64-redhat-linux/7/collect2 -plugin /usr/libexec/gcc/x86_64-redhat-linux/7/liblto_plugin.so -plugin-opt=/usr/libexec/gcc/x86_64-redhat-linux/7/lto-wrapper -plugin-opt=-fresolution=/tmp/ccJTNA7x.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lquadmath -plugin-opt=-pass-through=-lm -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --build-id --no-add-needed --eh-frame-hdr --hash-style=gnu -m elf_x86_64 -dynamic-linker /lib64/ld-linux-x86-64.so.2 -o cmTC_c4a8f /usr/lib/gcc/x86_64-redhat-linux/7/../../../../lib64/crt1.o /usr/lib/gcc/x86_64-redhat-linux/7/../../../../lib64/crti.o /usr/lib/gcc/x86_64-redhat-linux/7/crtbegin.o -L/usr/lib/gcc/x86_64-redhat-linux/7 -L/usr/lib/gcc/x86_64-redhat-linux/7/../../../../lib64 -L/lib/../lib64 -L/usr/lib/../lib64 -L/home/software/gcc/6.3.1/pkg/openmpi/2.1.6/lib -L/home/software/gcc/6.3.1/pkg/netcdf/4.7.4/lib -L/usr/lib/gcc/x86_64-redhat-linux/7/../../.. CMakeFiles/cmTC_c4a8f.dir/CMakeFortranCompilerABI.F90.o -lgfortran -lm -lgcc_s -lgcc -lquadmath -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /usr/lib/gcc/x86_64-redhat-linux/7/crtend.o /usr/lib/gcc/x86_64-redhat-linux/7/../../../../lib64/crtn.o
+        COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_c4a8f' '-shared-libgcc' '-mtune=generic' '-march=x86-64'
+        gmake[1]: Leaving directory '/home/wanying/canoe/geyser/CMakeFiles/CMakeScratch/TryCompile-lpxz5X'
+        
+      exitCode: 0
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/home/software/cmake/3.26.4/share/cmake-3.26/Modules/CMakeDetermineCompilerABI.cmake:127 (message)"
+      - "/home/software/cmake/3.26.4/share/cmake-3.26/Modules/CMakeTestFortranCompiler.cmake:20 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:7 (project)"
+    message: |
+      Parsed Fortran implicit include dir info: rv=done
+        found start of include info
+        found start of implicit include info
+          add: [/usr/lib/gcc/x86_64-redhat-linux/7/finclude]
+          add: [/home/software/gcc/6.3.1/pkg/openmpi/2.1.6/include]
+          add: [/home/software/gcc/6.3.1/pkg/netcdf/4.7.4/include]
+          add: [/usr/lib/gcc/x86_64-redhat-linux/7/include]
+          add: [/usr/local/include]
+          add: [/usr/include]
+        end of search list found
+        collapse include dir [/usr/lib/gcc/x86_64-redhat-linux/7/finclude] ==> [/usr/lib/gcc/x86_64-redhat-linux/7/finclude]
+        collapse include dir [/home/software/gcc/6.3.1/pkg/openmpi/2.1.6/include] ==> [/home/software/gcc/6.3.1/pkg/openmpi/2.1.6/include]
+        collapse include dir [/home/software/gcc/6.3.1/pkg/netcdf/4.7.4/include] ==> [/home/software/gcc/6.3.1/pkg/netcdf/4.7.4/include]
+        collapse include dir [/usr/lib/gcc/x86_64-redhat-linux/7/include] ==> [/usr/lib/gcc/x86_64-redhat-linux/7/include]
+        collapse include dir [/usr/local/include] ==> [/usr/local/include]
+        collapse include dir [/usr/include] ==> [/usr/include]
+        implicit include dirs: [/usr/lib/gcc/x86_64-redhat-linux/7/finclude;/home/software/gcc/6.3.1/pkg/openmpi/2.1.6/include;/home/software/gcc/6.3.1/pkg/netcdf/4.7.4/include;/usr/lib/gcc/x86_64-redhat-linux/7/include;/usr/local/include;/usr/include]
+      
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/home/software/cmake/3.26.4/share/cmake-3.26/Modules/CMakeDetermineCompilerABI.cmake:152 (message)"
+      - "/home/software/cmake/3.26.4/share/cmake-3.26/Modules/CMakeTestFortranCompiler.cmake:20 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:7 (project)"
+    message: |
+      Parsed Fortran implicit link information:
+        link line regex: [^( *|.*[/\\])(ld|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\\]+-)?ld|collect2)[^/\\]*( |$)]
+        ignore line: [Change Dir: /home/wanying/canoe/geyser/CMakeFiles/CMakeScratch/TryCompile-lpxz5X]
+        ignore line: []
+        ignore line: [Run Build Command(s):/home/software/cmake/3.26.4/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_c4a8f/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_c4a8f.dir/build.make CMakeFiles/cmTC_c4a8f.dir/build]
+        ignore line: [gmake[1]: Entering directory '/home/wanying/canoe/geyser/CMakeFiles/CMakeScratch/TryCompile-lpxz5X']
+        ignore line: [Building Fortran object CMakeFiles/cmTC_c4a8f.dir/CMakeFortranCompilerABI.F90.o]
+        ignore line: [/usr/bin/gfortran   -v -c /home/software/cmake/3.26.4/share/cmake-3.26/Modules/CMakeFortranCompilerABI.F90 -o CMakeFiles/cmTC_c4a8f.dir/CMakeFortranCompilerABI.F90.o]
+        ignore line: [Using built-in specs.]
+        ignore line: [COLLECT_GCC=/usr/bin/gfortran]
+        ignore line: [OFFLOAD_TARGET_NAMES=nvptx-none]
+        ignore line: [OFFLOAD_TARGET_DEFAULT=1]
+        ignore line: [Target: x86_64-redhat-linux]
+        ignore line: [Configured with: ../configure --enable-bootstrap --enable-languages=c c++ objc obj-c++ fortran ada go lto --prefix=/usr --mandir=/usr/share/man --infodir=/usr/share/info --with-bugurl=http://bugzilla.redhat.com/bugzilla --enable-shared --enable-threads=posix --enable-checking=release --enable-multilib --with-system-zlib --enable-__cxa_atexit --disable-libunwind-exceptions --enable-gnu-unique-object --enable-linker-build-id --with-gcc-major-version-only --with-linker-hash-style=gnu --enable-plugin --enable-initfini-array --with-isl --enable-libmpx --enable-offload-targets=nvptx-none --without-cuda-driver --enable-gnu-indirect-function --with-tune=generic --with-arch_32=i686 --build=x86_64-redhat-linux]
+        ignore line: [Thread model: posix]
+        ignore line: [gcc version 7.3.1 20180712 (Red Hat 7.3.1-6) (GCC) ]
+        ignore line: [COLLECT_GCC_OPTIONS='-v' '-c' '-o' 'CMakeFiles/cmTC_c4a8f.dir/CMakeFortranCompilerABI.F90.o' '-mtune=generic' '-march=x86-64']
+        ignore line: [ /usr/libexec/gcc/x86_64-redhat-linux/7/f951 /home/software/cmake/3.26.4/share/cmake-3.26/Modules/CMakeFortranCompilerABI.F90 -cpp=/tmp/ccwY6Rfr.f90 -quiet -v /home/software/cmake/3.26.4/share/cmake-3.26/Modules/CMakeFortranCompilerABI.F90 -quiet -dumpbase CMakeFortranCompilerABI.F90 -mtune=generic -march=x86-64 -auxbase-strip CMakeFiles/cmTC_c4a8f.dir/CMakeFortranCompilerABI.F90.o -version -fintrinsic-modules-path /usr/lib/gcc/x86_64-redhat-linux/7/finclude -o /tmp/ccsOB1lY.s]
+        ignore line: [GNU Fortran (GCC) version 7.3.1 20180712 (Red Hat 7.3.1-6) (x86_64-redhat-linux)]
+        ignore line: [	compiled by GNU C version 7.3.1 20180712 (Red Hat 7.3.1-6)  GMP version 6.1.2  MPFR version 3.1.6-p2  MPC version 1.0.2  isl version isl-0.16.1-GMP]
+        ignore line: []
+        ignore line: [GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072]
+        ignore line: [ignoring nonexistent directory "/usr/lib/gcc/x86_64-redhat-linux/7/include-fixed"]
+        ignore line: [ignoring nonexistent directory "/usr/lib/gcc/x86_64-redhat-linux/7/../../../../x86_64-redhat-linux/include"]
+        ignore line: [#include "..." search starts here:]
+        ignore line: [#include <...> search starts here:]
+        ignore line: [ /usr/lib/gcc/x86_64-redhat-linux/7/finclude]
+        ignore line: [ /home/software/gcc/6.3.1/pkg/openmpi/2.1.6/include]
+        ignore line: [ /home/software/gcc/6.3.1/pkg/netcdf/4.7.4/include]
+        ignore line: [ /usr/lib/gcc/x86_64-redhat-linux/7/include]
+        ignore line: [ /usr/local/include]
+        ignore line: [ /usr/include]
+        ignore line: [End of search list.]
+        ignore line: [GNU Fortran2008 (GCC) version 7.3.1 20180712 (Red Hat 7.3.1-6) (x86_64-redhat-linux)]
+        ignore line: [	compiled by GNU C version 7.3.1 20180712 (Red Hat 7.3.1-6)  GMP version 6.1.2  MPFR version 3.1.6-p2  MPC version 1.0.2  isl version isl-0.16.1-GMP]
+        ignore line: []
+        ignore line: [GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072]
+        ignore line: [COLLECT_GCC_OPTIONS='-v' '-c' '-o' 'CMakeFiles/cmTC_c4a8f.dir/CMakeFortranCompilerABI.F90.o' '-mtune=generic' '-march=x86-64']
+        ignore line: [ as -v --64 -o CMakeFiles/cmTC_c4a8f.dir/CMakeFortranCompilerABI.F90.o /tmp/ccsOB1lY.s]
+        ignore line: [GNU assembler version 2.29 (x86_64-redhat-linux) using BFD version version 2.29-13.fc27]
+        ignore line: [COMPILER_PATH=/usr/libexec/gcc/x86_64-redhat-linux/7/:/usr/libexec/gcc/x86_64-redhat-linux/7/:/usr/libexec/gcc/x86_64-redhat-linux/:/usr/lib/gcc/x86_64-redhat-linux/7/:/usr/lib/gcc/x86_64-redhat-linux/]
+        ignore line: [LIBRARY_PATH=/usr/lib/gcc/x86_64-redhat-linux/7/:/usr/lib/gcc/x86_64-redhat-linux/7/../../../../lib64/:/lib/../lib64/:/usr/lib/../lib64/:/home/software/gcc/6.3.1/pkg/openmpi/2.1.6/lib/:/home/software/gcc/6.3.1/pkg/netcdf/4.7.4/lib/:/usr/lib/gcc/x86_64-redhat-linux/7/../../../:/lib/:/usr/lib/]
+        ignore line: [COLLECT_GCC_OPTIONS='-v' '-c' '-o' 'CMakeFiles/cmTC_c4a8f.dir/CMakeFortranCompilerABI.F90.o' '-mtune=generic' '-march=x86-64']
+        ignore line: [Linking Fortran executable cmTC_c4a8f]
+        ignore line: [/home/software/cmake/3.26.4/bin/cmake -E cmake_link_script CMakeFiles/cmTC_c4a8f.dir/link.txt --verbose=1]
+        ignore line: [/usr/bin/gfortran  -v CMakeFiles/cmTC_c4a8f.dir/CMakeFortranCompilerABI.F90.o -o cmTC_c4a8f ]
+        ignore line: [Driving: /usr/bin/gfortran -v CMakeFiles/cmTC_c4a8f.dir/CMakeFortranCompilerABI.F90.o -o cmTC_c4a8f -l gfortran -l m -shared-libgcc]
+        ignore line: [Using built-in specs.]
+        ignore line: [COLLECT_GCC=/usr/bin/gfortran]
+        ignore line: [COLLECT_LTO_WRAPPER=/usr/libexec/gcc/x86_64-redhat-linux/7/lto-wrapper]
+        ignore line: [OFFLOAD_TARGET_NAMES=nvptx-none]
+        ignore line: [OFFLOAD_TARGET_DEFAULT=1]
+        ignore line: [Target: x86_64-redhat-linux]
+        ignore line: [Configured with: ../configure --enable-bootstrap --enable-languages=c c++ objc obj-c++ fortran ada go lto --prefix=/usr --mandir=/usr/share/man --infodir=/usr/share/info --with-bugurl=http://bugzilla.redhat.com/bugzilla --enable-shared --enable-threads=posix --enable-checking=release --enable-multilib --with-system-zlib --enable-__cxa_atexit --disable-libunwind-exceptions --enable-gnu-unique-object --enable-linker-build-id --with-gcc-major-version-only --with-linker-hash-style=gnu --enable-plugin --enable-initfini-array --with-isl --enable-libmpx --enable-offload-targets=nvptx-none --without-cuda-driver --enable-gnu-indirect-function --with-tune=generic --with-arch_32=i686 --build=x86_64-redhat-linux]
+        ignore line: [Thread model: posix]
+        ignore line: [gcc version 7.3.1 20180712 (Red Hat 7.3.1-6) (GCC) ]
+        ignore line: [Reading specs from /usr/lib/gcc/x86_64-redhat-linux/7/libgfortran.spec]
+        ignore line: [rename spec lib to liborig]
+        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_c4a8f' '-shared-libgcc' '-mtune=generic' '-march=x86-64']
+        ignore line: [COMPILER_PATH=/usr/libexec/gcc/x86_64-redhat-linux/7/:/usr/libexec/gcc/x86_64-redhat-linux/7/:/usr/libexec/gcc/x86_64-redhat-linux/:/usr/lib/gcc/x86_64-redhat-linux/7/:/usr/lib/gcc/x86_64-redhat-linux/]
+        ignore line: [LIBRARY_PATH=/usr/lib/gcc/x86_64-redhat-linux/7/:/usr/lib/gcc/x86_64-redhat-linux/7/../../../../lib64/:/lib/../lib64/:/usr/lib/../lib64/:/home/software/gcc/6.3.1/pkg/openmpi/2.1.6/lib/:/home/software/gcc/6.3.1/pkg/netcdf/4.7.4/lib/:/usr/lib/gcc/x86_64-redhat-linux/7/../../../:/lib/:/usr/lib/]
+        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_c4a8f' '-shared-libgcc' '-mtune=generic' '-march=x86-64']
+        link line: [ /usr/libexec/gcc/x86_64-redhat-linux/7/collect2 -plugin /usr/libexec/gcc/x86_64-redhat-linux/7/liblto_plugin.so -plugin-opt=/usr/libexec/gcc/x86_64-redhat-linux/7/lto-wrapper -plugin-opt=-fresolution=/tmp/ccJTNA7x.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lquadmath -plugin-opt=-pass-through=-lm -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --build-id --no-add-needed --eh-frame-hdr --hash-style=gnu -m elf_x86_64 -dynamic-linker /lib64/ld-linux-x86-64.so.2 -o cmTC_c4a8f /usr/lib/gcc/x86_64-redhat-linux/7/../../../../lib64/crt1.o /usr/lib/gcc/x86_64-redhat-linux/7/../../../../lib64/crti.o /usr/lib/gcc/x86_64-redhat-linux/7/crtbegin.o -L/usr/lib/gcc/x86_64-redhat-linux/7 -L/usr/lib/gcc/x86_64-redhat-linux/7/../../../../lib64 -L/lib/../lib64 -L/usr/lib/../lib64 -L/home/software/gcc/6.3.1/pkg/openmpi/2.1.6/lib -L/home/software/gcc/6.3.1/pkg/netcdf/4.7.4/lib -L/usr/lib/gcc/x86_64-redhat-linux/7/../../.. CMakeFiles/cmTC_c4a8f.dir/CMakeFortranCompilerABI.F90.o -lgfortran -lm -lgcc_s -lgcc -lquadmath -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /usr/lib/gcc/x86_64-redhat-linux/7/crtend.o /usr/lib/gcc/x86_64-redhat-linux/7/../../../../lib64/crtn.o]
+          arg [/usr/libexec/gcc/x86_64-redhat-linux/7/collect2] ==> ignore
+          arg [-plugin] ==> ignore
+          arg [/usr/libexec/gcc/x86_64-redhat-linux/7/liblto_plugin.so] ==> ignore
+          arg [-plugin-opt=/usr/libexec/gcc/x86_64-redhat-linux/7/lto-wrapper] ==> ignore
+          arg [-plugin-opt=-fresolution=/tmp/ccJTNA7x.res] ==> ignore
+          arg [-plugin-opt=-pass-through=-lgcc_s] ==> ignore
+          arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
+          arg [-plugin-opt=-pass-through=-lquadmath] ==> ignore
+          arg [-plugin-opt=-pass-through=-lm] ==> ignore
+          arg [-plugin-opt=-pass-through=-lgcc_s] ==> ignore
+          arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
+          arg [-plugin-opt=-pass-through=-lc] ==> ignore
+          arg [-plugin-opt=-pass-through=-lgcc_s] ==> ignore
+          arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
+          arg [--build-id] ==> ignore
+          arg [--no-add-needed] ==> ignore
+          arg [--eh-frame-hdr] ==> ignore
+          arg [--hash-style=gnu] ==> ignore
+          arg [-m] ==> ignore
+          arg [elf_x86_64] ==> ignore
+          arg [-dynamic-linker] ==> ignore
+          arg [/lib64/ld-linux-x86-64.so.2] ==> ignore
+          arg [-o] ==> ignore
+          arg [cmTC_c4a8f] ==> ignore
+          arg [/usr/lib/gcc/x86_64-redhat-linux/7/../../../../lib64/crt1.o] ==> obj [/usr/lib/gcc/x86_64-redhat-linux/7/../../../../lib64/crt1.o]
+          arg [/usr/lib/gcc/x86_64-redhat-linux/7/../../../../lib64/crti.o] ==> obj [/usr/lib/gcc/x86_64-redhat-linux/7/../../../../lib64/crti.o]
+          arg [/usr/lib/gcc/x86_64-redhat-linux/7/crtbegin.o] ==> obj [/usr/lib/gcc/x86_64-redhat-linux/7/crtbegin.o]
+          arg [-L/usr/lib/gcc/x86_64-redhat-linux/7] ==> dir [/usr/lib/gcc/x86_64-redhat-linux/7]
+          arg [-L/usr/lib/gcc/x86_64-redhat-linux/7/../../../../lib64] ==> dir [/usr/lib/gcc/x86_64-redhat-linux/7/../../../../lib64]
+          arg [-L/lib/../lib64] ==> dir [/lib/../lib64]
+          arg [-L/usr/lib/../lib64] ==> dir [/usr/lib/../lib64]
+          arg [-L/home/software/gcc/6.3.1/pkg/openmpi/2.1.6/lib] ==> dir [/home/software/gcc/6.3.1/pkg/openmpi/2.1.6/lib]
+          arg [-L/home/software/gcc/6.3.1/pkg/netcdf/4.7.4/lib] ==> dir [/home/software/gcc/6.3.1/pkg/netcdf/4.7.4/lib]
+          arg [-L/usr/lib/gcc/x86_64-redhat-linux/7/../../..] ==> dir [/usr/lib/gcc/x86_64-redhat-linux/7/../../..]
+          arg [CMakeFiles/cmTC_c4a8f.dir/CMakeFortranCompilerABI.F90.o] ==> ignore
+          arg [-lgfortran] ==> lib [gfortran]
+          arg [-lm] ==> lib [m]
+          arg [-lgcc_s] ==> lib [gcc_s]
+          arg [-lgcc] ==> lib [gcc]
+          arg [-lquadmath] ==> lib [quadmath]
+          arg [-lm] ==> lib [m]
+          arg [-lgcc_s] ==> lib [gcc_s]
+          arg [-lgcc] ==> lib [gcc]
+          arg [-lc] ==> lib [c]
+          arg [-lgcc_s] ==> lib [gcc_s]
+          arg [-lgcc] ==> lib [gcc]
+          arg [/usr/lib/gcc/x86_64-redhat-linux/7/crtend.o] ==> obj [/usr/lib/gcc/x86_64-redhat-linux/7/crtend.o]
+          arg [/usr/lib/gcc/x86_64-redhat-linux/7/../../../../lib64/crtn.o] ==> obj [/usr/lib/gcc/x86_64-redhat-linux/7/../../../../lib64/crtn.o]
+        collapse obj [/usr/lib/gcc/x86_64-redhat-linux/7/../../../../lib64/crt1.o] ==> [/usr/lib64/crt1.o]
+        collapse obj [/usr/lib/gcc/x86_64-redhat-linux/7/../../../../lib64/crti.o] ==> [/usr/lib64/crti.o]
+        collapse obj [/usr/lib/gcc/x86_64-redhat-linux/7/../../../../lib64/crtn.o] ==> [/usr/lib64/crtn.o]
+        collapse library dir [/usr/lib/gcc/x86_64-redhat-linux/7] ==> [/usr/lib/gcc/x86_64-redhat-linux/7]
+        collapse library dir [/usr/lib/gcc/x86_64-redhat-linux/7/../../../../lib64] ==> [/usr/lib64]
+        collapse library dir [/lib/../lib64] ==> [/lib64]
+        collapse library dir [/usr/lib/../lib64] ==> [/usr/lib64]
+        collapse library dir [/home/software/gcc/6.3.1/pkg/openmpi/2.1.6/lib] ==> [/home/software/gcc/6.3.1/pkg/openmpi/2.1.6/lib]
+        collapse library dir [/home/software/gcc/6.3.1/pkg/netcdf/4.7.4/lib] ==> [/home/software/gcc/6.3.1/pkg/netcdf/4.7.4/lib]
+        collapse library dir [/usr/lib/gcc/x86_64-redhat-linux/7/../../..] ==> [/usr/lib]
+        implicit libs: [gfortran;m;gcc_s;gcc;quadmath;m;gcc_s;gcc;c;gcc_s;gcc]
+        implicit objs: [/usr/lib64/crt1.o;/usr/lib64/crti.o;/usr/lib/gcc/x86_64-redhat-linux/7/crtbegin.o;/usr/lib/gcc/x86_64-redhat-linux/7/crtend.o;/usr/lib64/crtn.o]
+        implicit dirs: [/usr/lib/gcc/x86_64-redhat-linux/7;/usr/lib64;/lib64;/home/software/gcc/6.3.1/pkg/openmpi/2.1.6/lib;/home/software/gcc/6.3.1/pkg/netcdf/4.7.4/lib;/usr/lib]
+        implicit fwks: []
+      
+      
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/home/software/cmake/3.26.4/share/cmake-3.26/Modules/FindMPI.cmake:1278 (try_compile)"
+      - "/home/software/cmake/3.26.4/share/cmake-3.26/Modules/FindMPI.cmake:1322 (_MPI_try_staged_settings)"
+      - "/home/software/cmake/3.26.4/share/cmake-3.26/Modules/FindMPI.cmake:1645 (_MPI_check_lang_works)"
+      - "cmake/parameters.cmake:115 (find_package)"
+      - "CMakeLists.txt:59 (include)"
+    description: "The MPI test test_mpi for C in mode normal"
+    directories:
+      source: "/home/wanying/canoe/geyser/CMakeFiles/CMakeScratch/TryCompile-fplRy3"
+      binary: "/home/wanying/canoe/geyser/CMakeFiles/CMakeScratch/TryCompile-fplRy3"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g3 -fPIC"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "/home/wanying/canoe/cmake/modules/"
+    buildResult:
+      variable: "MPI_RESULT_C_test_mpi_normal"
+      cached: true
+      stdout: |
+        Change Dir: /home/wanying/canoe/geyser/CMakeFiles/CMakeScratch/TryCompile-fplRy3
+        
+        Run Build Command(s):/home/software/cmake/3.26.4/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_a353e/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_a353e.dir/build.make CMakeFiles/cmTC_a353e.dir/build
+        gmake[1]: Entering directory '/home/wanying/canoe/geyser/CMakeFiles/CMakeScratch/TryCompile-fplRy3'
+        Building C object CMakeFiles/cmTC_a353e.dir/test_mpi.c.o
+        /usr/bin/cc  -isystem /home/software/gcc/6.3.1/pkg/openmpi/2.1.6/include -pthread -o CMakeFiles/cmTC_a353e.dir/test_mpi.c.o -c /home/wanying/canoe/geyser/CMakeFiles/CMakeScratch/TryCompile-fplRy3/test_mpi.c
+        Linking C executable cmTC_a353e
+        /home/software/cmake/3.26.4/bin/cmake -E cmake_link_script CMakeFiles/cmTC_a353e.dir/link.txt --verbose=1
+        /usr/bin/cc -Wl,-rpath -Wl,/home/software/gcc/6.3.1/pkg/openmpi/2.1.6/lib -Wl,--enable-new-dtags -pthread CMakeFiles/cmTC_a353e.dir/test_mpi.c.o -o cmTC_a353e  /home/software/gcc/6.3.1/pkg/openmpi/2.1.6/lib/libmpi.so 
+        gmake[1]: Leaving directory '/home/wanying/canoe/geyser/CMakeFiles/CMakeScratch/TryCompile-fplRy3'
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/home/software/cmake/3.26.4/share/cmake-3.26/Modules/Internal/CheckSourceCompiles.cmake:101 (try_compile)"
+      - "/home/software/cmake/3.26.4/share/cmake-3.26/Modules/CheckCSourceCompiles.cmake:76 (cmake_check_source_compiles)"
+      - "/home/software/cmake/3.26.4/share/cmake-3.26/Modules/FindThreads.cmake:97 (CHECK_C_SOURCE_COMPILES)"
+      - "/home/software/cmake/3.26.4/share/cmake-3.26/Modules/FindThreads.cmake:163 (_threads_check_libc)"
+      - "geyser/_deps/gtest-src/googletest/cmake/internal_utils.cmake:70 (find_package)"
+      - "geyser/_deps/gtest-src/googletest/CMakeLists.txt:88 (config_compiler_and_linker)"
+    checks:
+      - "Performing Test CMAKE_HAVE_LIBC_PTHREAD"
+    directories:
+      source: "/home/wanying/canoe/geyser/CMakeFiles/CMakeScratch/TryCompile-hrJe1H"
+      binary: "/home/wanying/canoe/geyser/CMakeFiles/CMakeScratch/TryCompile-hrJe1H"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "/home/wanying/canoe/cmake/modules/"
+    buildResult:
+      variable: "CMAKE_HAVE_LIBC_PTHREAD"
+      cached: true
+      stdout: |
+        Change Dir: /home/wanying/canoe/geyser/CMakeFiles/CMakeScratch/TryCompile-hrJe1H
+        
+        Run Build Command(s):/home/software/cmake/3.26.4/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_f4625/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_f4625.dir/build.make CMakeFiles/cmTC_f4625.dir/build
+        gmake[1]: Entering directory '/home/wanying/canoe/geyser/CMakeFiles/CMakeScratch/TryCompile-hrJe1H'
+        Building C object CMakeFiles/cmTC_f4625.dir/src.c.o
+        /usr/bin/cc -DCMAKE_HAVE_LIBC_PTHREAD   -o CMakeFiles/cmTC_f4625.dir/src.c.o -c /home/wanying/canoe/geyser/CMakeFiles/CMakeScratch/TryCompile-hrJe1H/src.c
+        Linking C executable cmTC_f4625
+        /home/software/cmake/3.26.4/bin/cmake -E cmake_link_script CMakeFiles/cmTC_f4625.dir/link.txt --verbose=1
+        /usr/bin/cc CMakeFiles/cmTC_f4625.dir/src.c.o -o cmTC_f4625 
+        CMakeFiles/cmTC_f4625.dir/src.c.o: In function `main':
+        src.c:(.text+0x2d): undefined reference to `pthread_create'
+        src.c:(.text+0x39): undefined reference to `pthread_detach'
+        src.c:(.text+0x45): undefined reference to `pthread_cancel'
+        src.c:(.text+0x56): undefined reference to `pthread_join'
+        collect2: error: ld returned 1 exit status
+        gmake[1]: *** [CMakeFiles/cmTC_f4625.dir/build.make:99: cmTC_f4625] Error 1
+        gmake[1]: Leaving directory '/home/wanying/canoe/geyser/CMakeFiles/CMakeScratch/TryCompile-hrJe1H'
+        gmake: *** [Makefile:127: cmTC_f4625/fast] Error 2
+        
+      exitCode: 2
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/home/software/cmake/3.26.4/share/cmake-3.26/Modules/CheckLibraryExists.cmake:71 (try_compile)"
+      - "/home/software/cmake/3.26.4/share/cmake-3.26/Modules/FindThreads.cmake:112 (CHECK_LIBRARY_EXISTS)"
+      - "/home/software/cmake/3.26.4/share/cmake-3.26/Modules/FindThreads.cmake:175 (_threads_check_lib)"
+      - "geyser/_deps/gtest-src/googletest/cmake/internal_utils.cmake:70 (find_package)"
+      - "geyser/_deps/gtest-src/googletest/CMakeLists.txt:88 (config_compiler_and_linker)"
+    checks:
+      - "Looking for pthread_create in pthreads"
+    directories:
+      source: "/home/wanying/canoe/geyser/CMakeFiles/CMakeScratch/TryCompile-qEPnPm"
+      binary: "/home/wanying/canoe/geyser/CMakeFiles/CMakeScratch/TryCompile-qEPnPm"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "/home/wanying/canoe/cmake/modules/"
+    buildResult:
+      variable: "CMAKE_HAVE_PTHREADS_CREATE"
+      cached: true
+      stdout: |
+        Change Dir: /home/wanying/canoe/geyser/CMakeFiles/CMakeScratch/TryCompile-qEPnPm
+        
+        Run Build Command(s):/home/software/cmake/3.26.4/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_5d665/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_5d665.dir/build.make CMakeFiles/cmTC_5d665.dir/build
+        gmake[1]: Entering directory '/home/wanying/canoe/geyser/CMakeFiles/CMakeScratch/TryCompile-qEPnPm'
+        Building C object CMakeFiles/cmTC_5d665.dir/CheckFunctionExists.c.o
+        /usr/bin/cc   -DCHECK_FUNCTION_EXISTS=pthread_create -o CMakeFiles/cmTC_5d665.dir/CheckFunctionExists.c.o -c /home/wanying/canoe/geyser/CMakeFiles/CMakeScratch/TryCompile-qEPnPm/CheckFunctionExists.c
+        Linking C executable cmTC_5d665
+        /home/software/cmake/3.26.4/bin/cmake -E cmake_link_script CMakeFiles/cmTC_5d665.dir/link.txt --verbose=1
+        /usr/bin/cc  -DCHECK_FUNCTION_EXISTS=pthread_create CMakeFiles/cmTC_5d665.dir/CheckFunctionExists.c.o -o cmTC_5d665  -lpthreads 
+        /usr/bin/ld: cannot find -lpthreads
+        collect2: error: ld returned 1 exit status
+        gmake[1]: *** [CMakeFiles/cmTC_5d665.dir/build.make:99: cmTC_5d665] Error 1
+        gmake[1]: Leaving directory '/home/wanying/canoe/geyser/CMakeFiles/CMakeScratch/TryCompile-qEPnPm'
+        gmake: *** [Makefile:127: cmTC_5d665/fast] Error 2
+        
+      exitCode: 2
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/home/software/cmake/3.26.4/share/cmake-3.26/Modules/CheckLibraryExists.cmake:71 (try_compile)"
+      - "/home/software/cmake/3.26.4/share/cmake-3.26/Modules/FindThreads.cmake:112 (CHECK_LIBRARY_EXISTS)"
+      - "/home/software/cmake/3.26.4/share/cmake-3.26/Modules/FindThreads.cmake:176 (_threads_check_lib)"
+      - "geyser/_deps/gtest-src/googletest/cmake/internal_utils.cmake:70 (find_package)"
+      - "geyser/_deps/gtest-src/googletest/CMakeLists.txt:88 (config_compiler_and_linker)"
+    checks:
+      - "Looking for pthread_create in pthread"
+    directories:
+      source: "/home/wanying/canoe/geyser/CMakeFiles/CMakeScratch/TryCompile-iw3uT1"
+      binary: "/home/wanying/canoe/geyser/CMakeFiles/CMakeScratch/TryCompile-iw3uT1"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "/home/wanying/canoe/cmake/modules/"
+    buildResult:
+      variable: "CMAKE_HAVE_PTHREAD_CREATE"
+      cached: true
+      stdout: |
+        Change Dir: /home/wanying/canoe/geyser/CMakeFiles/CMakeScratch/TryCompile-iw3uT1
+        
+        Run Build Command(s):/home/software/cmake/3.26.4/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_54245/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_54245.dir/build.make CMakeFiles/cmTC_54245.dir/build
+        gmake[1]: Entering directory '/home/wanying/canoe/geyser/CMakeFiles/CMakeScratch/TryCompile-iw3uT1'
+        Building C object CMakeFiles/cmTC_54245.dir/CheckFunctionExists.c.o
+        /usr/bin/cc   -DCHECK_FUNCTION_EXISTS=pthread_create -o CMakeFiles/cmTC_54245.dir/CheckFunctionExists.c.o -c /home/wanying/canoe/geyser/CMakeFiles/CMakeScratch/TryCompile-iw3uT1/CheckFunctionExists.c
+        Linking C executable cmTC_54245
+        /home/software/cmake/3.26.4/bin/cmake -E cmake_link_script CMakeFiles/cmTC_54245.dir/link.txt --verbose=1
+        /usr/bin/cc  -DCHECK_FUNCTION_EXISTS=pthread_create CMakeFiles/cmTC_54245.dir/CheckFunctionExists.c.o -o cmTC_54245  -lpthread 
+        gmake[1]: Leaving directory '/home/wanying/canoe/geyser/CMakeFiles/CMakeScratch/TryCompile-iw3uT1'
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/home/software/cmake/3.26.4/share/cmake-3.26/Modules/FindMPI.cmake:1278 (try_compile)"
+      - "/home/software/cmake/3.26.4/share/cmake-3.26/Modules/FindMPI.cmake:1322 (_MPI_try_staged_settings)"
+      - "/home/software/cmake/3.26.4/share/cmake-3.26/Modules/FindMPI.cmake:1645 (_MPI_check_lang_works)"
+      - "geyser/_deps/athenapp-src/cmake/parameters.cmake:99 (find_package)"
+      - "geyser/_deps/athenapp-src/CMakeLists.txt:44 (include)"
+    description: "The MPI test test_mpi for CXX in mode normal"
+    directories:
+      source: "/home/wanying/canoe/geyser/CMakeFiles/CMakeScratch/TryCompile-MFv3SH"
+      binary: "/home/wanying/canoe/geyser/CMakeFiles/CMakeScratch/TryCompile-MFv3SH"
+    cmakeVariables:
+      CMAKE_CXX_FLAGS: ""
+      CMAKE_CXX_FLAGS_DEBUG: "-g3 -fPIC"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "/home/wanying/canoe/cmake/modules/"
+    buildResult:
+      variable: "MPI_RESULT_CXX_test_mpi_normal"
+      cached: true
+      stdout: |
+        Change Dir: /home/wanying/canoe/geyser/CMakeFiles/CMakeScratch/TryCompile-MFv3SH
+        
+        Run Build Command(s):/home/software/cmake/3.26.4/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_e5205/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_e5205.dir/build.make CMakeFiles/cmTC_e5205.dir/build
+        gmake[1]: Entering directory '/home/wanying/canoe/geyser/CMakeFiles/CMakeScratch/TryCompile-MFv3SH'
+        Building CXX object CMakeFiles/cmTC_e5205.dir/test_mpi.cpp.o
+        /usr/bin/c++  -isystem /home/software/gcc/6.3.1/pkg/openmpi/2.1.6/include -std=c++14 -pthread -o CMakeFiles/cmTC_e5205.dir/test_mpi.cpp.o -c /home/wanying/canoe/geyser/CMakeFiles/CMakeScratch/TryCompile-MFv3SH/test_mpi.cpp
+        Linking CXX executable cmTC_e5205
+        /home/software/cmake/3.26.4/bin/cmake -E cmake_link_script CMakeFiles/cmTC_e5205.dir/link.txt --verbose=1
+        /usr/bin/c++ -Wl,-rpath -Wl,/home/software/gcc/6.3.1/pkg/openmpi/2.1.6/lib -Wl,--enable-new-dtags -pthread CMakeFiles/cmTC_e5205.dir/test_mpi.cpp.o -o cmTC_e5205  /home/software/gcc/6.3.1/pkg/openmpi/2.1.6/lib/libmpi.so 
+        gmake[1]: Leaving directory '/home/wanying/canoe/geyser/CMakeFiles/CMakeScratch/TryCompile-MFv3SH'
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/home/software/cmake/3.26.4/share/cmake-3.26/Modules/FindMPI.cmake:1278 (try_compile)"
+      - "/home/software/cmake/3.26.4/share/cmake-3.26/Modules/FindMPI.cmake:1672 (_MPI_try_staged_settings)"
+      - "geyser/_deps/athenapp-src/cmake/parameters.cmake:99 (find_package)"
+      - "geyser/_deps/athenapp-src/CMakeLists.txt:44 (include)"
+    description: "The MPI test test_mpi for CXX in mode MPICXX"
+    directories:
+      source: "/home/wanying/canoe/geyser/CMakeFiles/CMakeScratch/TryCompile-Gy1kyy"
+      binary: "/home/wanying/canoe/geyser/CMakeFiles/CMakeScratch/TryCompile-Gy1kyy"
+    cmakeVariables:
+      CMAKE_CXX_FLAGS: ""
+      CMAKE_CXX_FLAGS_DEBUG: "-g3 -fPIC"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "/home/wanying/canoe/cmake/modules/"
+    buildResult:
+      variable: "MPI_RESULT_CXX_test_mpi_MPICXX"
+      cached: true
+      stdout: |
+        Change Dir: /home/wanying/canoe/geyser/CMakeFiles/CMakeScratch/TryCompile-Gy1kyy
+        
+        Run Build Command(s):/home/software/cmake/3.26.4/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_7a64b/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_7a64b.dir/build.make CMakeFiles/cmTC_7a64b.dir/build
+        gmake[1]: Entering directory '/home/wanying/canoe/geyser/CMakeFiles/CMakeScratch/TryCompile-Gy1kyy'
+        Building CXX object CMakeFiles/cmTC_7a64b.dir/test_mpi.cpp.o
+        /usr/bin/c++  -isystem /home/software/gcc/6.3.1/pkg/openmpi/2.1.6/include -std=c++14 -pthread -o CMakeFiles/cmTC_7a64b.dir/test_mpi.cpp.o -c /home/wanying/canoe/geyser/CMakeFiles/CMakeScratch/TryCompile-Gy1kyy/test_mpi.cpp
+        Linking CXX executable cmTC_7a64b
+        /home/software/cmake/3.26.4/bin/cmake -E cmake_link_script CMakeFiles/cmTC_7a64b.dir/link.txt --verbose=1
+        /usr/bin/c++ -Wl,-rpath -Wl,/home/software/gcc/6.3.1/pkg/openmpi/2.1.6/lib -Wl,--enable-new-dtags -pthread CMakeFiles/cmTC_7a64b.dir/test_mpi.cpp.o -o cmTC_7a64b  /home/software/gcc/6.3.1/pkg/openmpi/2.1.6/lib/libmpi.so 
+        gmake[1]: Leaving directory '/home/wanying/canoe/geyser/CMakeFiles/CMakeScratch/TryCompile-Gy1kyy'
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/home/software/cmake/3.26.4/share/cmake-3.26/Modules/FindMPI.cmake:1278 (try_compile)"
+      - "/home/software/cmake/3.26.4/share/cmake-3.26/Modules/FindMPI.cmake:1322 (_MPI_try_staged_settings)"
+      - "/home/software/cmake/3.26.4/share/cmake-3.26/Modules/FindMPI.cmake:1645 (_MPI_check_lang_works)"
+      - "geyser/_deps/application-src/cmake/parameters.cmake:18 (find_package)"
+      - "geyser/_deps/application-src/CMakeLists.txt:28 (include)"
+    description: "The MPI test test_mpi for CXX in mode normal"
+    directories:
+      source: "/home/wanying/canoe/geyser/CMakeFiles/CMakeScratch/TryCompile-79bvKr"
+      binary: "/home/wanying/canoe/geyser/CMakeFiles/CMakeScratch/TryCompile-79bvKr"
+    cmakeVariables:
+      CMAKE_CXX_FLAGS: ""
+      CMAKE_CXX_FLAGS_DEBUG: "-g3 -fPIC"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "/home/wanying/canoe/cmake/modules/"
+    buildResult:
+      variable: "MPI_RESULT_CXX_test_mpi_normal"
+      cached: true
+      stdout: |
+        Change Dir: /home/wanying/canoe/geyser/CMakeFiles/CMakeScratch/TryCompile-79bvKr
+        
+        Run Build Command(s):/home/software/cmake/3.26.4/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_6c4d3/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_6c4d3.dir/build.make CMakeFiles/cmTC_6c4d3.dir/build
+        gmake[1]: Entering directory '/home/wanying/canoe/geyser/CMakeFiles/CMakeScratch/TryCompile-79bvKr'
+        Building CXX object CMakeFiles/cmTC_6c4d3.dir/test_mpi.cpp.o
+        /usr/bin/c++  -isystem /home/software/gcc/6.3.1/pkg/openmpi/2.1.6/include -std=c++1z -pthread -o CMakeFiles/cmTC_6c4d3.dir/test_mpi.cpp.o -c /home/wanying/canoe/geyser/CMakeFiles/CMakeScratch/TryCompile-79bvKr/test_mpi.cpp
+        Linking CXX executable cmTC_6c4d3
+        /home/software/cmake/3.26.4/bin/cmake -E cmake_link_script CMakeFiles/cmTC_6c4d3.dir/link.txt --verbose=1
+        /usr/bin/c++ -Wl,-rpath -Wl,/home/software/gcc/6.3.1/pkg/openmpi/2.1.6/lib -Wl,--enable-new-dtags -pthread CMakeFiles/cmTC_6c4d3.dir/test_mpi.cpp.o -o cmTC_6c4d3  /home/software/gcc/6.3.1/pkg/openmpi/2.1.6/lib/libmpi.so 
+        gmake[1]: Leaving directory '/home/wanying/canoe/geyser/CMakeFiles/CMakeScratch/TryCompile-79bvKr'
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/home/software/cmake/3.26.4/share/cmake-3.26/Modules/FindMPI.cmake:1278 (try_compile)"
+      - "/home/software/cmake/3.26.4/share/cmake-3.26/Modules/FindMPI.cmake:1672 (_MPI_try_staged_settings)"
+      - "geyser/_deps/application-src/cmake/parameters.cmake:18 (find_package)"
+      - "geyser/_deps/application-src/CMakeLists.txt:28 (include)"
+    description: "The MPI test test_mpi for CXX in mode MPICXX"
+    directories:
+      source: "/home/wanying/canoe/geyser/CMakeFiles/CMakeScratch/TryCompile-X7v8pl"
+      binary: "/home/wanying/canoe/geyser/CMakeFiles/CMakeScratch/TryCompile-X7v8pl"
+    cmakeVariables:
+      CMAKE_CXX_FLAGS: ""
+      CMAKE_CXX_FLAGS_DEBUG: "-g3 -fPIC"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "/home/wanying/canoe/cmake/modules/"
+    buildResult:
+      variable: "MPI_RESULT_CXX_test_mpi_MPICXX"
+      cached: true
+      stdout: |
+        Change Dir: /home/wanying/canoe/geyser/CMakeFiles/CMakeScratch/TryCompile-X7v8pl
+        
+        Run Build Command(s):/home/software/cmake/3.26.4/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_62a19/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_62a19.dir/build.make CMakeFiles/cmTC_62a19.dir/build
+        gmake[1]: Entering directory '/home/wanying/canoe/geyser/CMakeFiles/CMakeScratch/TryCompile-X7v8pl'
+        Building CXX object CMakeFiles/cmTC_62a19.dir/test_mpi.cpp.o
+        /usr/bin/c++  -isystem /home/software/gcc/6.3.1/pkg/openmpi/2.1.6/include -std=c++1z -pthread -o CMakeFiles/cmTC_62a19.dir/test_mpi.cpp.o -c /home/wanying/canoe/geyser/CMakeFiles/CMakeScratch/TryCompile-X7v8pl/test_mpi.cpp
+        Linking CXX executable cmTC_62a19
+        /home/software/cmake/3.26.4/bin/cmake -E cmake_link_script CMakeFiles/cmTC_62a19.dir/link.txt --verbose=1
+        /usr/bin/c++ -Wl,-rpath -Wl,/home/software/gcc/6.3.1/pkg/openmpi/2.1.6/lib -Wl,--enable-new-dtags -pthread CMakeFiles/cmTC_62a19.dir/test_mpi.cpp.o -o cmTC_62a19  /home/software/gcc/6.3.1/pkg/openmpi/2.1.6/lib/libmpi.so 
+        gmake[1]: Leaving directory '/home/wanying/canoe/geyser/CMakeFiles/CMakeScratch/TryCompile-X7v8pl'
+        
+      exitCode: 0
+...
+
+---
+events:
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/home/software/cmake/3.26.4/share/cmake-3.26/Modules/FindMPI.cmake:1278 (try_compile)"
+      - "/home/software/cmake/3.26.4/share/cmake-3.26/Modules/FindMPI.cmake:1322 (_MPI_try_staged_settings)"
+      - "/home/software/cmake/3.26.4/share/cmake-3.26/Modules/FindMPI.cmake:1645 (_MPI_check_lang_works)"
+      - "cmake/parameters.cmake:115 (find_package)"
+      - "CMakeLists.txt:59 (include)"
+    description: "The MPI test test_mpi for C in mode normal"
+    directories:
+      source: "/home/wanying/canoe/geyser/CMakeFiles/CMakeScratch/TryCompile-TGbv5l"
+      binary: "/home/wanying/canoe/geyser/CMakeFiles/CMakeScratch/TryCompile-TGbv5l"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g3 -fPIC"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "/home/wanying/canoe/cmake/modules/"
+    buildResult:
+      variable: "MPI_RESULT_C_test_mpi_normal"
+      cached: true
+      stdout: |
+        Change Dir: /home/wanying/canoe/geyser/CMakeFiles/CMakeScratch/TryCompile-TGbv5l
+        
+        Run Build Command(s):/home/software/cmake/3.26.4/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_0b19a/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_0b19a.dir/build.make CMakeFiles/cmTC_0b19a.dir/build
+        gmake[1]: Entering directory '/home/wanying/canoe/geyser/CMakeFiles/CMakeScratch/TryCompile-TGbv5l'
+        Building C object CMakeFiles/cmTC_0b19a.dir/test_mpi.c.o
+        /usr/bin/cc  -isystem /home/software/gcc/6.3.1/pkg/openmpi/2.1.6/include -pthread -o CMakeFiles/cmTC_0b19a.dir/test_mpi.c.o -c /home/wanying/canoe/geyser/CMakeFiles/CMakeScratch/TryCompile-TGbv5l/test_mpi.c
+        Linking C executable cmTC_0b19a
+        /home/software/cmake/3.26.4/bin/cmake -E cmake_link_script CMakeFiles/cmTC_0b19a.dir/link.txt --verbose=1
+        /usr/bin/cc -Wl,-rpath -Wl,/home/software/gcc/6.3.1/pkg/openmpi/2.1.6/lib -Wl,--enable-new-dtags -pthread CMakeFiles/cmTC_0b19a.dir/test_mpi.c.o -o cmTC_0b19a  /home/software/gcc/6.3.1/pkg/openmpi/2.1.6/lib/libmpi.so 
+        gmake[1]: Leaving directory '/home/wanying/canoe/geyser/CMakeFiles/CMakeScratch/TryCompile-TGbv5l'
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/home/software/cmake/3.26.4/share/cmake-3.26/Modules/FindMPI.cmake:1278 (try_compile)"
+      - "/home/software/cmake/3.26.4/share/cmake-3.26/Modules/FindMPI.cmake:1322 (_MPI_try_staged_settings)"
+      - "/home/software/cmake/3.26.4/share/cmake-3.26/Modules/FindMPI.cmake:1645 (_MPI_check_lang_works)"
+      - "geyser/_deps/athenapp-src/cmake/parameters.cmake:99 (find_package)"
+      - "geyser/_deps/athenapp-src/CMakeLists.txt:44 (include)"
+    description: "The MPI test test_mpi for CXX in mode normal"
+    directories:
+      source: "/home/wanying/canoe/geyser/CMakeFiles/CMakeScratch/TryCompile-djesi9"
+      binary: "/home/wanying/canoe/geyser/CMakeFiles/CMakeScratch/TryCompile-djesi9"
+    cmakeVariables:
+      CMAKE_CXX_FLAGS: ""
+      CMAKE_CXX_FLAGS_DEBUG: "-g3 -fPIC"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "/home/wanying/canoe/cmake/modules/"
+    buildResult:
+      variable: "MPI_RESULT_CXX_test_mpi_normal"
+      cached: true
+      stdout: |
+        Change Dir: /home/wanying/canoe/geyser/CMakeFiles/CMakeScratch/TryCompile-djesi9
+        
+        Run Build Command(s):/home/software/cmake/3.26.4/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_8961a/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_8961a.dir/build.make CMakeFiles/cmTC_8961a.dir/build
+        gmake[1]: Entering directory '/home/wanying/canoe/geyser/CMakeFiles/CMakeScratch/TryCompile-djesi9'
+        Building CXX object CMakeFiles/cmTC_8961a.dir/test_mpi.cpp.o
+        /usr/bin/c++  -isystem /home/software/gcc/6.3.1/pkg/openmpi/2.1.6/include -std=c++14 -pthread -o CMakeFiles/cmTC_8961a.dir/test_mpi.cpp.o -c /home/wanying/canoe/geyser/CMakeFiles/CMakeScratch/TryCompile-djesi9/test_mpi.cpp
+        Linking CXX executable cmTC_8961a
+        /home/software/cmake/3.26.4/bin/cmake -E cmake_link_script CMakeFiles/cmTC_8961a.dir/link.txt --verbose=1
+        /usr/bin/c++ -Wl,-rpath -Wl,/home/software/gcc/6.3.1/pkg/openmpi/2.1.6/lib -Wl,--enable-new-dtags -pthread CMakeFiles/cmTC_8961a.dir/test_mpi.cpp.o -o cmTC_8961a  /home/software/gcc/6.3.1/pkg/openmpi/2.1.6/lib/libmpi.so 
+        gmake[1]: Leaving directory '/home/wanying/canoe/geyser/CMakeFiles/CMakeScratch/TryCompile-djesi9'
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/home/software/cmake/3.26.4/share/cmake-3.26/Modules/FindMPI.cmake:1278 (try_compile)"
+      - "/home/software/cmake/3.26.4/share/cmake-3.26/Modules/FindMPI.cmake:1672 (_MPI_try_staged_settings)"
+      - "geyser/_deps/athenapp-src/cmake/parameters.cmake:99 (find_package)"
+      - "geyser/_deps/athenapp-src/CMakeLists.txt:44 (include)"
+    description: "The MPI test test_mpi for CXX in mode MPICXX"
+    directories:
+      source: "/home/wanying/canoe/geyser/CMakeFiles/CMakeScratch/TryCompile-Nosh2W"
+      binary: "/home/wanying/canoe/geyser/CMakeFiles/CMakeScratch/TryCompile-Nosh2W"
+    cmakeVariables:
+      CMAKE_CXX_FLAGS: ""
+      CMAKE_CXX_FLAGS_DEBUG: "-g3 -fPIC"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "/home/wanying/canoe/cmake/modules/"
+    buildResult:
+      variable: "MPI_RESULT_CXX_test_mpi_MPICXX"
+      cached: true
+      stdout: |
+        Change Dir: /home/wanying/canoe/geyser/CMakeFiles/CMakeScratch/TryCompile-Nosh2W
+        
+        Run Build Command(s):/home/software/cmake/3.26.4/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_ca79f/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_ca79f.dir/build.make CMakeFiles/cmTC_ca79f.dir/build
+        gmake[1]: Entering directory '/home/wanying/canoe/geyser/CMakeFiles/CMakeScratch/TryCompile-Nosh2W'
+        Building CXX object CMakeFiles/cmTC_ca79f.dir/test_mpi.cpp.o
+        /usr/bin/c++  -isystem /home/software/gcc/6.3.1/pkg/openmpi/2.1.6/include -std=c++14 -pthread -o CMakeFiles/cmTC_ca79f.dir/test_mpi.cpp.o -c /home/wanying/canoe/geyser/CMakeFiles/CMakeScratch/TryCompile-Nosh2W/test_mpi.cpp
+        Linking CXX executable cmTC_ca79f
+        /home/software/cmake/3.26.4/bin/cmake -E cmake_link_script CMakeFiles/cmTC_ca79f.dir/link.txt --verbose=1
+        /usr/bin/c++ -Wl,-rpath -Wl,/home/software/gcc/6.3.1/pkg/openmpi/2.1.6/lib -Wl,--enable-new-dtags -pthread CMakeFiles/cmTC_ca79f.dir/test_mpi.cpp.o -o cmTC_ca79f  /home/software/gcc/6.3.1/pkg/openmpi/2.1.6/lib/libmpi.so 
+        gmake[1]: Leaving directory '/home/wanying/canoe/geyser/CMakeFiles/CMakeScratch/TryCompile-Nosh2W'
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/home/software/cmake/3.26.4/share/cmake-3.26/Modules/FindMPI.cmake:1278 (try_compile)"
+      - "/home/software/cmake/3.26.4/share/cmake-3.26/Modules/FindMPI.cmake:1322 (_MPI_try_staged_settings)"
+      - "/home/software/cmake/3.26.4/share/cmake-3.26/Modules/FindMPI.cmake:1645 (_MPI_check_lang_works)"
+      - "geyser/_deps/application-src/cmake/parameters.cmake:18 (find_package)"
+      - "geyser/_deps/application-src/CMakeLists.txt:28 (include)"
+    description: "The MPI test test_mpi for CXX in mode normal"
+    directories:
+      source: "/home/wanying/canoe/geyser/CMakeFiles/CMakeScratch/TryCompile-gaIIyL"
+      binary: "/home/wanying/canoe/geyser/CMakeFiles/CMakeScratch/TryCompile-gaIIyL"
+    cmakeVariables:
+      CMAKE_CXX_FLAGS: ""
+      CMAKE_CXX_FLAGS_DEBUG: "-g3 -fPIC"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "/home/wanying/canoe/cmake/modules/"
+    buildResult:
+      variable: "MPI_RESULT_CXX_test_mpi_normal"
+      cached: true
+      stdout: |
+        Change Dir: /home/wanying/canoe/geyser/CMakeFiles/CMakeScratch/TryCompile-gaIIyL
+        
+        Run Build Command(s):/home/software/cmake/3.26.4/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_6f5a6/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_6f5a6.dir/build.make CMakeFiles/cmTC_6f5a6.dir/build
+        gmake[1]: Entering directory '/home/wanying/canoe/geyser/CMakeFiles/CMakeScratch/TryCompile-gaIIyL'
+        Building CXX object CMakeFiles/cmTC_6f5a6.dir/test_mpi.cpp.o
+        /usr/bin/c++  -isystem /home/software/gcc/6.3.1/pkg/openmpi/2.1.6/include -std=c++1z -pthread -o CMakeFiles/cmTC_6f5a6.dir/test_mpi.cpp.o -c /home/wanying/canoe/geyser/CMakeFiles/CMakeScratch/TryCompile-gaIIyL/test_mpi.cpp
+        Linking CXX executable cmTC_6f5a6
+        /home/software/cmake/3.26.4/bin/cmake -E cmake_link_script CMakeFiles/cmTC_6f5a6.dir/link.txt --verbose=1
+        /usr/bin/c++ -Wl,-rpath -Wl,/home/software/gcc/6.3.1/pkg/openmpi/2.1.6/lib -Wl,--enable-new-dtags -pthread CMakeFiles/cmTC_6f5a6.dir/test_mpi.cpp.o -o cmTC_6f5a6  /home/software/gcc/6.3.1/pkg/openmpi/2.1.6/lib/libmpi.so 
+        gmake[1]: Leaving directory '/home/wanying/canoe/geyser/CMakeFiles/CMakeScratch/TryCompile-gaIIyL'
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/home/software/cmake/3.26.4/share/cmake-3.26/Modules/FindMPI.cmake:1278 (try_compile)"
+      - "/home/software/cmake/3.26.4/share/cmake-3.26/Modules/FindMPI.cmake:1672 (_MPI_try_staged_settings)"
+      - "geyser/_deps/application-src/cmake/parameters.cmake:18 (find_package)"
+      - "geyser/_deps/application-src/CMakeLists.txt:28 (include)"
+    description: "The MPI test test_mpi for CXX in mode MPICXX"
+    directories:
+      source: "/home/wanying/canoe/geyser/CMakeFiles/CMakeScratch/TryCompile-189ZyA"
+      binary: "/home/wanying/canoe/geyser/CMakeFiles/CMakeScratch/TryCompile-189ZyA"
+    cmakeVariables:
+      CMAKE_CXX_FLAGS: ""
+      CMAKE_CXX_FLAGS_DEBUG: "-g3 -fPIC"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "/home/wanying/canoe/cmake/modules/"
+    buildResult:
+      variable: "MPI_RESULT_CXX_test_mpi_MPICXX"
+      cached: true
+      stdout: |
+        Change Dir: /home/wanying/canoe/geyser/CMakeFiles/CMakeScratch/TryCompile-189ZyA
+        
+        Run Build Command(s):/home/software/cmake/3.26.4/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_8ebfc/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_8ebfc.dir/build.make CMakeFiles/cmTC_8ebfc.dir/build
+        gmake[1]: Entering directory '/home/wanying/canoe/geyser/CMakeFiles/CMakeScratch/TryCompile-189ZyA'
+        Building CXX object CMakeFiles/cmTC_8ebfc.dir/test_mpi.cpp.o
+        /usr/bin/c++  -isystem /home/software/gcc/6.3.1/pkg/openmpi/2.1.6/include -std=c++1z -pthread -o CMakeFiles/cmTC_8ebfc.dir/test_mpi.cpp.o -c /home/wanying/canoe/geyser/CMakeFiles/CMakeScratch/TryCompile-189ZyA/test_mpi.cpp
+        Linking CXX executable cmTC_8ebfc
+        /home/software/cmake/3.26.4/bin/cmake -E cmake_link_script CMakeFiles/cmTC_8ebfc.dir/link.txt --verbose=1
+        /usr/bin/c++ -Wl,-rpath -Wl,/home/software/gcc/6.3.1/pkg/openmpi/2.1.6/lib -Wl,--enable-new-dtags -pthread CMakeFiles/cmTC_8ebfc.dir/test_mpi.cpp.o -o cmTC_8ebfc  /home/software/gcc/6.3.1/pkg/openmpi/2.1.6/lib/libmpi.so 
+        gmake[1]: Leaving directory '/home/wanying/canoe/geyser/CMakeFiles/CMakeScratch/TryCompile-189ZyA'
+        
+      exitCode: 0
+...
+
+---
+events:
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/home/software/cmake/3.26.4/share/cmake-3.26/Modules/FindMPI.cmake:1278 (try_compile)"
+      - "/home/software/cmake/3.26.4/share/cmake-3.26/Modules/FindMPI.cmake:1322 (_MPI_try_staged_settings)"
+      - "/home/software/cmake/3.26.4/share/cmake-3.26/Modules/FindMPI.cmake:1645 (_MPI_check_lang_works)"
+      - "cmake/parameters.cmake:115 (find_package)"
+      - "CMakeLists.txt:59 (include)"
+    description: "The MPI test test_mpi for C in mode normal"
+    directories:
+      source: "/home/wanying/canoe/geyser/CMakeFiles/CMakeScratch/TryCompile-4SueGN"
+      binary: "/home/wanying/canoe/geyser/CMakeFiles/CMakeScratch/TryCompile-4SueGN"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g3 -fPIC"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "/home/wanying/canoe/cmake/modules/"
+    buildResult:
+      variable: "MPI_RESULT_C_test_mpi_normal"
+      cached: true
+      stdout: |
+        Change Dir: /home/wanying/canoe/geyser/CMakeFiles/CMakeScratch/TryCompile-4SueGN
+        
+        Run Build Command(s):/home/software/cmake/3.26.4/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_978f4/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_978f4.dir/build.make CMakeFiles/cmTC_978f4.dir/build
+        gmake[1]: Entering directory '/home/wanying/canoe/geyser/CMakeFiles/CMakeScratch/TryCompile-4SueGN'
+        Building C object CMakeFiles/cmTC_978f4.dir/test_mpi.c.o
+        /usr/bin/cc  -isystem /home/software/gcc/6.3.1/pkg/openmpi/2.1.6/include -pthread -o CMakeFiles/cmTC_978f4.dir/test_mpi.c.o -c /home/wanying/canoe/geyser/CMakeFiles/CMakeScratch/TryCompile-4SueGN/test_mpi.c
+        Linking C executable cmTC_978f4
+        /home/software/cmake/3.26.4/bin/cmake -E cmake_link_script CMakeFiles/cmTC_978f4.dir/link.txt --verbose=1
+        /usr/bin/cc -Wl,-rpath -Wl,/home/software/gcc/6.3.1/pkg/openmpi/2.1.6/lib -Wl,--enable-new-dtags -pthread CMakeFiles/cmTC_978f4.dir/test_mpi.c.o -o cmTC_978f4  /home/software/gcc/6.3.1/pkg/openmpi/2.1.6/lib/libmpi.so 
+        gmake[1]: Leaving directory '/home/wanying/canoe/geyser/CMakeFiles/CMakeScratch/TryCompile-4SueGN'
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/home/software/cmake/3.26.4/share/cmake-3.26/Modules/FindMPI.cmake:1278 (try_compile)"
+      - "/home/software/cmake/3.26.4/share/cmake-3.26/Modules/FindMPI.cmake:1322 (_MPI_try_staged_settings)"
+      - "/home/software/cmake/3.26.4/share/cmake-3.26/Modules/FindMPI.cmake:1645 (_MPI_check_lang_works)"
+      - "geyser/_deps/athenapp-src/cmake/parameters.cmake:99 (find_package)"
+      - "geyser/_deps/athenapp-src/CMakeLists.txt:44 (include)"
+    description: "The MPI test test_mpi for CXX in mode normal"
+    directories:
+      source: "/home/wanying/canoe/geyser/CMakeFiles/CMakeScratch/TryCompile-gioSTA"
+      binary: "/home/wanying/canoe/geyser/CMakeFiles/CMakeScratch/TryCompile-gioSTA"
+    cmakeVariables:
+      CMAKE_CXX_FLAGS: ""
+      CMAKE_CXX_FLAGS_DEBUG: "-g3 -fPIC"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "/home/wanying/canoe/cmake/modules/"
+    buildResult:
+      variable: "MPI_RESULT_CXX_test_mpi_normal"
+      cached: true
+      stdout: |
+        Change Dir: /home/wanying/canoe/geyser/CMakeFiles/CMakeScratch/TryCompile-gioSTA
+        
+        Run Build Command(s):/home/software/cmake/3.26.4/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_42a4d/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_42a4d.dir/build.make CMakeFiles/cmTC_42a4d.dir/build
+        gmake[1]: Entering directory '/home/wanying/canoe/geyser/CMakeFiles/CMakeScratch/TryCompile-gioSTA'
+        Building CXX object CMakeFiles/cmTC_42a4d.dir/test_mpi.cpp.o
+        /usr/bin/c++  -isystem /home/software/gcc/6.3.1/pkg/openmpi/2.1.6/include -std=c++14 -pthread -o CMakeFiles/cmTC_42a4d.dir/test_mpi.cpp.o -c /home/wanying/canoe/geyser/CMakeFiles/CMakeScratch/TryCompile-gioSTA/test_mpi.cpp
+        Linking CXX executable cmTC_42a4d
+        /home/software/cmake/3.26.4/bin/cmake -E cmake_link_script CMakeFiles/cmTC_42a4d.dir/link.txt --verbose=1
+        /usr/bin/c++ -Wl,-rpath -Wl,/home/software/gcc/6.3.1/pkg/openmpi/2.1.6/lib -Wl,--enable-new-dtags -pthread CMakeFiles/cmTC_42a4d.dir/test_mpi.cpp.o -o cmTC_42a4d  /home/software/gcc/6.3.1/pkg/openmpi/2.1.6/lib/libmpi.so 
+        gmake[1]: Leaving directory '/home/wanying/canoe/geyser/CMakeFiles/CMakeScratch/TryCompile-gioSTA'
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/home/software/cmake/3.26.4/share/cmake-3.26/Modules/FindMPI.cmake:1278 (try_compile)"
+      - "/home/software/cmake/3.26.4/share/cmake-3.26/Modules/FindMPI.cmake:1672 (_MPI_try_staged_settings)"
+      - "geyser/_deps/athenapp-src/cmake/parameters.cmake:99 (find_package)"
+      - "geyser/_deps/athenapp-src/CMakeLists.txt:44 (include)"
+    description: "The MPI test test_mpi for CXX in mode MPICXX"
+    directories:
+      source: "/home/wanying/canoe/geyser/CMakeFiles/CMakeScratch/TryCompile-2FoZAo"
+      binary: "/home/wanying/canoe/geyser/CMakeFiles/CMakeScratch/TryCompile-2FoZAo"
+    cmakeVariables:
+      CMAKE_CXX_FLAGS: ""
+      CMAKE_CXX_FLAGS_DEBUG: "-g3 -fPIC"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "/home/wanying/canoe/cmake/modules/"
+    buildResult:
+      variable: "MPI_RESULT_CXX_test_mpi_MPICXX"
+      cached: true
+      stdout: |
+        Change Dir: /home/wanying/canoe/geyser/CMakeFiles/CMakeScratch/TryCompile-2FoZAo
+        
+        Run Build Command(s):/home/software/cmake/3.26.4/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_ed56a/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_ed56a.dir/build.make CMakeFiles/cmTC_ed56a.dir/build
+        gmake[1]: Entering directory '/home/wanying/canoe/geyser/CMakeFiles/CMakeScratch/TryCompile-2FoZAo'
+        Building CXX object CMakeFiles/cmTC_ed56a.dir/test_mpi.cpp.o
+        /usr/bin/c++  -isystem /home/software/gcc/6.3.1/pkg/openmpi/2.1.6/include -std=c++14 -pthread -o CMakeFiles/cmTC_ed56a.dir/test_mpi.cpp.o -c /home/wanying/canoe/geyser/CMakeFiles/CMakeScratch/TryCompile-2FoZAo/test_mpi.cpp
+        Linking CXX executable cmTC_ed56a
+        /home/software/cmake/3.26.4/bin/cmake -E cmake_link_script CMakeFiles/cmTC_ed56a.dir/link.txt --verbose=1
+        /usr/bin/c++ -Wl,-rpath -Wl,/home/software/gcc/6.3.1/pkg/openmpi/2.1.6/lib -Wl,--enable-new-dtags -pthread CMakeFiles/cmTC_ed56a.dir/test_mpi.cpp.o -o cmTC_ed56a  /home/software/gcc/6.3.1/pkg/openmpi/2.1.6/lib/libmpi.so 
+        gmake[1]: Leaving directory '/home/wanying/canoe/geyser/CMakeFiles/CMakeScratch/TryCompile-2FoZAo'
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/home/software/cmake/3.26.4/share/cmake-3.26/Modules/FindMPI.cmake:1278 (try_compile)"
+      - "/home/software/cmake/3.26.4/share/cmake-3.26/Modules/FindMPI.cmake:1322 (_MPI_try_staged_settings)"
+      - "/home/software/cmake/3.26.4/share/cmake-3.26/Modules/FindMPI.cmake:1645 (_MPI_check_lang_works)"
+      - "geyser/_deps/application-src/cmake/parameters.cmake:18 (find_package)"
+      - "geyser/_deps/application-src/CMakeLists.txt:28 (include)"
+    description: "The MPI test test_mpi for CXX in mode normal"
+    directories:
+      source: "/home/wanying/canoe/geyser/CMakeFiles/CMakeScratch/TryCompile-PWwy5c"
+      binary: "/home/wanying/canoe/geyser/CMakeFiles/CMakeScratch/TryCompile-PWwy5c"
+    cmakeVariables:
+      CMAKE_CXX_FLAGS: ""
+      CMAKE_CXX_FLAGS_DEBUG: "-g3 -fPIC"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "/home/wanying/canoe/cmake/modules/"
+    buildResult:
+      variable: "MPI_RESULT_CXX_test_mpi_normal"
+      cached: true
+      stdout: |
+        Change Dir: /home/wanying/canoe/geyser/CMakeFiles/CMakeScratch/TryCompile-PWwy5c
+        
+        Run Build Command(s):/home/software/cmake/3.26.4/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_de68a/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_de68a.dir/build.make CMakeFiles/cmTC_de68a.dir/build
+        gmake[1]: Entering directory '/home/wanying/canoe/geyser/CMakeFiles/CMakeScratch/TryCompile-PWwy5c'
+        Building CXX object CMakeFiles/cmTC_de68a.dir/test_mpi.cpp.o
+        /usr/bin/c++  -isystem /home/software/gcc/6.3.1/pkg/openmpi/2.1.6/include -std=c++1z -pthread -o CMakeFiles/cmTC_de68a.dir/test_mpi.cpp.o -c /home/wanying/canoe/geyser/CMakeFiles/CMakeScratch/TryCompile-PWwy5c/test_mpi.cpp
+        Linking CXX executable cmTC_de68a
+        /home/software/cmake/3.26.4/bin/cmake -E cmake_link_script CMakeFiles/cmTC_de68a.dir/link.txt --verbose=1
+        /usr/bin/c++ -Wl,-rpath -Wl,/home/software/gcc/6.3.1/pkg/openmpi/2.1.6/lib -Wl,--enable-new-dtags -pthread CMakeFiles/cmTC_de68a.dir/test_mpi.cpp.o -o cmTC_de68a  /home/software/gcc/6.3.1/pkg/openmpi/2.1.6/lib/libmpi.so 
+        gmake[1]: Leaving directory '/home/wanying/canoe/geyser/CMakeFiles/CMakeScratch/TryCompile-PWwy5c'
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/home/software/cmake/3.26.4/share/cmake-3.26/Modules/FindMPI.cmake:1278 (try_compile)"
+      - "/home/software/cmake/3.26.4/share/cmake-3.26/Modules/FindMPI.cmake:1672 (_MPI_try_staged_settings)"
+      - "geyser/_deps/application-src/cmake/parameters.cmake:18 (find_package)"
+      - "geyser/_deps/application-src/CMakeLists.txt:28 (include)"
+    description: "The MPI test test_mpi for CXX in mode MPICXX"
+    directories:
+      source: "/home/wanying/canoe/geyser/CMakeFiles/CMakeScratch/TryCompile-UemN41"
+      binary: "/home/wanying/canoe/geyser/CMakeFiles/CMakeScratch/TryCompile-UemN41"
+    cmakeVariables:
+      CMAKE_CXX_FLAGS: ""
+      CMAKE_CXX_FLAGS_DEBUG: "-g3 -fPIC"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "/home/wanying/canoe/cmake/modules/"
+    buildResult:
+      variable: "MPI_RESULT_CXX_test_mpi_MPICXX"
+      cached: true
+      stdout: |
+        Change Dir: /home/wanying/canoe/geyser/CMakeFiles/CMakeScratch/TryCompile-UemN41
+        
+        Run Build Command(s):/home/software/cmake/3.26.4/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_6ea49/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_6ea49.dir/build.make CMakeFiles/cmTC_6ea49.dir/build
+        gmake[1]: Entering directory '/home/wanying/canoe/geyser/CMakeFiles/CMakeScratch/TryCompile-UemN41'
+        Building CXX object CMakeFiles/cmTC_6ea49.dir/test_mpi.cpp.o
+        /usr/bin/c++  -isystem /home/software/gcc/6.3.1/pkg/openmpi/2.1.6/include -std=c++1z -pthread -o CMakeFiles/cmTC_6ea49.dir/test_mpi.cpp.o -c /home/wanying/canoe/geyser/CMakeFiles/CMakeScratch/TryCompile-UemN41/test_mpi.cpp
+        Linking CXX executable cmTC_6ea49
+        /home/software/cmake/3.26.4/bin/cmake -E cmake_link_script CMakeFiles/cmTC_6ea49.dir/link.txt --verbose=1
+        /usr/bin/c++ -Wl,-rpath -Wl,/home/software/gcc/6.3.1/pkg/openmpi/2.1.6/lib -Wl,--enable-new-dtags -pthread CMakeFiles/cmTC_6ea49.dir/test_mpi.cpp.o -o cmTC_6ea49  /home/software/gcc/6.3.1/pkg/openmpi/2.1.6/lib/libmpi.so 
+        gmake[1]: Leaving directory '/home/wanying/canoe/geyser/CMakeFiles/CMakeScratch/TryCompile-UemN41'
+        
+      exitCode: 0
+...
