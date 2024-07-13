@@ -1,0 +1,43 @@
+{
+	"sources" : 
+	[
+		{
+			"file" : "/home/wanying/canoe/geyser/_deps/athenapp-subbuild/CMakeFiles/athenapp-populate"
+		},
+		{
+			"file" : "/home/wanying/canoe/geyser/_deps/athenapp-subbuild/CMakeFiles/athenapp-populate.rule"
+		},
+		{
+			"file" : "/home/wanying/canoe/geyser/_deps/athenapp-subbuild/CMakeFiles/athenapp-populate-complete.rule"
+		},
+		{
+			"file" : "/home/wanying/canoe/geyser/_deps/athenapp-subbuild/athenapp-populate-prefix/src/athenapp-populate-stamp/athenapp-populate-build.rule"
+		},
+		{
+			"file" : "/home/wanying/canoe/geyser/_deps/athenapp-subbuild/athenapp-populate-prefix/src/athenapp-populate-stamp/athenapp-populate-configure.rule"
+		},
+		{
+			"file" : "/home/wanying/canoe/geyser/_deps/athenapp-subbuild/athenapp-populate-prefix/src/athenapp-populate-stamp/athenapp-populate-download.rule"
+		},
+		{
+			"file" : "/home/wanying/canoe/geyser/_deps/athenapp-subbuild/athenapp-populate-prefix/src/athenapp-populate-stamp/athenapp-populate-install.rule"
+		},
+		{
+			"file" : "/home/wanying/canoe/geyser/_deps/athenapp-subbuild/athenapp-populate-prefix/src/athenapp-populate-stamp/athenapp-populate-mkdir.rule"
+		},
+		{
+			"file" : "/home/wanying/canoe/geyser/_deps/athenapp-subbuild/athenapp-populate-prefix/src/athenapp-populate-stamp/athenapp-populate-patch.rule"
+		},
+		{
+			"file" : "/home/wanying/canoe/geyser/_deps/athenapp-subbuild/athenapp-populate-prefix/src/athenapp-populate-stamp/athenapp-populate-test.rule"
+		}
+	],
+	"target" : 
+	{
+		"labels" : 
+		[
+			"athenapp-populate"
+		],
+		"name" : "athenapp-populate"
+	}
+}

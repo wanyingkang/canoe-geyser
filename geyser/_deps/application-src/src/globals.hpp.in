@@ -1,0 +1,23 @@
+#ifndef SRC_GLOBALS_HPP_
+#define SRC_GLOBALS_HPP_
+
+// Test if this is windows system (WINDOWS or NOT_WINDOWS)
+#define @WINDOWS_SYSTEM@
+
+// MPI parallelization (MPI_PARALLEL or NOT_MPI_PARALLEL)
+#define @MPI_OPTION@
+
+namespace Globals {
+
+extern const char* search_paths;
+extern const char* banner;
+
+extern clock_t tstart;
+extern int mpi_tag_ub;
+
+extern int my_rank;
+extern int nranks;
+
+};
+
+#endif  //  SRC_GLOBALS_HPP

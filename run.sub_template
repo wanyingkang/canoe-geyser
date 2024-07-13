@@ -1,0 +1,55 @@
+#!/bin/bash 
+#SBATCH -J _CASENAME_
+#SBATCH -p _QUEUE_
+##SBATCH  --reservation=wanying_res
+#SBATCH -t 48:00:00
+#SBATCH --mem-per-cpu 4000
+#SBATCH -n _NCPUS_
+#SBATCH --exclusive
+#SBATCH -e error.%j
+#SBATCH -o stdout.%j
+#SBATCH --no-requeue
+#############
+## case info
+echo Running on host: `hostname`
+echo run begins at: `date`
+echo Directory: `pwd`
+
+export casename=_CASENAME_
+export ncores=_NCPUS_
+export resubmit=0
+
+## environment:
+if test -f /etc/profile.d/modules.sh    ; then . /etc/profile.d/modules.sh    ; fi
+if test -f /etc/profile.d/zz_modules.sh ; then . /etc/profile.d/zz_modules.sh ; fi
+module load gcc openmpi netcdf cmake
+echo "list of loaded modules:"
+module list 
+echo " "
+
+## run command:
+#linnumiter0=`grep -n -m1 -i 'nIter0' data | awk -F: '{print $1}'`
+#sed -i "${linnumiter0}c \\ nIter0=${currentiter}," $datalink
+#linnumnstep=`grep -n -m1 -i 'nTimeSteps' data | awk -F: '{print $1}'`
+#sed -i "${linnumnstep}c \\ nTimeSteps=${eachiter}," $datalink
+
+SEQUENCE=`echo ${SLURM_JOB_ID} | awk -F. '{print $1}'`
+if [ $ncores -eq 1 ] ; then
+    EXE="./${casename} -i ${casename}.inp >> stdout.${SEQUENCE} "
+else
+    EXE="mpirun -np $ncores ./${casename}.release -i ${casename}.inp >> stdout.${SEQUENCE} "
+fi
+echo "run command: $EXE"
+eval $EXE
+echo ""
+echo "run ended at: "`date`
+
+## save data to safe place
+#mkdir run${currentiter}
+OUTPUT=`realpath .`
+echo $OUTPUT
+#find . -maxdepth 1 -type f -name '*.meta' -exec mv {} run${currentiter}/ \;
+#find . -maxdepth 1 -type f -name '*.data' -exec mv {} run${currentiter}/ \;
+#cp ${OUTPUT}/STDOUT.0000 ${OUTPUT}/STDERR.0000 ${OUTPUT}/run${currentiter}
+#cp run${currentiter}/pickup* .
+

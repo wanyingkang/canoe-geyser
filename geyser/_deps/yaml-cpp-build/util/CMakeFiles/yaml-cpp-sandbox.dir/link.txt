@@ -1,0 +1,1 @@
+/usr/bin/c++ -O3 -funroll-loops -funroll-all-loops -fstrict-aliasing -fPIC "CMakeFiles/yaml-cpp-sandbox.dir/sandbox.cpp.o" -o sandbox  ../libyaml-cpp.a 

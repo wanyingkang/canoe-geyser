@@ -1,0 +1,2 @@
+/usr/bin/ar qc libapplication_release.a CMakeFiles/application_release.dir/application.cpp.o CMakeFiles/application_release.dir/command_line.cpp.o CMakeFiles/application_release.dir/exceptions.cpp.o CMakeFiles/application_release.dir/monitor.cpp.o CMakeFiles/application_release.dir/signal.cpp.o
+/usr/bin/ranlib libapplication_release.a
