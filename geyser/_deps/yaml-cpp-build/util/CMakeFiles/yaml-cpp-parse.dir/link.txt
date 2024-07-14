@@ -1,1 +1,0 @@
-/usr/bin/c++ -O3 -funroll-loops -funroll-all-loops -fstrict-aliasing -fPIC "CMakeFiles/yaml-cpp-parse.dir/parse.cpp.o" -o parse  ../libyaml-cpp.a 
