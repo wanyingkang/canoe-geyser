@@ -1,2 +1,0 @@
-/usr/bin/ar qc libbanner.a CMakeFiles/banner.dir/banner.cpp.o
-/usr/bin/ranlib libbanner.a
