@@ -47,6 +47,10 @@ Real Rd;
 Real Ptriple1, Ttriple1;
 Real tau;
 Real gammad;
+Real massflux_H2ratio, massflux_CO2ratio;
+Real Tm, Ts;
+Real x1min, x1max, x2min, x2max;
+
 
 void MeshBlock::InitUserMeshBlockData(ParameterInput *pin) {
   AllocateUserOutputVariables(5);
@@ -72,7 +76,75 @@ void MeshBlock::UserWorkBeforeOutput(ParameterInput *pin) {
       }
 }
 
-void ForcingSource(MeshBlock *pmb, Real const time, Real const dt,
+
+
+void WallInteraction(MeshBlock *pmb, Real const time, Real const dt,
+                        AthenaArray<Real> const &w, AthenaArray<Real> const &r,
+                        AthenaArray<Real> const &bcc, AthenaArray<Real> &u,
+                        AthenaArray<Real> &s) {
+  int js = pmb->js;
+  int je = pmb->je;
+
+  auto pthermo = Thermodynamics::GetInstance();
+
+  Real p, drhoH2O, drhoH2, drhoCO2;
+  Real Tw, Pw, z, csw, csa, KE;
+
+  Real x2s = pmb->pcoord->x2f(js);
+  Real x2e = pmb->pcoord->x2f(je+1);
+
+// remove water vapor
+  if (x2s < x2min+pmb->pcoord->dx2f(js)) {
+      for (int k = pmb->ks; k <= pmb->ke; ++k)
+        for (int i = pmb->is; i <= pmb->ie; ++i) {
+            
+	    p = pmb->phydro->w(IPR, k, js, i);
+        z = pmb->pcoord->x1f(i);
+        Tw = pow(Tm,(x1max-z)/(x1max-x1min))*pow(Ts,(z-x1min)/(x1max-x1min));
+        Pw = sat_vapor_p_H2O(Tw);
+
+        csw = sqrt(2 * M_PI * Rd * Tw /pthermo->GetMuRatio(iH2O));
+        csa = sqrt(2 * M_PI * Rd * pthermo->GetTemp(pmb, k,js,k) /pthermo->GetMuRatio(iH2O));
+        
+        drhoH2O = dt * (Pw/csw-p/csa) / pmb->pcoord->dx2f(js);
+        u(iH2O, k, js, i) += drhoH2O;
+        u(IEN, k, js, i) += drhoH2O * (Rd / (gammad - 1.)) * pthermo->GetCvRatioMass(iH2O) * Ttriple1;
+        if (drhoH2O<0) {
+            KE= 0.5f*(pmb->phydro->w(IVX,k,js,i)*pmb->phydro->w(IVX,k,js,i)
+                    + pmb->phydro->w(IVY,k,js,i)*pmb->phydro->w(IVY,k,js,i)
+                    + pmb->phydro->w(IVZ,k,js,i)*pmb->phydro->w(IVZ,k,js,i));
+            u(IEN, k, js, i) += drhoH2O * 0.5f* KE;
+          }
+     }
+  }
+
+  if (x2e > x2max-pmb->pcoord->dx2f(je)) {
+      for (int k = pmb->ks; k <= pmb->ke; ++k)
+        for (int i = pmb->is; i <= pmb->ie; ++i) {
+            
+	    p = pmb->phydro->w(IPR, k, je, i);
+        z = pmb->pcoord->x1f(i);
+        Tw = pow(Tm,(x1max-z)/(x1max-x1min))*pow(Ts,(z-x1min)/(x1max-x1min));
+        Pw = sat_vapor_p_H2O(Tw);
+
+        csw = sqrt(2 * M_PI * Rd * Tw /pthermo->GetMuRatio(iH2O));
+        csa = sqrt(2 * M_PI * Rd * pthermo->GetTemp(pmb, k,je,k) /pthermo->GetMuRatio(iH2O));
+        
+        drhoH2O = dt * (Pw/csw-p/csa) / pmb->pcoord->dx2f(je);
+        u(iH2O, k, je, i) += drhoH2O;
+        u(IEN, k, je, i) += drhoH2O * (Rd / (gammad - 1.)) * pthermo->GetCvRatioMass(iH2O) * Ttriple1;
+        if (drhoH2O<0) {
+            KE= 0.5f*(pmb->phydro->w(IVX,k,je,i)*pmb->phydro->w(IVX,k,je,i)
+                    + pmb->phydro->w(IVY,k,je,i)*pmb->phydro->w(IVY,k,je,i)
+                    + pmb->phydro->w(IVZ,k,je,i)*pmb->phydro->w(IVZ,k,je,i));
+            u(IEN, k, je, i) += drhoH2O * 0.5f* KE;
+          }
+     }
+  }
+}
+
+
+void BottomInjection(MeshBlock *pmb, Real const time, Real const dt,
                         AthenaArray<Real> const &w, AthenaArray<Real> const &r,
                         AthenaArray<Real> const &bcc, AthenaArray<Real> &u,
                         AthenaArray<Real> &s) {
@@ -82,19 +154,15 @@ void ForcingSource(MeshBlock *pmb, Real const time, Real const dt,
   auto pthermo = Thermodynamics::GetInstance();
 
   Real p, drhoH2O, drhoH2, drhoCO2;
-  Real massflux_CO2ratio, massflux_H2ratio;
-
 
   Real x1s = pmb->pcoord->x1f(is);
   Real relaxation_factor;
 
-  if (x1s < pmb->pcoord->dx1f(is)) {
+  if (x1s < x1min+pmb->pcoord->dx1f(is)) {
       for (int k = pmb->ks; k <= pmb->ke; ++k)
         for (int j = pmb->js; j <= pmb->je; ++j) {
             
 	    p = pmb->phydro->w(IPR, k, j, is);
-	    massflux_H2ratio=0.1;
-	    massflux_CO2ratio=0.01;
 
 	    // add water vapor
         drhoH2O = (
@@ -102,20 +170,18 @@ void ForcingSource(MeshBlock *pmb, Real const time, Real const dt,
             ) / pmb->pcoord->dx1f(is);
         u(iH2O, k, j, is) += drhoH2O;
         u(IEN, k, j, is) += drhoH2O * (Rd / (gammad - 1.)) * pthermo->GetCvRatioMass(iH2O) * Ttriple1;
-        std::cout << "H2O Cv" << Rd / (gammad - 1.)*pthermo->GetCvRatioMass(iH2O)  << std::endl;
 	    // add dry air (H2)
 	    drhoH2=drhoH2O*massflux_H2ratio;
         u(IDN, k, j, is) += drhoH2;
         u(IEN, k, j, is) += drhoH2 * (Rd / (gammad - 1.)) * Ttriple1;
-        std::cout << "H2 Cv" << Rd / (gammad - 1.)  << std::endl;
 	    // add CO2
 	    drhoCO2=drhoH2O*massflux_CO2ratio;
 	    u(iCO2, k, j, is) += drhoCO2;
         u(IEN, k, j, is) += drhoCO2 * (Rd / (gammad - 1.)) * pthermo->GetCvRatioMass(iCO2) * Ttriple1;
-        std::cout << "CO2 Cv" << Rd / (gammad - 1.)*pthermo->GetCvRatioMass(iCO2)  << std::endl;
         }
   }
 
+  // mannually remove gas at the geyser exit
   relaxation_factor = exp(-dt/tau);
 
   // if (x1e > pmb->pmy_mesh->mesh_size.x1max - pmb->pcoord->dx1f(ie)) {
@@ -142,6 +208,10 @@ void Mesh::InitUserMeshData(ParameterInput *pin) {
   Ptriple1 = pin->GetReal("thermodynamics", "Ptriple1");
   Ttriple1 = pin->GetReal("thermodynamics", "Ttriple1");
   Rd = pin->GetReal("thermodynamics", "Rd");
+  x1min = pin->GetReal("mesh","x1min");
+  x1max = pin->GetReal("mesh","x1max");
+  x2min = pin->GetReal("mesh","x2min");
+  x2max = pin->GetReal("mesh","x2max");
 
   gammad = pin->GetReal("hydro", "gamma");
   // rcp1 = pin->GetReal("thermodynamics", "rcp1");
@@ -149,26 +219,32 @@ void Mesh::InitUserMeshData(ParameterInput *pin) {
   grav = -pin->GetReal("hydro", "grav_acc1");
   p0 = pin->GetReal("problem", "p0");
 
+  massflux_H2ratio = pin->GetReal("thermodynamics", "massflux_H2ratio");
+  massflux_CO2ratio = pin->GetReal("thermodynamics", "massflux_CO2ratio");
+  Tm = pin->GetReal("thermodynamics", "Tm");
+  Ts = pin->GetReal("thermodynamics", "Ts");
+
   // index
   iH2O = pindex->GetVaporId("H2O");
   iH2Oc = pindex->GetCloudId("H2O(c)");
   iCO2 = pindex->GetVaporId("CO2");
   iCO2c = pindex->GetCloudId("CO2(c)");
-
-  EnrollUserExplicitSourceFunction(ForcingSource);
+  
+  // turn on bottom mass injection
+  EnrollUserExplicitSourceFunction(BottomInjection);
+  // turn on wall interaction
+  //EnrollUserExplicitSourceFunction(WallInteraction);
 }
 
 void MeshBlock::ProblemGenerator(ParameterInput *pin) {
 
     auto pthermo = Thermodynamics::GetInstance();
     Real rho = 1.0e-5;
-    Real dryratio,H2Oratio, CO2ratio, H2Ocratio, CO2cratio;
+    Real dryratio,H2Oratio, CO2ratio;
 
-    H2Oratio=0.1f;
-    H2Ocratio=0.001f;
-    CO2ratio=0.1f;
-    CO2cratio=0.001f;
-    dryratio=1.0f-H2Oratio-H2Ocratio-CO2ratio-CO2cratio;
+    H2Oratio=0.8f;
+    CO2ratio=0.15f;
+    dryratio=1.0f-H2Oratio-CO2ratio;
 
     for (int k = ks; k <= ke; ++k) {
         for (int j = js; j <= je; ++j) {
@@ -176,18 +252,13 @@ void MeshBlock::ProblemGenerator(ParameterInput *pin) {
                 this->phydro->w(IDN, k, j, i) = rho;
                 this->phydro->w(iH2O, k, j, i) = H2Oratio;
                 this->phydro->w(iCO2, k, j, i) = CO2ratio;
-                this->phydro->w(iH2Oc, k, j, i) = H2Ocratio;
-                this->phydro->w(iCO2c, k, j, i) = CO2cratio;
                 for (int n = IVX; n < IPR; ++n) {
                     this->phydro->w(n, k, j, i) = 0.f;
                 }
                 this->phydro->w(IPR, k, j, i) = Ttriple1 * dryratio * rho * Rd;
                 this->phydro->w(IPR, k, j, i) += Ttriple1 * H2Oratio * rho * Rd / pthermo->GetMuRatio(iH2O);
                 this->phydro->w(IPR, k, j, i) += Ttriple1 * CO2ratio * rho * Rd / pthermo->GetMuRatio(iCO2);
-                std::cout << "P" << this->phydro->w(IPR, k, j, i)  << std::endl;
-                std::cout << "Ttriple1" << Ttriple1 << "dryratio" << dryratio<<"rho"<<rho<<"Rd"<<Rd  << std::endl;
-                //std::cout << "rho" << rho << "P" << this->phydro->w(IPR, k, j, i) << std::endl;
-                //std::cout << "muratio" << pthermo->GetMuRatio(iCO2) << std::endl;
+                //std::cout << "IDN"<<IDN<<" iH2O"<<iH2O<<" iCO2"<<iCO2<<" iH2Oc"<<iH2Oc<<" iCO2c"<< iCO2c<< std::endl;
             }
         }
     }

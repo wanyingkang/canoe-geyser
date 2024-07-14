@@ -17,7 +17,6 @@ echo Directory: `pwd`
 
 export casename=_CASENAME_
 export ncores=_NCPUS_
-export resubmit=0
 
 ## environment:
 if test -f /etc/profile.d/modules.sh    ; then . /etc/profile.d/modules.sh    ; fi

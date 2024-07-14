@@ -9,22 +9,22 @@ tasklist    = ImplicitHydroTasks
 
 <output1>
 file_type   = hst           # History data dump
-dt          = 0.01          # time increment between outputs
+dt          = 1          # time increment between outputs
 
 <output2>
 file_type   = pnetcdf       # Netcdf format output
 variable    = prim          # variables to be output
-dt          = 0.01           # time increment between outputs
+dt          = 1           # time increment between outputs
 
 <output3>
 file_type   = pnetcdf       # Netcdf format output
 variable    = uov           # diagnostic variables
-dt          = 0.01           # time increment
+dt          = 1           # time increment
 
 <time>
 cfl_number  = 0.001          # The Courant, Friedrichs, & Lewy (CFL) Number
 nlim        = -1            # cycle limit
-tlim        = 5.            # time limit
+tlim        = 1000.            # time limit
 xorder      = 5             # horizontal reconstruction order
 integrator  = rk3           # integration method
 
@@ -73,6 +73,11 @@ rcp2        = 0.07273   0.07273
 beta2       = 0. 14.99
 Ttriple2    = 216.59
 Ptriple2    = 5.1795e5
+
+Tm          = 271.0 # melting temperature of ice, water-ice interface temp
+Ts          = 60.0 # ice surface temperature
+massflux_H2ratio=0.01 # injected mass ratio of H2
+massflux_CO2ratio=0.01 # injected mass ratio of CO2
 
 sa.max_iter = 10
 sa.relax    = 1.0
