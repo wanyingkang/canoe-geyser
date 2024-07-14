@@ -22,14 +22,14 @@ variable    = uov           # diagnostic variables
 dt          = 1           # time increment
 
 <time>
-cfl_number  = 0.001          # The Courant, Friedrichs, & Lewy (CFL) Number
+cfl_number  = 0.01          # The Courant, Friedrichs, & Lewy (CFL) Number
 nlim        = -1            # cycle limit
-tlim        = 1000.            # time limit
+tlim        = 100.          # time limit
 xorder      = 5             # horizontal reconstruction order
 integrator  = rk3           # integration method
 
 <mesh>
-nx1         = 200.          # Number of zones in X1-direction
+nx1         = 32.          # Number of zones in X1-direction
 x1min       = 0.            # minimum value of X1
 x1max       = 1.E3          # maximum value of X1
 ix1_bc      = reflecting    # inner-X1 boundary flag
@@ -37,7 +37,7 @@ ox1_bc      = outflow       # outer-X1 boundary flag
 
 nx2         = 1             # Number of zones in X2-direction
 x2min       = 0.            # minimum value of X2
-x2max       = 5.0           # maximum value of X2
+x2max       = 50.0          # maximum value of X2
 ix2_bc      = reflecting    # inner-X2 boundary flag
 ox2_bc      = reflecting    # outer-X2 boundary flag
 
@@ -48,7 +48,7 @@ ix3_bc      = periodic      # inner-X3 boundary flag
 ox3_bc      = periodic      # outer-X3 boundary flag
 
 <meshblock>
-nx1         = 200
+nx1         = 32
 nx2         = 1
 nx3         = 1
 
@@ -74,8 +74,6 @@ beta2       = 0. 14.99
 Ttriple2    = 216.59
 Ptriple2    = 5.1795e5
 
-Tm          = 271.0 # melting temperature of ice, water-ice interface temp
-Ts          = 60.0 # ice surface temperature
 massflux_H2ratio=0.01 # injected mass ratio of H2
 massflux_CO2ratio=0.01 # injected mass ratio of CO2
 
@@ -90,6 +88,9 @@ zc    = 2.E3
 xr    = 2.E3
 zr    = 2.E3
 p0    = 1.E5
-Ts    = 289.85
 qt    = 0.0196
 tau   = 1e8
+
+Tm    = 271.0 # melting temperature of ice, water-ice interface temp
+Ts    = 60.0 # ice surface temperature
+
