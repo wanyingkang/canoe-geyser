@@ -1,1 +1,0 @@
-/usr/bin/c++ -O3 -funroll-loops -funroll-all-loops -fstrict-aliasing -fPIC CMakeFiles/kcoeff.release.dir/kcoeff.cpp.o -o ../bin/kcoeff.release  /usr/lib64/libnetcdf.so 

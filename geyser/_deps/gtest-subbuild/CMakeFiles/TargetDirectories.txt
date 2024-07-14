@@ -1,3 +1,0 @@
-/home/wanying/canoe/geyser/_deps/gtest-subbuild/CMakeFiles/gtest-populate.dir
-/home/wanying/canoe/geyser/_deps/gtest-subbuild/CMakeFiles/edit_cache.dir
-/home/wanying/canoe/geyser/_deps/gtest-subbuild/CMakeFiles/rebuild_cache.dir
