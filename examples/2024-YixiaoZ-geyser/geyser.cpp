@@ -84,62 +84,46 @@ void WallInteraction(MeshBlock *pmb, Real const time, Real const dt,
                         AthenaArray<Real> &s) {
   int js = pmb->js;
   int je = pmb->je;
+  int jw; // index of j at the wall
 
   auto pthermo = Thermodynamics::GetInstance();
 
   Real p, drhoH2O, drhoH2, drhoCO2;
   Real Tw, Pw, z, csw, csa, KE;
 
-  Real x2s = pmb->pcoord->x2f(js);
-  Real x2e = pmb->pcoord->x2f(je+1);
+  Real x2f_left, x2f_right;
 
-// remove water vapor
-  if (x2s < x2min+pmb->pcoord->dx2f(js)) {
-      for (int k = pmb->ks; k <= pmb->ke; ++k)
-        for (int i = pmb->is; i <= pmb->ie; ++i) {
-            
-	    p = pmb->phydro->w(IPR, k, js, i);
-        z = pmb->pcoord->x1f(i);
-        Tw = pow(Tm,(x1max-z)/(x1max-x1min))*pow(Ts,(z-x1min)/(x1max-x1min));
-        Pw = sat_vapor_p_H2O(Tw);
+  // remove water vapor
+  for (int jj = 0; jj <= 1; ++jj) {
+    jw = (jj == 0) ? js : je;
+    x2f_left = pmb->pcoord->x2f(jw);
+    x2f_right = pmb->pcoord->x2f(jw+1);
+    if ((x2f_left - x2min < pmb->pcoord->dx2f(js)) || (x2max - x2f_right < pmb->pcoord->dx2f(je))) {
+        for (int k = pmb->ks; k <= pmb->ke; ++k)
+          for (int i = pmb->is; i <= pmb->ie; ++i) {
 
-        csw = sqrt(2 * M_PI * Rd * Tw /pthermo->GetMuRatio(iH2O));
-        csa = sqrt(2 * M_PI * Rd * pthermo->GetTemp(pmb, k,js,k) /pthermo->GetMuRatio(iH2O));
-        
-        drhoH2O = dt * (Pw/csw-p/csa) / pmb->pcoord->dx2f(js);
-        u(iH2O, k, js, i) += drhoH2O;
-        u(IEN, k, js, i) += drhoH2O * (Rd / (gammad - 1.)) * pthermo->GetCvRatioMass(iH2O) * Ttriple1;
-        if (drhoH2O<0) {
-            KE= 0.5f*(pmb->phydro->w(IVX,k,js,i)*pmb->phydro->w(IVX,k,js,i)
-                    + pmb->phydro->w(IVY,k,js,i)*pmb->phydro->w(IVY,k,js,i)
-                    + pmb->phydro->w(IVZ,k,js,i)*pmb->phydro->w(IVZ,k,js,i));
-            u(IEN, k, js, i) += drhoH2O * 0.5f* KE;
+          p = pmb->phydro->w(IPR, k, jw, i) * pmb->phydro->w(iH2O, k, jw, i);
+          z = pmb->pcoord->x1f(i);
+          Tw = Tm * pow(Ts/Tm, (z-x1min)/(x1max-x1min));
+          Pw = sat_vapor_p_H2O(Tw);
+
+          csw = sqrt(2 * M_PI * Rd * Tw / pthermo->GetMuRatio(iH2O));
+          csa = sqrt(2 * M_PI * Rd * pthermo->GetTemp(pmb, k, jw, i) / pthermo->GetMuRatio(iH2O));
+
+          drhoH2O = dt * (Pw/csw-p/csa) / pmb->pcoord->dx2f(jw);
+          u(iH2O, k, jw, i) += drhoH2O;
+          u(IEN, k, jw, i) += drhoH2O * (Rd / (gammad - 1.)) * pthermo->GetCvRatioMass(iH2O) * Tw;
+          if (drhoH2O<0) {
+              KE= 0.5f*(pmb->phydro->w(IVX,k,jw,i)*pmb->phydro->w(IVX,k,jw,i)
+                      + pmb->phydro->w(IVY,k,jw,i)*pmb->phydro->w(IVY,k,jw,i)
+                      + pmb->phydro->w(IVZ,k,jw,i)*pmb->phydro->w(IVZ,k,jw,i));
+              u(IEN, k, jw, i) += drhoH2O * 0.5f* KE;
+              u(IVZ, k, jw, i) += drhoH2O * pmb->phydro->w(IVZ, k, jw, i);
+              u(IVY, k, jw, i) += drhoH2O * pmb->phydro->w(IVY, k, jw, i);
+              u(IVX, k, jw, i) += drhoH2O * pmb->phydro->w(IVX, k, jw, i);
           }
-     }
-  }
-
-  if (x2e > x2max-pmb->pcoord->dx2f(je)) {
-      for (int k = pmb->ks; k <= pmb->ke; ++k)
-        for (int i = pmb->is; i <= pmb->ie; ++i) {
-            
-	    p = pmb->phydro->w(IPR, k, je, i);
-        z = pmb->pcoord->x1f(i);
-        Tw = pow(Tm,(x1max-z)/(x1max-x1min))*pow(Ts,(z-x1min)/(x1max-x1min));
-        Pw = sat_vapor_p_H2O(Tw);
-
-        csw = sqrt(2 * M_PI * Rd * Tw /pthermo->GetMuRatio(iH2O));
-        csa = sqrt(2 * M_PI * Rd * pthermo->GetTemp(pmb, k,je,k) /pthermo->GetMuRatio(iH2O));
-        
-        drhoH2O = dt * (Pw/csw-p/csa) / pmb->pcoord->dx2f(je);
-        u(iH2O, k, je, i) += drhoH2O;
-        u(IEN, k, je, i) += drhoH2O * (Rd / (gammad - 1.)) * pthermo->GetCvRatioMass(iH2O) * Ttriple1;
-        if (drhoH2O<0) {
-            KE= 0.5f*(pmb->phydro->w(IVX,k,je,i)*pmb->phydro->w(IVX,k,je,i)
-                    + pmb->phydro->w(IVY,k,je,i)*pmb->phydro->w(IVY,k,je,i)
-                    + pmb->phydro->w(IVZ,k,je,i)*pmb->phydro->w(IVZ,k,je,i));
-            u(IEN, k, je, i) += drhoH2O * 0.5f* KE;
-          }
-     }
+       }
+    }
   }
 }
 
@@ -187,6 +171,7 @@ void Forcing(MeshBlock *pmb, Real const time, Real const dt,
                         AthenaArray<Real> const &bcc, AthenaArray<Real> &u,
                         AthenaArray<Real> &s) {
   BottomInjection(pmb, time, dt, w, r, bcc, u, s);
+  WallInteraction(pmb, time, dt, w, r, bcc, u, s);
 }
 
 
@@ -211,8 +196,8 @@ void Mesh::InitUserMeshData(ParameterInput *pin) {
 
   massflux_H2ratio = pin->GetReal("thermodynamics", "massflux_H2ratio");
   massflux_CO2ratio = pin->GetReal("thermodynamics", "massflux_CO2ratio");
-  Tm = pin->GetReal("thermodynamics", "Tm");
-  Ts = pin->GetReal("thermodynamics", "Ts");
+  Tm = pin->GetReal("problem", "Tm");
+  Ts = pin->GetReal("problem", "Ts");
 
   // index
   iH2O = pindex->GetVaporId("H2O");
