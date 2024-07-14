@@ -54,7 +54,7 @@ nx3         = 1
 
 <hydro>
 grav_acc1   = 0.
-gamma      = 1.667        # gamma = C_pd/C_vd
+gamma      = 1.45        # gamma = C_pd/C_vd
 
 <species>
 vapor = H2O, CO2
