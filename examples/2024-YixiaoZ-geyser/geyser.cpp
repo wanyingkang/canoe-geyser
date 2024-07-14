@@ -156,7 +156,6 @@ void BottomInjection(MeshBlock *pmb, Real const time, Real const dt,
   Real p, drhoH2O, drhoH2, drhoCO2;
 
   Real x1s = pmb->pcoord->x1f(is);
-  Real relaxation_factor;
 
   if (x1s < x1min+pmb->pcoord->dx1f(is)) {
       for (int k = pmb->ks; k <= pmb->ke; ++k)
@@ -181,24 +180,15 @@ void BottomInjection(MeshBlock *pmb, Real const time, Real const dt,
         }
   }
 
-  // mannually remove gas at the geyser exit
-  relaxation_factor = exp(-dt/tau);
-
-  // if (x1e > pmb->pmy_mesh->mesh_size.x1max - pmb->pcoord->dx1f(ie)) {
-  // for (int i = pmb->is; i <= pmb->ie; ++i) {
-  //     if (pmb->pcoord->x1f(i) > 0.9 * pmb->pmy_mesh->mesh_size.x1max) {
-  //         for (int k = pmb->ks; k <= pmb->ke; ++k)
-  //           for (int j = pmb->js; j <= pmb->je; ++j) {
-  //               u(IDN, k, j, i) *= relaxation_factor;
-  //               u(iH2O, k, j, i) *= relaxation_factor;
-  //               u(IEN, k, j, i) *= relaxation_factor;
-  //               u(IVX, k, j, i) *= relaxation_factor;
-  //               u(IVY, k, j, i) *= relaxation_factor;
-  //               u(IVZ, k, j, i) *= relaxation_factor;
-  //           }
-  //     }
-  // }
 }
+
+void Forcing(MeshBlock *pmb, Real const time, Real const dt,
+                        AthenaArray<Real> const &w, AthenaArray<Real> const &r,
+                        AthenaArray<Real> const &bcc, AthenaArray<Real> &u,
+                        AthenaArray<Real> &s) {
+  BottomInjection(pmb, time, dt, w, r, bcc, u, s);
+}
+
 
 void Mesh::InitUserMeshData(ParameterInput *pin) {
   auto pindex = IndexMap::GetInstance();
@@ -229,11 +219,8 @@ void Mesh::InitUserMeshData(ParameterInput *pin) {
   iH2Oc = pindex->GetCloudId("H2O(c)");
   iCO2 = pindex->GetVaporId("CO2");
   iCO2c = pindex->GetCloudId("CO2(c)");
-  
-  // turn on bottom mass injection
-  EnrollUserExplicitSourceFunction(BottomInjection);
-  // turn on wall interaction
-  //EnrollUserExplicitSourceFunction(WallInteraction);
+
+  EnrollUserExplicitSourceFunction(Forcing);
 }
 
 void MeshBlock::ProblemGenerator(ParameterInput *pin) {
