@@ -89,7 +89,7 @@ void WallInteraction(MeshBlock *pmb, Real const time, Real const dt,
   auto pthermo = Thermodynamics::GetInstance();
 
   Real p_H2O, drhoH2O, drhoH2, drhoCO2;
-  Real Tw, Pw, z, csw, csa, KE;
+  Real Tw, Pw, Ta, z, csw, csa, KE;
 
   Real x2f_left, x2f_right;
 
@@ -102,28 +102,37 @@ void WallInteraction(MeshBlock *pmb, Real const time, Real const dt,
         for (int k = pmb->ks; k <= pmb->ke; ++k)
           for (int i = pmb->is; i <= pmb->ie; ++i) {
 
+          Ta = pthermo->GetTemp(pmb, k, jw, i);
+
           p_H2O = (
             pmb->phydro->w(IDN, k, jw, i) * pmb->phydro->w(iH2O, k, jw, i)
-            * Rd * pthermo->GetTemp(pmb, k, jw, i) / pthermo->GetMuRatio(iH2O)
+            * Rd * Ta / pthermo->GetMuRatio(iH2O)
           );
           z = pmb->pcoord->x1f(i);
           Tw = Tm * pow(Ts/Tm, (z-x1min)/(x1max-x1min));
           Pw = sat_vapor_p_H2O(Tw);
 
           csw = sqrt(2 * M_PI * Rd * Tw / pthermo->GetMuRatio(iH2O));
-          csa = sqrt(2 * M_PI * Rd * pthermo->GetTemp(pmb, k, jw, i) / pthermo->GetMuRatio(iH2O));
+          csa = sqrt(2 * M_PI * Rd * Ta / pthermo->GetMuRatio(iH2O));
 
           drhoH2O = dt * (Pw/csw - p_H2O/csa) / pmb->pcoord->dx2f(jw);
+
           u(iH2O, k, jw, i) += drhoH2O;
-          u(IEN, k, jw, i) += drhoH2O * (Rd / (gammad - 1.)) * pthermo->GetCvRatioMass(iH2O) * Tw;
+
           if (drhoH2O<0) {
               KE= 0.5f*(pmb->phydro->w(IVX,k,jw,i)*pmb->phydro->w(IVX,k,jw,i)
                       + pmb->phydro->w(IVY,k,jw,i)*pmb->phydro->w(IVY,k,jw,i)
                       + pmb->phydro->w(IVZ,k,jw,i)*pmb->phydro->w(IVZ,k,jw,i));
-              u(IEN, k, jw, i) += drhoH2O * 0.5f* KE;
+              u(IEN, k, jw, i) += drhoH2O * (
+                KE + (Rd / (gammad - 1.)) * pthermo->GetCvRatioMass(iH2O) * Ta
+              );
               u(IVZ, k, jw, i) += drhoH2O * pmb->phydro->w(IVZ, k, jw, i);
               u(IVY, k, jw, i) += drhoH2O * pmb->phydro->w(IVY, k, jw, i);
               u(IVX, k, jw, i) += drhoH2O * pmb->phydro->w(IVX, k, jw, i);
+          } else {
+              u(IEN, k, jw, i) += drhoH2O * (
+                (Rd / (gammad - 1.)) * pthermo->GetCvRatioMass(iH2O) * Tw
+              );
           }
        }
     }
