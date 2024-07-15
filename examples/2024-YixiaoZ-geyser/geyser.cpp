@@ -223,7 +223,7 @@ void Mesh::InitUserMeshData(ParameterInput *pin) {
 void MeshBlock::ProblemGenerator(ParameterInput *pin) {
 
     auto pthermo = Thermodynamics::GetInstance();
-    Real rho = 1.0e-5;
+    Real rho = 2.0e-3;
     Real dryratio,H2Oratio, CO2ratio;
 
     H2Oratio=0.8f;
