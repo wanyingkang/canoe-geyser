@@ -16,6 +16,7 @@ set(patch_command
     ${CMAKE_CURRENT_SOURCE_DIR}/patches/32.scalars.patch
     ${CMAKE_CURRENT_SOURCE_DIR}/patches/33.bvals_cc_cpp.patch
     ${CMAKE_CURRENT_SOURCE_DIR}/patches/34.bvals_cc_hpp.patch)
+    ${CMAKE_CURRENT_SOURCE_DIR}/patches/xxx.bvals_hack.patch)
 
 set(PACKAGE_NAME athenapp)
 set(REPO_URL "https://github.com/chengcli/athenapp")
