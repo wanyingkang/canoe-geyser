@@ -38,8 +38,8 @@ ox1_bc      = outflow       # outer-X1 boundary flag
 nx2         = 60            # Number of zones in X2-direction
 x2min       = -3.E3            # minimum value of X2
 x2max       = 3.E3          # maximum value of X2
-ix2_bc      = reflecting    # inner-X2 boundary flag
-ox2_bc      = reflecting    # outer-X2 boundary flag
+ix2_bc      = outflow       # inner-X2 boundary flag
+ox2_bc      = outflow       # outer-X2 boundary flag
 
 nx3         = 1             # Number of zones in X3-direction
 x3min       = -0.5          # minimum value of X3
@@ -94,3 +94,8 @@ tau   = 1e8
 Tm    = 271.0 # melting temperature of ice, water-ice interface temp
 Ts    = 60.0 # ice surface temperature
 
+wall1_corner_x1 = 2.E3
+wall1_corner_x2 = -1.E3
+
+wall2_corner_x1 = 4.E3
+wall2_corner_x2 = 1.E3
