@@ -1,6 +1,9 @@
 # ========================
 # A collection of examples
 # ========================
+if (${TASK} STREQUAL "lava")
+  add_subdirectory(2024-Emeline-Mariana-lava)
+endif()
 
 if (${TASK} STREQUAL "geyser")
   add_subdirectory(2024-YixiaoZ-geyser)
