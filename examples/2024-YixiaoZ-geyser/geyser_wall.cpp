@@ -191,7 +191,7 @@ void Forcing(MeshBlock *pmb, Real const time, Real const dt,
   //WallInteraction(pmb, time, dt, w, r, bcc, u, s);
 }
 
-void reflecting_left(MeshBlock *pmb, Coordinates *pco,
+void reflecting_x2_left(MeshBlock *pmb, Coordinates *pco,
                      AthenaArray<Real> &prim, FaceField &b,
                      Real time, Real dt,
                      int il, int iu, int jl, int ju, int kl, int ku, int ngh)
@@ -218,7 +218,7 @@ void reflecting_left(MeshBlock *pmb, Coordinates *pco,
   }
 }
 
-void reflecting_right(MeshBlock *pmb, Coordinates *pco,
+void reflecting_x2_right(MeshBlock *pmb, Coordinates *pco,
                       AthenaArray<Real> &prim, FaceField &b,
                       Real time, Real dt,
                       int il, int iu, int jl, int ju, int kl, int ku, int ngh)
@@ -248,6 +248,60 @@ void reflecting_right(MeshBlock *pmb, Coordinates *pco,
 
 }
 
+void reflecting_x1_left(MeshBlock *pmb, Coordinates *pco,
+                     AthenaArray<Real> &prim, FaceField &b,
+                     Real time, Real dt,
+                     int il, int iu, int jl, int ju, int kl, int ku, int ngh)
+{
+  for (int n=0; n<=NHYDRO; ++n) {
+    if (n == IVX) {
+      for (int k=kl; k<=ku; ++k) {
+        for (int j=jl; j<=jl; ++j) {
+          for (int i=1; i<=ngh; ++i) {
+            prim(n,k,j,il-i) = -prim(n,k,j,il+i-1);
+          }
+        }
+      }
+    } else {
+      for (int k=kl; k<=ku; ++k) {
+        for (int j=jl; j<=jl; ++j) {
+          for (int i=1; i<=ngh; ++i) {
+            prim(n,k,j,il-i) = prim(n,k,j,il+i-1);
+          }
+        }
+      }
+    }
+  }
+}
+
+void reflecting_x1_right(MeshBlock *pmb, Coordinates *pco,
+                      AthenaArray<Real> &prim, FaceField &b,
+                      Real time, Real dt,
+                      int il, int iu, int jl, int ju, int kl, int ku, int ngh)
+{
+  for (int n=0; n<=NHYDRO; ++n) {
+    if (n == (IVX)) {
+      for (int k=kl; k<=ku; ++k) {
+        for (int j=jl; j<=ju; ++j) {
+#pragma omp simd
+          for (int i=1; i<=ngh; ++i) {
+            prim(n,k,j,iu + i) = -prim(n,k,j,iu-i+1);
+          }
+        }
+      }
+    } else {
+      for (int k=kl; k<=ku; ++k) {
+        for (int j=jl; j<=ju; ++j) {
+#pragma omp simd
+          for (int i=1; i<=ngh; ++i) {
+            prim(n,k,j,iu + i) = prim(n,k,j,iu-i+1);
+          }
+        }
+      }
+    }
+  }
+
+}
 bool fclose(Real x, Real x0) {
   return std::abs(x - x0) < 1.e-6;
 }
@@ -319,19 +373,71 @@ void MeshBlock::ProblemGenerator(ParameterInput *pin) {
   Real x2min = block_size.x2min;
   Real x2max = block_size.x2max;
 
-  if (fclose(x2min, -1.E3) && fclose(x1min, 0)) {
+  Real wall1_corner_x2 = -1.E3;
+  Real wall1_corner_x1 = 2.E3;
+
+  Real wall2_corner_x2 = 1.E3;
+  Real wall2_corner_x1 = 2.E3;
+
+  if (fclose(x2min, wall1_corner_x2) && fclose(x1max, wall1_corner_x1)) {
     pmy_mesh->mesh_bcs[BoundaryFace::inner_x2] = BoundaryFlag::user;
     pbval->block_bcs[BoundaryFace::inner_x2] = BoundaryFlag::user;
     pbval->apply_bndry_fn_[BoundaryFace::inner_x2] = true;
     std::cout << "Boundary left enrolled" << std::endl;
-    pmy_mesh->EnrollUserBoundaryFunction(BoundaryFace::inner_x2, reflecting_left);
+    pmy_mesh->EnrollUserBoundaryFunction(BoundaryFace::inner_x2, reflecting_x2_left);
   }
 
-  if (fclose(x2max, -1.E3) && fclose(x1min, 0)) {
+  if (fclose(x2max, wall1_corner_x2) && fclose(x1max, wall1_corner_x1)) {
     pmy_mesh->mesh_bcs[BoundaryFace::outer_x2] = BoundaryFlag::user;
     pbval->block_bcs[BoundaryFace::outer_x2] = BoundaryFlag::user;
     pbval->apply_bndry_fn_[BoundaryFace::outer_x2] = true;
     std::cout << "Boundary right enrolled" << std::endl;
-    pmy_mesh->EnrollUserBoundaryFunction(BoundaryFace::outer_x2, reflecting_right);
+    pmy_mesh->EnrollUserBoundaryFunction(BoundaryFace::outer_x2, reflecting_x2_right);
   }
+
+  if (fclose(x2max, wall1_corner_x2) && fclose(x1max, wall1_corner_x1)) {
+    pmy_mesh->mesh_bcs[BoundaryFace::outer_x1] = BoundaryFlag::user;
+    pbval->block_bcs[BoundaryFace::outer_x1] = BoundaryFlag::user;
+    pbval->apply_bndry_fn_[BoundaryFace::outer_x1] = true;
+    pmy_mesh->EnrollUserBoundaryFunction(BoundaryFace::outer_x1, reflecting_x1_right);
+  }
+
+  if (fclose(x2max, wall1_corner_x2) && fclose(x1min, wall1_corner_x1)) {
+    pmy_mesh->mesh_bcs[BoundaryFace::inner_x1] = BoundaryFlag::user;
+    pbval->block_bcs[BoundaryFace::inner_x1] = BoundaryFlag::user;
+    pbval->apply_bndry_fn_[BoundaryFace::inner_x1] = true;
+    pmy_mesh->EnrollUserBoundaryFunction(BoundaryFace::inner_x1, reflecting_x1_left);
+  }
+
+  // add a block
+  if (fclose(x2min, wall2_corner_x2) && fclose(x1max, wall2_corner_x1)) {
+    pmy_mesh->mesh_bcs[BoundaryFace::inner_x2] = BoundaryFlag::user;
+    pbval->block_bcs[BoundaryFace::inner_x2] = BoundaryFlag::user;
+    pbval->apply_bndry_fn_[BoundaryFace::inner_x2] = true;
+    std::cout << "Boundary left enrolled" << std::endl;
+    pmy_mesh->EnrollUserBoundaryFunction(BoundaryFace::inner_x2, reflecting_x2_left);
+  }
+
+  if (fclose(x2max, wall2_corner_x2) && fclose(x1max, wall2_corner_x1)) {
+    pmy_mesh->mesh_bcs[BoundaryFace::outer_x2] = BoundaryFlag::user;
+    pbval->block_bcs[BoundaryFace::outer_x2] = BoundaryFlag::user;
+    pbval->apply_bndry_fn_[BoundaryFace::outer_x2] = true;
+    std::cout << "Boundary right enrolled" << std::endl;
+    pmy_mesh->EnrollUserBoundaryFunction(BoundaryFace::outer_x2, reflecting_x2_right);
+  }
+
+  if (fclose(x2min, wall2_corner_x2) && fclose(x1max, wall2_corner_x1)) {
+    pmy_mesh->mesh_bcs[BoundaryFace::outer_x1] = BoundaryFlag::user;
+    pbval->block_bcs[BoundaryFace::outer_x1] = BoundaryFlag::user;
+    pbval->apply_bndry_fn_[BoundaryFace::outer_x1] = true;
+    pmy_mesh->EnrollUserBoundaryFunction(BoundaryFace::outer_x1, reflecting_x1_right);
+  }
+
+  if (fclose(x2min, wall2_corner_x2) && fclose(x1min, wall2_corner_x1)) {
+    pmy_mesh->mesh_bcs[BoundaryFace::inner_x1] = BoundaryFlag::user;
+    pbval->block_bcs[BoundaryFace::inner_x1] = BoundaryFlag::user;
+    pbval->apply_bndry_fn_[BoundaryFace::inner_x1] = true;
+    pmy_mesh->EnrollUserBoundaryFunction(BoundaryFace::inner_x1, reflecting_x1_left);
+  }
+
 }
