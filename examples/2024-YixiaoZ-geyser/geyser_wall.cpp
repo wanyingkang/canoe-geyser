@@ -88,6 +88,8 @@ void WallInteraction(MeshBlock *pmb, Real const time, Real const dt,
                         AthenaArray<Real> &s) {
   int js = pmb->js;
   int je = pmb->je;
+  int is = pmb->is;
+  int ie = pmb->ie;
   int jw; // index of j at the wall
 
   auto pthermo = Thermodynamics::GetInstance();
@@ -95,15 +97,27 @@ void WallInteraction(MeshBlock *pmb, Real const time, Real const dt,
   Real p_H2O, drhoH2O, drhoH2, drhoCO2;
   Real Tw, Pw, Ta, z, csw, csa, KE;
 
-  Real x2f_left, x2f_right;
+  Real x2f_left, x2f_right, x1f_left, x1f_right, x1f_center, x2f_center;
+
 
   // remove water vapor
   for (int jj = 0; jj <= 1; ++jj) {
     jw = (jj == 0) ? js : je;
     x2f_left = pmb->pcoord->x2f(jw);
     x2f_right = pmb->pcoord->x2f(jw+1);
-    if ((x2f_left - x2min < pmb->pcoord->dx2f(js)) || (x2max - x2f_right < pmb->pcoord->dx2f(je))) {
-        for (int k = pmb->ks; k <= pmb->ke; ++k)
+    x2f_center = (x2f_left+x2f_right)/2;
+    x1f_left = pmb->pcoord->x1f(is);
+    x1f_right = pmb->pcoord->x1f(ie+1);
+    x1f_center = (x1f_left+x1f_right)/2;
+
+    if ( (x2f_center < wall1_corner_x2) || (x2f_center > wall2_corner_x2) ) {
+              continue;
+          }
+    if ( (x1f_center > wall1_corner_x1) ) { // assume wall1_corner_x1 == wall2_corner_x1
+              continue;
+          }
+    if ( (x2f_left - wall1_corner_x2 < pmb->pcoord->dx2f(js)) || (wall2_corner_x2 - x2f_right < pmb->pcoord->dx2f(je))) {
+       for (int k = pmb->ks; k <= pmb->ke; ++k)
           for (int i = pmb->is; i <= pmb->ie; ++i) {
 
           Ta = pthermo->GetTemp(pmb, k, jw, i);
@@ -192,7 +206,7 @@ void Forcing(MeshBlock *pmb, Real const time, Real const dt,
                         AthenaArray<Real> const &bcc, AthenaArray<Real> &u,
                         AthenaArray<Real> &s) {
   BottomInjection(pmb, time, dt, w, r, bcc, u, s);
-  //WallInteraction(pmb, time, dt, w, r, bcc, u, s);
+  WallInteraction(pmb, time, dt, w, r, bcc, u, s);
 }
 
 void reflecting_x2_left(MeshBlock *pmb, Coordinates *pco,
