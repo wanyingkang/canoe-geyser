@@ -51,6 +51,10 @@ Real massflux_H2ratio, massflux_CO2ratio;
 Real Tm, Ts;
 Real x1min, x1max, x2min, x2max;
 
+Real wall1_corner_x2;
+Real wall1_corner_x1;
+Real wall2_corner_x2;
+Real wall2_corner_x1;
 
 void MeshBlock::InitUserMeshBlockData(ParameterInput *pin) {
   AllocateUserOutputVariables(5);
@@ -158,7 +162,7 @@ void BottomInjection(MeshBlock *pmb, Real const time, Real const dt,
         for (int j = pmb->js; j <= pmb->je; ++j) {
           //std::cout << pmb->pcoord->x2v(j) << std::endl;
           // inject at the center of the bottom boundary
-          if ((pmb->pcoord->x2v(j) < -1.E3) || pmb->pcoord->x2v(j) > 1.E3) {
+          if ((pmb->pcoord->x2v(j) < wall1_corner_x2) || pmb->pcoord->x2v(j) > wall2_corner_x2) {
               continue;
           }
             
@@ -336,6 +340,11 @@ void Mesh::InitUserMeshData(ParameterInput *pin) {
   iCO2 = pindex->GetVaporId("CO2");
   iCO2c = pindex->GetCloudId("CO2(c)");
 
+  wall1_corner_x1 = pin->GetReal("problem", "wall1_corner_x1");
+  wall1_corner_x2 = pin->GetReal("problem", "wall1_corner_x2");
+  wall2_corner_x1 = pin->GetReal("problem", "wall2_corner_x1");
+  wall2_corner_x2 = pin->GetReal("problem", "wall2_corner_x2");
+
   EnrollUserExplicitSourceFunction(Forcing);
 }
 
@@ -370,16 +379,12 @@ void MeshBlock::ProblemGenerator(ParameterInput *pin) {
 
   Real x1min = block_size.x1min;
   Real x1max = block_size.x1max;
+  Real x1c = (x1min + x1max) / 2;
   Real x2min = block_size.x2min;
   Real x2max = block_size.x2max;
+  Real x2c = (x2min + x2max) / 2;
 
-  Real wall1_corner_x2 = -1.E3;
-  Real wall1_corner_x1 = 2.E3;
-
-  Real wall2_corner_x2 = 1.E3;
-  Real wall2_corner_x1 = 2.E3;
-
-  if (fclose(x2min, wall1_corner_x2) && fclose(x1max, wall1_corner_x1)) {
+  if (fclose(x2min, wall1_corner_x2) && (x1c < wall1_corner_x1)) {
     pmy_mesh->mesh_bcs[BoundaryFace::inner_x2] = BoundaryFlag::user;
     pbval->block_bcs[BoundaryFace::inner_x2] = BoundaryFlag::user;
     pbval->apply_bndry_fn_[BoundaryFace::inner_x2] = true;
@@ -387,7 +392,7 @@ void MeshBlock::ProblemGenerator(ParameterInput *pin) {
     pmy_mesh->EnrollUserBoundaryFunction(BoundaryFace::inner_x2, reflecting_x2_left);
   }
 
-  if (fclose(x2max, wall1_corner_x2) && fclose(x1max, wall1_corner_x1)) {
+  if (fclose(x2max, wall1_corner_x2) && (x1c < wall1_corner_x1)) {
     pmy_mesh->mesh_bcs[BoundaryFace::outer_x2] = BoundaryFlag::user;
     pbval->block_bcs[BoundaryFace::outer_x2] = BoundaryFlag::user;
     pbval->apply_bndry_fn_[BoundaryFace::outer_x2] = true;
@@ -395,14 +400,14 @@ void MeshBlock::ProblemGenerator(ParameterInput *pin) {
     pmy_mesh->EnrollUserBoundaryFunction(BoundaryFace::outer_x2, reflecting_x2_right);
   }
 
-  if (fclose(x2max, wall1_corner_x2) && fclose(x1max, wall1_corner_x1)) {
+  if ((x2c < wall1_corner_x2) && fclose(x1max, wall1_corner_x1)) {
     pmy_mesh->mesh_bcs[BoundaryFace::outer_x1] = BoundaryFlag::user;
     pbval->block_bcs[BoundaryFace::outer_x1] = BoundaryFlag::user;
     pbval->apply_bndry_fn_[BoundaryFace::outer_x1] = true;
     pmy_mesh->EnrollUserBoundaryFunction(BoundaryFace::outer_x1, reflecting_x1_right);
   }
 
-  if (fclose(x2max, wall1_corner_x2) && fclose(x1min, wall1_corner_x1)) {
+  if ((x2c < wall1_corner_x2) && fclose(x1min, wall1_corner_x1)) {
     pmy_mesh->mesh_bcs[BoundaryFace::inner_x1] = BoundaryFlag::user;
     pbval->block_bcs[BoundaryFace::inner_x1] = BoundaryFlag::user;
     pbval->apply_bndry_fn_[BoundaryFace::inner_x1] = true;
@@ -410,7 +415,7 @@ void MeshBlock::ProblemGenerator(ParameterInput *pin) {
   }
 
   // add a block
-  if (fclose(x2min, wall2_corner_x2) && fclose(x1max, wall2_corner_x1)) {
+  if (fclose(x2min, wall2_corner_x2) && (x1c < wall2_corner_x1)) {
     pmy_mesh->mesh_bcs[BoundaryFace::inner_x2] = BoundaryFlag::user;
     pbval->block_bcs[BoundaryFace::inner_x2] = BoundaryFlag::user;
     pbval->apply_bndry_fn_[BoundaryFace::inner_x2] = true;
@@ -418,7 +423,7 @@ void MeshBlock::ProblemGenerator(ParameterInput *pin) {
     pmy_mesh->EnrollUserBoundaryFunction(BoundaryFace::inner_x2, reflecting_x2_left);
   }
 
-  if (fclose(x2max, wall2_corner_x2) && fclose(x1max, wall2_corner_x1)) {
+  if (fclose(x2max, wall2_corner_x2) && (x1c < wall2_corner_x1)) {
     pmy_mesh->mesh_bcs[BoundaryFace::outer_x2] = BoundaryFlag::user;
     pbval->block_bcs[BoundaryFace::outer_x2] = BoundaryFlag::user;
     pbval->apply_bndry_fn_[BoundaryFace::outer_x2] = true;
@@ -426,14 +431,14 @@ void MeshBlock::ProblemGenerator(ParameterInput *pin) {
     pmy_mesh->EnrollUserBoundaryFunction(BoundaryFace::outer_x2, reflecting_x2_right);
   }
 
-  if (fclose(x2min, wall2_corner_x2) && fclose(x1max, wall2_corner_x1)) {
+  if ((x2c > wall2_corner_x2) && fclose(x1max, wall2_corner_x1)) {
     pmy_mesh->mesh_bcs[BoundaryFace::outer_x1] = BoundaryFlag::user;
     pbval->block_bcs[BoundaryFace::outer_x1] = BoundaryFlag::user;
     pbval->apply_bndry_fn_[BoundaryFace::outer_x1] = true;
     pmy_mesh->EnrollUserBoundaryFunction(BoundaryFace::outer_x1, reflecting_x1_right);
   }
 
-  if (fclose(x2min, wall2_corner_x2) && fclose(x1min, wall2_corner_x1)) {
+  if ((x2c > wall2_corner_x2) && fclose(x1min, wall2_corner_x1)) {
     pmy_mesh->mesh_bcs[BoundaryFace::inner_x1] = BoundaryFlag::user;
     pbval->block_bcs[BoundaryFace::inner_x1] = BoundaryFlag::user;
     pbval->apply_bndry_fn_[BoundaryFace::inner_x1] = true;
