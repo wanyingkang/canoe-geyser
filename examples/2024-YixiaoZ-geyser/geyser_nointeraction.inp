@@ -22,24 +22,24 @@ variable    = uov           # diagnostic variables
 dt          = 0.1           # time increment
 
 <time>
-cfl_number  = 0.05          # The Courant, Friedrichs, & Lewy (CFL) Number
+cfl_number  = 0.1          # The Courant, Friedrichs, & Lewy (CFL) Number
 nlim        = -1            # cycle limit
-tlim        = 1000.         # time limit
+tlim        = 100.          # time limit
 xorder      = 5             # horizontal reconstruction order
 integrator  = rk3           # integration method
 
 <mesh>
-nx1         = 100           # Number of zones in X1-direction
+nx1         = 60            # Number of zones in X1-direction
 x1min       = 0.            # minimum value of X1
-x1max       = 1.E3          # maximum value of X1
+x1max       = 6.E3          # maximum value of X1
 ix1_bc      = reflecting    # inner-X1 boundary flag
 ox1_bc      = outflow       # outer-X1 boundary flag
 
-nx2         = 50            # Number of zones in X2-direction
-x2min       = -250.         # minimum value of X2
-x2max       =  250.         # maximum value of X2
-ix2_bc      = periodic      # inner-X2 boundary flag
-ox2_bc      = periodic      # outer-X2 boundary flag
+nx2         = 60            # Number of zones in X2-direction
+x2min       = -3.E3            # minimum value of X2
+x2max       = 3.E3          # maximum value of X2
+ix2_bc      = reflecting    # inner-X2 boundary flag
+ox2_bc      = reflecting    # outer-X2 boundary flag
 
 nx3         = 1             # Number of zones in X3-direction
 x3min       = -0.5          # minimum value of X3
@@ -47,14 +47,19 @@ x3max       = 0.5           # maximum value of X3
 ix3_bc      = periodic      # inner-X3 boundary flag
 ox3_bc      = periodic      # outer-X3 boundary flag
 
+wall1_x1edge = 2.E3
+wall1_x2edge = -1.E3
+wall2_x1edge = 2.E3
+wall2_x2edge = 1.E3
+
 <meshblock>
-nx1         = 50
-nx2         = 10
+nx1         = 20
+nx2         = 20
 nx3         = 1
 
 <hydro>
-grav_acc1   = -0.113
-gamma      = 1.45        # gamma = C_pd/C_vd
+grav_acc1   = 0.
+gamma      = 1.667        # gamma = C_pd/C_vd
 
 <species>
 vapor = H2O, CO2
@@ -63,13 +68,13 @@ cloud = H2O(c), CO2(c)
 <thermodynamics>
 Rd          = 4155.       # Dry air gas constant in mass
 eps1        = 9.   9.     # Calculate epsilon
-rcp1        = 0.138   0.138
+rcp1        = 0.1778   0.1778
 beta1       = 0.   22.46
 Ttriple1    = 273.16
 Ptriple1    = 611.7
 
 eps2        = 22.   22.
-rcp2        = 0.0596   0.0596
+rcp2        = 0.07273   0.07273
 beta2       = 0. 14.99
 Ttriple2    = 216.59
 Ptriple2    = 5.1795e5
@@ -92,10 +97,5 @@ qt    = 0.0196
 tau   = 1e8
 
 Tm    = 271.0 # melting temperature of ice, water-ice interface temp
-Ts    = 170.0 # ice surface temperature
+Ts    = 60.0 # ice surface temperature
 
-wall1_corner_x1 = 500.
-wall1_corner_x2 = -50.
-
-wall2_corner_x1 = 500.
-wall2_corner_x2 = 50.

@@ -22,7 +22,7 @@ variable    = uov           # diagnostic variables
 dt          = 0.1           # time increment
 
 <time>
-cfl_number  = 0.05          # The Courant, Friedrichs, & Lewy (CFL) Number
+cfl_number  = 0.02         # The Courant, Friedrichs, & Lewy (CFL) Number
 nlim        = -1            # cycle limit
 tlim        = 1000.         # time limit
 xorder      = 5             # horizontal reconstruction order
@@ -53,8 +53,8 @@ nx2         = 10
 nx3         = 1
 
 <hydro>
-grav_acc1   = -0.113
-gamma      = 1.45        # gamma = C_pd/C_vd
+grav_acc1   = 0.
+gamma       = 1.45        # gamma = C_pd/C_vd
 
 <species>
 vapor = H2O, CO2
@@ -92,7 +92,7 @@ qt    = 0.0196
 tau   = 1e8
 
 Tm    = 271.0 # melting temperature of ice, water-ice interface temp
-Ts    = 170.0 # ice surface temperature
+Ts    = 150.0 # ice surface temperature
 
 wall1_corner_x1 = 500.
 wall1_corner_x2 = -50.

@@ -139,9 +139,8 @@ void WallInteraction(MeshBlock *pmb, Real const time, Real const dt,
             * Rd * Ta / pthermo->GetMuRatio(iH2O)
           );
           z = pmb->pcoord->x1f(i);
-	  // Tw = Tm * pow(Ts/Tm, (z-x1min)/(wall1_corner_x1-x1min));
-          Tw = Tm * pow(Ts/Tm, (z-x1min)/(x1max/2-x1min));
-	  Pw = sat_vapor_p_H2O(Tw);
+          Tw = Tm * pow(Ts/Tm, (z-x1min)/(wall1_corner_x1-x1min));
+          Pw = sat_vapor_p_H2O(Tw);
 
           csw = sqrt(2 * M_PI * Rd * Tw / pthermo->GetMuRatio(iH2O));
           csa = sqrt(2 * M_PI * Rd * Ta / pthermo->GetMuRatio(iH2O));
