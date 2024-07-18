@@ -99,6 +99,8 @@ void WallInteraction(MeshBlock *pmb, Real const time, Real const dt,
 
   Real p_H2O, drhoH2O, drhoH2, drhoCO2;
   Real Tw, Pw, Ta, z, csw, csa, KE;
+  Real drag_coef = 2e-3;
+  Real dv1;
 
   Real x2f_left, x2f_right, x1f_left, x1f_right, x1f_center, x2f_center;
   Real tanhweight;
@@ -167,11 +169,11 @@ void WallInteraction(MeshBlock *pmb, Real const time, Real const dt,
           //}
 	  tanhweight = (1.+tanh((pmb->pcoord->x1f(i)-5.*sigtanh)/sigtanh))/2.0;
 
-          u(IVX, k, jw, i) -= (
-            dt * drag_coef * pmb->phydro->w(IDN, k, jw, i)
-            * pmb->phydro->w(IVX, k, jw, i)
-            / pmb->pcoord->dx2f(jw)
-          );
+          dv1= - ( dt * drag_coef * pmb->phydro->w(IDN, k, jw, i)
+            * pmb->phydro->w(IVX, k, jw, i) * pmb->phydro->w(IVX, k, jw, i)
+            / pmb->pcoord->dx2f(jw));
+          u(IVX, k, jw, i) += dv1; // add drag
+          u(IEN, k, jw, i) += dv1*pmb->phydro->u(IVX, k, jw, i); // subduct energy 
 
           Ta = pthermo->GetTemp(pmb, k, jw, i);
 
