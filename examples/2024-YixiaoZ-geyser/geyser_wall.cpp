@@ -55,6 +55,7 @@ Real wall1_corner_x2;
 Real wall1_corner_x1;
 Real wall2_corner_x2;
 Real wall2_corner_x1;
+Real sigtanh;
 
 void MeshBlock::InitUserMeshBlockData(ParameterInput *pin) {
   AllocateUserOutputVariables(5);
@@ -99,6 +100,7 @@ void WallInteraction(MeshBlock *pmb, Real const time, Real const dt,
   Real drag_coef = 500.0;
 
   Real x2f_left, x2f_right, x1f_left, x1f_right, x1f_center, x2f_center;
+  Real tanhweight;
 
 
   // remove water vapor
@@ -121,9 +123,10 @@ void WallInteraction(MeshBlock *pmb, Real const time, Real const dt,
        for (int k = pmb->ks; k <= pmb->ke; ++k)
           for (int i = pmb->is; i <= pmb->ie; ++i) {
 
-          if (pmb->pcoord->x1f(i) < 0.2 * wall2_corner_x1) {
-            continue;
-          }
+          //if (pmb->pcoord->x1f(i) < 0.2 * wall2_cornerx1) {
+          //  continue;
+          //}
+	  tanhweight = (1.+tanh((pmb->pcoord->x1f(i)-5.*sigtanh)/sigtanh))/2.0;
 
           u(IVX, k, jw, i) -= (
             dt * drag_coef * pmb->phydro->w(IDN, k, jw, i)
@@ -145,6 +148,7 @@ void WallInteraction(MeshBlock *pmb, Real const time, Real const dt,
           csa = sqrt(2 * M_PI * Rd * Ta / pthermo->GetMuRatio(iH2O));
 
           drhoH2O = dt * (Pw/csw - p_H2O/csa) / pmb->pcoord->dx2f(jw);
+	  drhoH2O *= tanhweight;
 
           u(iH2O, k, jw, i) += drhoH2O;
 
@@ -369,6 +373,7 @@ void Mesh::InitUserMeshData(ParameterInput *pin) {
   wall1_corner_x2 = pin->GetReal("problem", "wall1_corner_x2");
   wall2_corner_x1 = pin->GetReal("problem", "wall2_corner_x1");
   wall2_corner_x2 = pin->GetReal("problem", "wall2_corner_x2");
+  sigtanh=pin->GetReal("problem", "sigtanh");
 
   EnrollUserExplicitSourceFunction(Forcing);
 }
