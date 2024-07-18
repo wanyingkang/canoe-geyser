@@ -24,7 +24,7 @@ dt          = 0.1           # time increment
 <time>
 cfl_number  = 0.05          # The Courant, Friedrichs, & Lewy (CFL) Number
 nlim        = -1            # cycle limit
-tlim        = 1000.         # time limit
+tlim        = 60.         # time limit
 xorder      = 5             # horizontal reconstruction order
 integrator  = rk3           # integration method
 
@@ -99,3 +99,5 @@ wall1_corner_x2 = -50.
 
 wall2_corner_x1 = 500.
 wall2_corner_x2 = 50.
+
+sigtanh = 30.
