@@ -1,5 +1,5 @@
 # 1. Compile
-setup_problem(geyser)
+setup_problem(geyser_wall)
 
 # 4. Copy input files to run directory
 file(GLOB inputs *.inp *.yaml *.cpp *.hpp)
