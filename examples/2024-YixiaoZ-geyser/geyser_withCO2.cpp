@@ -55,7 +55,6 @@ Real wall1_corner_x2;
 Real wall1_corner_x1;
 Real wall2_corner_x2;
 Real wall2_corner_x1;
-Real drag_coef;
 
 void MeshBlock::InitUserMeshBlockData(ParameterInput *pin) {
   AllocateUserOutputVariables(5);
@@ -97,7 +96,6 @@ void WallInteraction(MeshBlock *pmb, Real const time, Real const dt,
 
   Real p_H2O, drhoH2O, drhoH2, drhoCO2;
   Real Tw, Pw, Ta, z, csw, csa, KE;
-  Real drag_coef = 500.0;
 
   Real x2f_left, x2f_right, x1f_left, x1f_right, x1f_center, x2f_center;
 
@@ -122,16 +120,6 @@ void WallInteraction(MeshBlock *pmb, Real const time, Real const dt,
        for (int k = pmb->ks; k <= pmb->ke; ++k)
           for (int i = pmb->is; i <= pmb->ie; ++i) {
 
-          if (pmb->pcoord->x1f(i) < 0.2 * wall2_corner_x1) {
-            continue;
-          }
-
-          u(IVX, k, jw, i) -= (
-            dt * drag_coef * pmb->phydro->w(IDN, k, jw, i)
-            * pmb->phydro->w(IVX, k, jw, i)
-            / pmb->pcoord->dx2f(jw)
-          );
-
           Ta = pthermo->GetTemp(pmb, k, jw, i);
 
           p_H2O = (
@@ -139,14 +127,14 @@ void WallInteraction(MeshBlock *pmb, Real const time, Real const dt,
             * Rd * Ta / pthermo->GetMuRatio(iH2O)
           );
           z = pmb->pcoord->x1f(i);
-	  // Tw = Tm * pow(Ts/Tm, (z-x1min)/(wall1_corner_x1-x1min));
-          Tw = Tm * pow(Ts/Tm, (z-x1min)/(x1max/2-x1min));
-	  Pw = sat_vapor_p_H2O(Tw);
+          Tw = Tm * pow(Ts/Tm, (z-x1min)/(x1max-x1min));
+          Pw = sat_vapor_p_H2O(Tw);
 
           csw = sqrt(2 * M_PI * Rd * Tw / pthermo->GetMuRatio(iH2O));
           csa = sqrt(2 * M_PI * Rd * Ta / pthermo->GetMuRatio(iH2O));
 
           drhoH2O = dt * (Pw/csw - p_H2O/csa) / pmb->pcoord->dx2f(jw);
+
 
           u(iH2O, k, jw, i) += drhoH2O;
 
@@ -351,7 +339,6 @@ void Mesh::InitUserMeshData(ParameterInput *pin) {
   x2max = pin->GetReal("mesh","x2max");
 
   gammad = pin->GetReal("hydro", "gamma");
-  drag_coef = pin->GetReal("hydro","drag_coef");
   // rcp1 = pin->GetReal("thermodynamics", "rcp1");
 
   grav = -pin->GetReal("hydro", "grav_acc1");
@@ -402,11 +389,8 @@ void MeshBlock::ProblemGenerator(ParameterInput *pin) {
             }
         }
     }
-
-
     peos->PrimitiveToConserved(phydro->w, pfield->bcc, phydro->u, pcoord, is, ie,
                              js, je, ks, ke);
-
 
   Real x1min = block_size.x1min;
   Real x1max = block_size.x1max;

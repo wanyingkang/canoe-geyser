@@ -54,7 +54,8 @@ nx3         = 1
 
 <hydro>
 grav_acc1   = -0.113
-gamma      = 1.45        # gamma = C_pd/C_vd
+gamma       = 1.45        # gamma = C_pd/C_vd
+drag_coef   = 500.0       # Drag coefficient of the wall
 
 <species>
 vapor = H2O, CO2

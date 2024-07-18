@@ -41,13 +41,13 @@
 // special includes
 #include "geyser_vapor_functions.hpp"
 
-int iH2O, iH2Oc, iCO2, iCO2c;
+int iH2O, iH2Oc;
 Real p0, grav;
 Real Rd;
 Real Ptriple1, Ttriple1;
 Real tau;
 Real gammad;
-Real massflux_H2ratio, massflux_CO2ratio;
+Real massflux_H2ratio;
 Real Tm, Ts;
 Real x1min, x1max, x2min, x2max;
 
@@ -55,15 +55,12 @@ Real wall1_corner_x2;
 Real wall1_corner_x1;
 Real wall2_corner_x2;
 Real wall2_corner_x1;
-Real drag_coef;
 
 void MeshBlock::InitUserMeshBlockData(ParameterInput *pin) {
-  AllocateUserOutputVariables(5);
+  AllocateUserOutputVariables(3);
   SetUserOutputVariableName(0, "temp");
   SetUserOutputVariableName(1, "h2o");
   SetUserOutputVariableName(2, "h2oc");
-  SetUserOutputVariableName(3, "co2");
-  SetUserOutputVariableName(4, "co2c");
 }
 
 void MeshBlock::UserWorkBeforeOutput(ParameterInput *pin) {
@@ -76,8 +73,6 @@ void MeshBlock::UserWorkBeforeOutput(ParameterInput *pin) {
         auto &&air = AirParcelHelper::gather_from_primitive(this, k, j, i);
         user_out_var(1, k, j, i) = air.w[iH2O];
         user_out_var(2, k, j, i) = air.c[iH2Oc];
-        user_out_var(3, k, j, i) = air.w[iCO2];
-        user_out_var(4, k, j, i) = air.c[iCO2c];
       }
 }
 
@@ -95,9 +90,8 @@ void WallInteraction(MeshBlock *pmb, Real const time, Real const dt,
 
   auto pthermo = Thermodynamics::GetInstance();
 
-  Real p_H2O, drhoH2O, drhoH2, drhoCO2;
+  Real p_H2O, drhoH2O, drhoH2;
   Real Tw, Pw, Ta, z, csw, csa, KE;
-  Real drag_coef = 500.0;
 
   Real x2f_left, x2f_right, x1f_left, x1f_right, x1f_center, x2f_center;
 
@@ -122,16 +116,6 @@ void WallInteraction(MeshBlock *pmb, Real const time, Real const dt,
        for (int k = pmb->ks; k <= pmb->ke; ++k)
           for (int i = pmb->is; i <= pmb->ie; ++i) {
 
-          if (pmb->pcoord->x1f(i) < 0.2 * wall2_corner_x1) {
-            continue;
-          }
-
-          u(IVX, k, jw, i) -= (
-            dt * drag_coef * pmb->phydro->w(IDN, k, jw, i)
-            * pmb->phydro->w(IVX, k, jw, i)
-            / pmb->pcoord->dx2f(jw)
-          );
-
           Ta = pthermo->GetTemp(pmb, k, jw, i);
 
           p_H2O = (
@@ -139,14 +123,14 @@ void WallInteraction(MeshBlock *pmb, Real const time, Real const dt,
             * Rd * Ta / pthermo->GetMuRatio(iH2O)
           );
           z = pmb->pcoord->x1f(i);
-	  // Tw = Tm * pow(Ts/Tm, (z-x1min)/(wall1_corner_x1-x1min));
-          Tw = Tm * pow(Ts/Tm, (z-x1min)/(x1max/2-x1min));
-	  Pw = sat_vapor_p_H2O(Tw);
+          Tw = Tm * pow(Ts/Tm, (z-x1min)/(x1max-x1min));
+          Pw = sat_vapor_p_H2O(Tw);
 
           csw = sqrt(2 * M_PI * Rd * Tw / pthermo->GetMuRatio(iH2O));
           csa = sqrt(2 * M_PI * Rd * Ta / pthermo->GetMuRatio(iH2O));
 
           drhoH2O = dt * (Pw/csw - p_H2O/csa) / pmb->pcoord->dx2f(jw);
+
 
           u(iH2O, k, jw, i) += drhoH2O;
 
@@ -180,7 +164,7 @@ void BottomInjection(MeshBlock *pmb, Real const time, Real const dt,
 
   auto pthermo = Thermodynamics::GetInstance();
 
-  Real p, drhoH2O, drhoH2, drhoCO2;
+  Real p, drhoH2O, drhoH2;
 
   Real x1s = pmb->pcoord->x1f(is);
 
@@ -205,13 +189,8 @@ void BottomInjection(MeshBlock *pmb, Real const time, Real const dt,
 	    drhoH2=drhoH2O*massflux_H2ratio;
         u(IDN, k, j, is) += drhoH2;
         u(IEN, k, j, is) += drhoH2 * (Rd / (gammad - 1.)) * Ttriple1;
-	    // add CO2
-	    drhoCO2=drhoH2O*massflux_CO2ratio;
-	    u(iCO2, k, j, is) += drhoCO2;
-        u(IEN, k, j, is) += drhoCO2 * (Rd / (gammad - 1.)) * pthermo->GetCvRatioMass(iCO2) * Ttriple1;
-        }
   }
-
+  }
 }
 
 void Forcing(MeshBlock *pmb, Real const time, Real const dt,
@@ -351,22 +330,18 @@ void Mesh::InitUserMeshData(ParameterInput *pin) {
   x2max = pin->GetReal("mesh","x2max");
 
   gammad = pin->GetReal("hydro", "gamma");
-  drag_coef = pin->GetReal("hydro","drag_coef");
   // rcp1 = pin->GetReal("thermodynamics", "rcp1");
 
   grav = -pin->GetReal("hydro", "grav_acc1");
   p0 = pin->GetReal("problem", "p0");
 
   massflux_H2ratio = pin->GetReal("thermodynamics", "massflux_H2ratio");
-  massflux_CO2ratio = pin->GetReal("thermodynamics", "massflux_CO2ratio");
   Tm = pin->GetReal("problem", "Tm");
   Ts = pin->GetReal("problem", "Ts");
 
   // index
   iH2O = pindex->GetVaporId("H2O");
   iH2Oc = pindex->GetCloudId("H2O(c)");
-  iCO2 = pindex->GetVaporId("CO2");
-  iCO2c = pindex->GetCloudId("CO2(c)");
 
   wall1_corner_x1 = pin->GetReal("problem", "wall1_corner_x1");
   wall1_corner_x2 = pin->GetReal("problem", "wall1_corner_x2");
@@ -380,33 +355,27 @@ void MeshBlock::ProblemGenerator(ParameterInput *pin) {
 
     auto pthermo = Thermodynamics::GetInstance();
     Real rho = 2.0e-3;
-    Real dryratio,H2Oratio, CO2ratio;
+    Real dryratio,H2Oratio;
 
     H2Oratio=0.8f;
-    CO2ratio=0.15f;
-    dryratio=1.0f-H2Oratio-CO2ratio;
+    dryratio=1.0f-H2Oratio;
 
     for (int k = ks; k <= ke; ++k) {
         for (int j = js; j <= je; ++j) {
             for (int i = is; i <= ie; ++i) {
                 this->phydro->w(IDN, k, j, i) = rho;
                 this->phydro->w(iH2O, k, j, i) = H2Oratio;
-                this->phydro->w(iCO2, k, j, i) = CO2ratio;
                 for (int n = IVX; n < IPR; ++n) {
                     this->phydro->w(n, k, j, i) = 0.f;
                 }
                 this->phydro->w(IPR, k, j, i) = Ttriple1 * dryratio * rho * Rd;
                 this->phydro->w(IPR, k, j, i) += Ttriple1 * H2Oratio * rho * Rd / pthermo->GetMuRatio(iH2O);
-                this->phydro->w(IPR, k, j, i) += Ttriple1 * CO2ratio * rho * Rd / pthermo->GetMuRatio(iCO2);
                 //std::cout << "IDN"<<IDN<<" iH2O"<<iH2O<<" iCO2"<<iCO2<<" iH2Oc"<<iH2Oc<<" iCO2c"<< iCO2c<< std::endl;
             }
         }
     }
-
-
     peos->PrimitiveToConserved(phydro->w, pfield->bcc, phydro->u, pcoord, is, ie,
                              js, je, ks, ke);
-
 
   Real x1min = block_size.x1min;
   Real x1max = block_size.x1max;
