@@ -9,26 +9,26 @@ tasklist    = ImplicitHydroTasks
 
 <output1>
 file_type   = hst           # History data dump
-dt          = 100           # time increment between outputs
+dt          = 10           # time increment between outputs
 
 <output2>
 file_type   = pnetcdf       # Netcdf format output
 variable    = prim          # variables to be output
-dt          = 100           # time increment between outputs
+dt          = 10           # time increment between outputs
 
 <output3>
 file_type   = pnetcdf       # Netcdf format output
 variable    = uov           # diagnostic variables
-dt          = 100           # time increment
+dt          = 10           # time increment
 
 <output4>
 file_type   = rst           # History data dump
-dt          = 10000           # time increment between outputs
+dt          = 1000           # time increment between outputs
 
 <time>
 cfl_number  = 0.01          # The Courant, Friedrichs, & Lewy (CFL) Number
 nlim        = -1            # cycle limit
-tlim        = 100000.          # time limit
+tlim        = 10000.          # time limit
 xorder      = 5             # horizontal reconstruction order
 integrator  = rk3           # integration method
 
