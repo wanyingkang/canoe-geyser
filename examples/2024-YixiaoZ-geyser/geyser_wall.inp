@@ -22,7 +22,7 @@ variable    = uov           # diagnostic variables
 dt          = 0.1           # time increment
 
 <time>
-cfl_number  = 0.02          # The Courant, Friedrichs, & Lewy (CFL) Number
+cfl_number  = 0.05          # The Courant, Friedrichs, & Lewy (CFL) Number
 nlim        = -1            # cycle limit
 tlim        = 1000.         # time limit
 xorder      = 5             # horizontal reconstruction order

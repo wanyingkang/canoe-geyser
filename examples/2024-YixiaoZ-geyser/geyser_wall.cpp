@@ -96,6 +96,7 @@ void WallInteraction(MeshBlock *pmb, Real const time, Real const dt,
 
   Real p_H2O, drhoH2O, drhoH2, drhoCO2;
   Real Tw, Pw, Ta, z, csw, csa, KE;
+  Real drag_coef = 500.0;
 
   Real x2f_left, x2f_right, x1f_left, x1f_right, x1f_center, x2f_center;
 
@@ -119,6 +120,16 @@ void WallInteraction(MeshBlock *pmb, Real const time, Real const dt,
     if ( (x2f_left - wall1_corner_x2 < pmb->pcoord->dx2f(js)) || (wall2_corner_x2 - x2f_right < pmb->pcoord->dx2f(je))) {
        for (int k = pmb->ks; k <= pmb->ke; ++k)
           for (int i = pmb->is; i <= pmb->ie; ++i) {
+
+          if (pmb->pcoord->x1f(i) < 0.2 * wall2_corner_x1) {
+            continue;
+          }
+
+          u(IVX, k, jw, i) -= (
+            dt * drag_coef * pmb->phydro->w(IDN, k, jw, i)
+            * pmb->phydro->w(IVX, k, jw, i)
+            / pmb->pcoord->dx2f(jw)
+          );
 
           Ta = pthermo->GetTemp(pmb, k, jw, i);
 
