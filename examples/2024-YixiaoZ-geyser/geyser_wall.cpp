@@ -376,7 +376,8 @@ void Mesh::InitUserMeshData(ParameterInput *pin) {
 void MeshBlock::ProblemGenerator(ParameterInput *pin) {
 
     auto pthermo = Thermodynamics::GetInstance();
-    Real rho = 2.0e-3;
+    Real rho_bottom = 2.0e-3;
+    Real rho;
     Real dryratio,H2Oratio, CO2ratio;
 
     H2Oratio=0.8f;
@@ -386,6 +387,7 @@ void MeshBlock::ProblemGenerator(ParameterInput *pin) {
     for (int k = ks; k <= ke; ++k) {
         for (int j = js; j <= je; ++j) {
             for (int i = is; i <= ie; ++i) {
+                rho = rho_bottom * exp(-this->pcoord->x1f(i) / 200.0);
                 this->phydro->w(IDN, k, j, i) = rho;
                 this->phydro->w(iH2O, k, j, i) = H2Oratio;
                 this->phydro->w(iCO2, k, j, i) = CO2ratio;
