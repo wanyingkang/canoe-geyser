@@ -79,7 +79,7 @@ massflux_CO2ratio=0.01 # injected mass ratio of CO2
 
 sa.max_iter = 10
 sa.relax    = 0.9
-sa.ftol     = 1.e-1
+sa.ftol     = 0.1
 
 <problem>
 dT    = 2.0
