@@ -55,7 +55,7 @@ nx3         = 1
 <hydro>
 grav_acc1   = -0.113
 gamma      = 1.45        # gamma = C_pd/C_vd
-drag_coef = 500.0
+drag_coef = 2e-3
 
 <species>
 vapor = H2O, CO2
