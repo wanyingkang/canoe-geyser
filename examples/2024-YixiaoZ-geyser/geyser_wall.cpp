@@ -42,13 +42,14 @@
 #include "geyser_vapor_functions.hpp"
 
 int iH2O, iH2Oc, iCO2, iCO2c;
-Real p0, grav;
+Real p0, grav, drag_coef;
 Real Rd;
 Real Ptriple1, Ttriple1;
 Real tau;
 Real gammad;
 Real massflux_H2ratio, massflux_CO2ratio;
 Real Tm, Ts;
+Real rho_bottom, ScaleHeight, H2Oratio, CO2ratio;
 Real x1min, x1max, x2min, x2max;
 
 Real wall1_corner_x2;
@@ -56,6 +57,7 @@ Real wall1_corner_x1;
 Real wall2_corner_x2;
 Real wall2_corner_x1;
 Real sigtanh;
+
 
 void MeshBlock::InitUserMeshBlockData(ParameterInput *pin) {
   AllocateUserOutputVariables(5);
@@ -97,7 +99,6 @@ void WallInteraction(MeshBlock *pmb, Real const time, Real const dt,
 
   Real p_H2O, drhoH2O, drhoH2, drhoCO2;
   Real Tw, Pw, Ta, z, csw, csa, KE;
-  Real drag_coef = 500.0;
 
   Real x2f_left, x2f_right, x1f_left, x1f_right, x1f_center, x2f_center;
   Real tanhweight;
@@ -114,11 +115,49 @@ void WallInteraction(MeshBlock *pmb, Real const time, Real const dt,
     x1f_center = (x1f_left+x1f_right)/2;
 
     if ( (x2f_center < wall1_corner_x2) || (x2f_center > wall2_corner_x2) ) {
-              continue;
+	    if (x1f_center < wall1_corner_x1){
+		    continue;
+	    }
+
+	    if ( x1f_left - 2*pmb->pcoord->dx1f(is) < wall1_corner_x1 ){
+              for (int k = pmb->ks; k <= pmb->ke; ++k)
+                  for (int j = pmb->js; j <= pmb->je; ++j) {
+          Ta = pthermo->GetTemp(pmb, k, j, is);
+          p_H2O = (pmb->phydro->w(IDN, k, j, is) * pmb->phydro->w(iH2O, k, j, is) * Rd * Ta / pthermo->GetMuRatio(iH2O));
+          Pw = sat_vapor_p_H2O(Ts);
+          csw = sqrt(2 * M_PI * Rd * Ts / pthermo->GetMuRatio(iH2O));
+          csa = sqrt(2 * M_PI * Rd * Ta / pthermo->GetMuRatio(iH2O));
+          //drhoH2O = dt * (Pw/csw - p_H2O/csa) / pmb->pcoord->dx1f(is);
+          drhoH2O = dt * ( - p_H2O/csa) / pmb->pcoord->dx1f(is);
+          u(iH2O, k, j, is) += drhoH2O;
+	  //std::cout << "x1min" << x1f_left << "x2min" << x2f_left << "Add upper wall" << std::endl;
+
+          if (drhoH2O<0) {
+              KE= 0.5f*(pmb->phydro->w(IVX,k,j,is)*pmb->phydro->w(IVX,k,j,is)
+                      + pmb->phydro->w(IVY,k,j,is)*pmb->phydro->w(IVY,k,j,is)
+                      + pmb->phydro->w(IVZ,k,j,is)*pmb->phydro->w(IVZ,k,j,is));
+              u(IEN, k, j, is) += drhoH2O * (
+                KE + (Rd / (gammad - 1.)) * pthermo->GetCvRatioMass(iH2O) * Ta
+              );
+              u(IVZ, k, j, is) += drhoH2O * pmb->phydro->w(IVZ, k, j, is);
+              u(IVY, k, j, is) += drhoH2O * pmb->phydro->w(IVY, k, j, is);
+              u(IVX, k, j, is) += drhoH2O * pmb->phydro->w(IVX, k, j, is);
+          } else {
+              u(IEN, k, j, is) += drhoH2O * (
+                (Rd / (gammad - 1.)) * pthermo->GetCvRatioMass(iH2O) * Tw
+              );
           }
-    if ( (x1f_center > wall1_corner_x1) ) { // assume wall1_corner_x1 == wall2_corner_x1
-              continue;
-          }
+
+
+
+                  }
+           }
+    continue;
+    }
+
+    if (x1f_center > wall1_corner_x1){
+	    continue;
+    }
     if ( (x2f_left - wall1_corner_x2 < pmb->pcoord->dx2f(js)) || (wall2_corner_x2 - x2f_right < pmb->pcoord->dx2f(je))) {
        for (int k = pmb->ks; k <= pmb->ke; ++k)
           for (int i = pmb->is; i <= pmb->ie; ++i) {
@@ -141,7 +180,7 @@ void WallInteraction(MeshBlock *pmb, Real const time, Real const dt,
             * Rd * Ta / pthermo->GetMuRatio(iH2O)
           );
           z = pmb->pcoord->x1f(i);
-          Tw = Tm * pow(Ts/Tm, (z-x1min)/(x1max-x1min));
+          Tw = Tm * pow(Ts/Tm, (z-x1min)/(wall1_corner_x1-x1min));
           Pw = sat_vapor_p_H2O(Tw);
 
           csw = sqrt(2 * M_PI * Rd * Tw / pthermo->GetMuRatio(iH2O));
@@ -356,12 +395,19 @@ void Mesh::InitUserMeshData(ParameterInput *pin) {
   // rcp1 = pin->GetReal("thermodynamics", "rcp1");
 
   grav = -pin->GetReal("hydro", "grav_acc1");
+  drag_coef = pin->GetReal("hydro", "drag_coef");
+
   p0 = pin->GetReal("problem", "p0");
 
   massflux_H2ratio = pin->GetReal("thermodynamics", "massflux_H2ratio");
   massflux_CO2ratio = pin->GetReal("thermodynamics", "massflux_CO2ratio");
   Tm = pin->GetReal("problem", "Tm");
   Ts = pin->GetReal("problem", "Ts");
+
+  rho_bottom = pin->GetReal("initialcondition", "rho_bottom");
+  ScaleHeight = pin->GetReal("initialcondition", "ScaleHeight");
+  H2Oratio  = pin->GetReal("initialcondition", "H2Oratio");
+  CO2ratio  = pin->GetReal("initialcondition", "CO2ratio");
 
   // index
   iH2O = pindex->GetVaporId("H2O");
@@ -381,18 +427,33 @@ void Mesh::InitUserMeshData(ParameterInput *pin) {
 void MeshBlock::ProblemGenerator(ParameterInput *pin) {
 
     auto pthermo = Thermodynamics::GetInstance();
-    Real rho_bottom = 2.0e-3;
     Real rho;
-    Real dryratio,H2Oratio, CO2ratio;
+    Real dryratio;
 
-    H2Oratio=0.8f;
-    CO2ratio=0.15f;
+    Real x1minblock = block_size.x1min;
+    Real x1maxblock = block_size.x1max;
+    Real x1c = (x1minblock + x1maxblock) / 2;
+    Real x2minblock = block_size.x2min;
+    Real x2maxblock = block_size.x2max;
+    Real x2c = (x2minblock + x2maxblock) / 2;
+
     dryratio=1.0f-H2Oratio-CO2ratio;
 
     for (int k = ks; k <= ke; ++k) {
         for (int j = js; j <= je; ++j) {
             for (int i = is; i <= ie; ++i) {
-                rho = rho_bottom * exp(-this->pcoord->x1f(i) / 200.0);
+		//decay from surface
+		rho = rho_bottom;
+		if ( x1c > wall1_corner_x1) {
+			rho = rho_bottom * exp( -(this->pcoord->x1f(i)-wall1_corner_x1) / ScaleHeight);
+		}
+
+
+		//decay from bottom
+		//rho = rho_bottom * exp( -(this->pcoord->x1f(i)-x1min) / ScaleHeight);
+		//if ( (x1c < wall1_corner_x1) && ( (x2c<wall1_corner_x2) || (x2c>wall2_corner_x2)  )){
+		//	rho = rho_bottom * exp( -(wall1_corner_x1-x1min) / ScaleHeight);
+		//}
                 this->phydro->w(IDN, k, j, i) = rho;
                 this->phydro->w(iH2O, k, j, i) = H2Oratio;
                 this->phydro->w(iCO2, k, j, i) = CO2ratio;
@@ -409,14 +470,7 @@ void MeshBlock::ProblemGenerator(ParameterInput *pin) {
     peos->PrimitiveToConserved(phydro->w, pfield->bcc, phydro->u, pcoord, is, ie,
                              js, je, ks, ke);
 
-  Real x1min = block_size.x1min;
-  Real x1max = block_size.x1max;
-  Real x1c = (x1min + x1max) / 2;
-  Real x2min = block_size.x2min;
-  Real x2max = block_size.x2max;
-  Real x2c = (x2min + x2max) / 2;
-
-  if (fclose(x2min, wall1_corner_x2) && (x1c < wall1_corner_x1)) {
+  if (fclose(x2minblock, wall1_corner_x2) && (x1c < wall1_corner_x1)) {
     pmy_mesh->mesh_bcs[BoundaryFace::inner_x2] = BoundaryFlag::user;
     pbval->block_bcs[BoundaryFace::inner_x2] = BoundaryFlag::user;
     pbval->apply_bndry_fn_[BoundaryFace::inner_x2] = true;
@@ -424,7 +478,7 @@ void MeshBlock::ProblemGenerator(ParameterInput *pin) {
     pmy_mesh->EnrollUserBoundaryFunction(BoundaryFace::inner_x2, reflecting_x2_left);
   }
 
-  if (fclose(x2max, wall1_corner_x2) && (x1c < wall1_corner_x1)) {
+  if (fclose(x2maxblock, wall1_corner_x2) && (x1c < wall1_corner_x1)) {
     pmy_mesh->mesh_bcs[BoundaryFace::outer_x2] = BoundaryFlag::user;
     pbval->block_bcs[BoundaryFace::outer_x2] = BoundaryFlag::user;
     pbval->apply_bndry_fn_[BoundaryFace::outer_x2] = true;
@@ -432,14 +486,14 @@ void MeshBlock::ProblemGenerator(ParameterInput *pin) {
     pmy_mesh->EnrollUserBoundaryFunction(BoundaryFace::outer_x2, reflecting_x2_right);
   }
 
-  if ((x2c < wall1_corner_x2) && fclose(x1max, wall1_corner_x1)) {
+  if ((x2c < wall1_corner_x2) && fclose(x1maxblock, wall1_corner_x1)) {
     pmy_mesh->mesh_bcs[BoundaryFace::outer_x1] = BoundaryFlag::user;
     pbval->block_bcs[BoundaryFace::outer_x1] = BoundaryFlag::user;
     pbval->apply_bndry_fn_[BoundaryFace::outer_x1] = true;
     pmy_mesh->EnrollUserBoundaryFunction(BoundaryFace::outer_x1, reflecting_x1_right);
   }
 
-  if ((x2c < wall1_corner_x2) && fclose(x1min, wall1_corner_x1)) {
+  if ((x2c < wall1_corner_x2) && fclose(x1minblock, wall1_corner_x1)) {
     pmy_mesh->mesh_bcs[BoundaryFace::inner_x1] = BoundaryFlag::user;
     pbval->block_bcs[BoundaryFace::inner_x1] = BoundaryFlag::user;
     pbval->apply_bndry_fn_[BoundaryFace::inner_x1] = true;
@@ -447,7 +501,7 @@ void MeshBlock::ProblemGenerator(ParameterInput *pin) {
   }
 
   // add a block
-  if (fclose(x2min, wall2_corner_x2) && (x1c < wall2_corner_x1)) {
+  if (fclose(x2minblock, wall2_corner_x2) && (x1c < wall2_corner_x1)) {
     pmy_mesh->mesh_bcs[BoundaryFace::inner_x2] = BoundaryFlag::user;
     pbval->block_bcs[BoundaryFace::inner_x2] = BoundaryFlag::user;
     pbval->apply_bndry_fn_[BoundaryFace::inner_x2] = true;
@@ -455,7 +509,7 @@ void MeshBlock::ProblemGenerator(ParameterInput *pin) {
     pmy_mesh->EnrollUserBoundaryFunction(BoundaryFace::inner_x2, reflecting_x2_left);
   }
 
-  if (fclose(x2max, wall2_corner_x2) && (x1c < wall2_corner_x1)) {
+  if (fclose(x2maxblock, wall2_corner_x2) && (x1c < wall2_corner_x1)) {
     pmy_mesh->mesh_bcs[BoundaryFace::outer_x2] = BoundaryFlag::user;
     pbval->block_bcs[BoundaryFace::outer_x2] = BoundaryFlag::user;
     pbval->apply_bndry_fn_[BoundaryFace::outer_x2] = true;
@@ -463,14 +517,14 @@ void MeshBlock::ProblemGenerator(ParameterInput *pin) {
     pmy_mesh->EnrollUserBoundaryFunction(BoundaryFace::outer_x2, reflecting_x2_right);
   }
 
-  if ((x2c > wall2_corner_x2) && fclose(x1max, wall2_corner_x1)) {
+  if ((x2c > wall2_corner_x2) && fclose(x1maxblock, wall2_corner_x1)) {
     pmy_mesh->mesh_bcs[BoundaryFace::outer_x1] = BoundaryFlag::user;
     pbval->block_bcs[BoundaryFace::outer_x1] = BoundaryFlag::user;
     pbval->apply_bndry_fn_[BoundaryFace::outer_x1] = true;
     pmy_mesh->EnrollUserBoundaryFunction(BoundaryFace::outer_x1, reflecting_x1_right);
   }
 
-  if ((x2c > wall2_corner_x2) && fclose(x1min, wall2_corner_x1)) {
+  if ((x2c > wall2_corner_x2) && fclose(x1minblock, wall2_corner_x1)) {
     pmy_mesh->mesh_bcs[BoundaryFace::inner_x1] = BoundaryFlag::user;
     pbval->block_bcs[BoundaryFace::inner_x1] = BoundaryFlag::user;
     pbval->apply_bndry_fn_[BoundaryFace::inner_x1] = true;
