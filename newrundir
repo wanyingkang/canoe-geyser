@@ -11,7 +11,7 @@ export MyExp=/home/wanying/canoe
 if [[ $TODO == *"clean"* || $TODO == *"recreate"* ]]; then
     echo cleaning ${CASENAME}_${RUNNAME}
     rm -rf $OUTPUT
-    rm -rf _${RUNNAME}
+    rm -rf ${CASENAME}_${RUNNAME}
     rm data_${CASENAME}_${RUNNAME}
 fi
 
@@ -19,12 +19,12 @@ if [[ -z "$TODO" || $TODO == *"create"*  ]]; then
     echo ${CASENAME}${BASERUN} =\> ${CASENAME}_${RUNNAME}
     mkdir $CASEROOT/bin_${RUNNAME}
     inputfile=`realpath $CASEROOT/bin${BASERUN}/${CASENAME}.inp`
-    cp -r $inputfile $CASEROOT/bin_${RUNNAME}/
 
     mkdir $OUTPUT
     ln -s $OUTPUT .
     cd $OUTPUT
     ln -s $CASEROOT/bin_${RUNNAME}/* . 
+    cp $inputfile .
     ln -s $CASEROOT/bin/${CASENAME}.release . 
     cp $CASEROOT/data_${CASENAME}${BASERUN}/run.sub .
     #cp $CASEROOT/data_${CASENAME}${BASERUN}/cleandata .

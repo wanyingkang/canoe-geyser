@@ -21,6 +21,10 @@ file_type   = pnetcdf       # Netcdf format output
 variable    = uov           # diagnostic variables
 dt          = 0.1           # time increment
 
+<output4>
+file_type   = rst           # History data dump
+dt          = 20.           # time increment between outputs
+
 <time>
 cfl_number  = 0.05          # The Courant, Friedrichs, & Lewy (CFL) Number
 nlim        = -1            # cycle limit
@@ -38,8 +42,8 @@ ox1_bc      = outflow       # outer-X1 boundary flag
 nx2         = 50            # Number of zones in X2-direction
 x2min       = -250.         # minimum value of X2
 x2max       =  250.         # maximum value of X2
-ix2_bc      = periodic      # inner-X2 boundary flag
-ox2_bc      = periodic      # outer-X2 boundary flag
+ix2_bc      = outflow      # inner-X2 boundary flag
+ox2_bc      = outflow      # outer-X2 boundary flag
 
 nx3         = 1             # Number of zones in X3-direction
 x3min       = -0.5          # minimum value of X3
