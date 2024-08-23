@@ -58,7 +58,6 @@ Real wall2_corner_x2;
 Real wall2_corner_x1;
 Real sigtanh;
 
-
 void MeshBlock::InitUserMeshBlockData(ParameterInput *pin) {
   AllocateUserOutputVariables(5);
   SetUserOutputVariableName(0, "temp");
@@ -83,17 +82,15 @@ void MeshBlock::UserWorkBeforeOutput(ParameterInput *pin) {
       }
 }
 
-
-
 void WallInteraction(MeshBlock *pmb, Real const time, Real const dt,
-                        AthenaArray<Real> const &w, AthenaArray<Real> const &r,
-                        AthenaArray<Real> const &bcc, AthenaArray<Real> &u,
-                        AthenaArray<Real> &s) {
+                     AthenaArray<Real> const &w, AthenaArray<Real> const &r,
+                     AthenaArray<Real> const &bcc, AthenaArray<Real> &u,
+                     AthenaArray<Real> &s) {
   int js = pmb->js;
   int je = pmb->je;
   int is = pmb->is;
   int ie = pmb->ie;
-  int jw; // index of j at the wall
+  int jw;  // index of j at the wall
 
   auto pthermo = Thermodynamics::GetInstance();
 
@@ -104,119 +101,122 @@ void WallInteraction(MeshBlock *pmb, Real const time, Real const dt,
   Real x2f_left, x2f_right, x1f_left, x1f_right, x1f_center, x2f_center;
   Real tanhweight;
 
-
   // remove water vapor
   for (int jj = 0; jj <= 1; ++jj) {
     jw = (jj == 0) ? js : je;
     x2f_left = pmb->pcoord->x2f(jw);
-    x2f_right = pmb->pcoord->x2f(jw+1);
-    x2f_center = (x2f_left+x2f_right)/2;
+    x2f_right = pmb->pcoord->x2f(jw + 1);
+    x2f_center = (x2f_left + x2f_right) / 2;
     x1f_left = pmb->pcoord->x1f(is);
-    x1f_right = pmb->pcoord->x1f(ie+1);
-    x1f_center = (x1f_left+x1f_right)/2;
+    x1f_right = pmb->pcoord->x1f(ie + 1);
+    x1f_center = (x1f_left + x1f_right) / 2;
 
-    if ( (x2f_center < wall1_corner_x2) || (x2f_center > wall2_corner_x2) ) {
-	    if (x1f_center < wall1_corner_x1){
-		    continue;
-	    }
+    if ((x2f_center < wall1_corner_x2) || (x2f_center > wall2_corner_x2)) {
+      if (x1f_center < wall1_corner_x1) {
+        continue;
+      }
 
-	    if ( x1f_left - 2*pmb->pcoord->dx1f(is) < wall1_corner_x1 ){
-              for (int k = pmb->ks; k <= pmb->ke; ++k)
-                  for (int j = pmb->js; j <= pmb->je; ++j) {
-          Ta = pthermo->GetTemp(pmb, k, j, is);
-          p_H2O = (pmb->phydro->w(IDN, k, j, is) * pmb->phydro->w(iH2O, k, j, is) * Rd * Ta / pthermo->GetMuRatio(iH2O));
-          Pw = sat_vapor_p_H2O(Ts);
-          csw = sqrt(2 * M_PI * Rd * Ts / pthermo->GetMuRatio(iH2O));
-          csa = sqrt(2 * M_PI * Rd * Ta / pthermo->GetMuRatio(iH2O));
-          //drhoH2O = dt * (Pw/csw - p_H2O/csa) / pmb->pcoord->dx1f(is);
-          drhoH2O = dt * ( - p_H2O/csa) / pmb->pcoord->dx1f(is);
-          u(iH2O, k, j, is) += drhoH2O;
-	  //std::cout << "x1min" << x1f_left << "x2min" << x2f_left << "Add upper wall" << std::endl;
+      if (x1f_left - 2 * pmb->pcoord->dx1f(is) < wall1_corner_x1) {
+        for (int k = pmb->ks; k <= pmb->ke; ++k)
+          for (int j = pmb->js; j <= pmb->je; ++j) {
+            Ta = pthermo->GetTemp(pmb, k, j, is);
+            p_H2O = (pmb->phydro->w(IDN, k, j, is) *
+                     pmb->phydro->w(iH2O, k, j, is) * Rd * Ta /
+                     pthermo->GetMuRatio(iH2O));
+            Pw = sat_vapor_p_H2O(Ts);
+            csw = sqrt(2 * M_PI * Rd * Ts / pthermo->GetMuRatio(iH2O));
+            csa = sqrt(2 * M_PI * Rd * Ta / pthermo->GetMuRatio(iH2O));
+            // drhoH2O = dt * (Pw/csw - p_H2O/csa) / pmb->pcoord->dx1f(is);
+            drhoH2O = dt * (-p_H2O / csa) / pmb->pcoord->dx1f(is);
+            u(iH2O, k, j, is) += drhoH2O;
+            // std::cout << "x1min" << x1f_left << "x2min" << x2f_left << "Add
+            // upper wall" << std::endl;
 
-          if (drhoH2O<0) {
-              KE= 0.5f*(pmb->phydro->w(IVX,k,j,is)*pmb->phydro->w(IVX,k,j,is)
-                      + pmb->phydro->w(IVY,k,j,is)*pmb->phydro->w(IVY,k,j,is)
-                      + pmb->phydro->w(IVZ,k,j,is)*pmb->phydro->w(IVZ,k,j,is));
-              u(IEN, k, j, is) += drhoH2O * (
-                KE + (Rd / (gammad - 1.)) * pthermo->GetCvRatioMass(iH2O) * Ta
-              );
+            if (drhoH2O < 0) {
+              KE = 0.5f * (pmb->phydro->w(IVX, k, j, is) *
+                               pmb->phydro->w(IVX, k, j, is) +
+                           pmb->phydro->w(IVY, k, j, is) *
+                               pmb->phydro->w(IVY, k, j, is) +
+                           pmb->phydro->w(IVZ, k, j, is) *
+                               pmb->phydro->w(IVZ, k, j, is));
+              u(IEN, k, j, is) +=
+                  drhoH2O * (KE + (Rd / (gammad - 1.)) *
+                                      pthermo->GetCvRatioMass(iH2O) * Ta);
               u(IVZ, k, j, is) += drhoH2O * pmb->phydro->w(IVZ, k, j, is);
               u(IVY, k, j, is) += drhoH2O * pmb->phydro->w(IVY, k, j, is);
               u(IVX, k, j, is) += drhoH2O * pmb->phydro->w(IVX, k, j, is);
-          } else {
-              u(IEN, k, j, is) += drhoH2O * (
-                (Rd / (gammad - 1.)) * pthermo->GetCvRatioMass(iH2O) * Tw
-              );
+            } else {
+              u(IEN, k, j, is) +=
+                  drhoH2O *
+                  ((Rd / (gammad - 1.)) * pthermo->GetCvRatioMass(iH2O) * Tw);
+            }
           }
-
-
-
-                  }
-           }
-    continue;
+      }
+      continue;
     }
 
-    if (x1f_center > wall1_corner_x1){
-	    continue;
+    if (x1f_center > wall1_corner_x1) {
+      continue;
     }
-    if ( (x2f_left - wall1_corner_x2 < pmb->pcoord->dx2f(js)) || (wall2_corner_x2 - x2f_right < pmb->pcoord->dx2f(je))) {
-       for (int k = pmb->ks; k <= pmb->ke; ++k)
-          for (int i = pmb->is; i <= pmb->ie; ++i) {
-
-          //if (pmb->pcoord->x1f(i) < 0.2 * wall2_cornerx1) {
+    if ((x2f_left - wall1_corner_x2 < pmb->pcoord->dx2f(js)) ||
+        (wall2_corner_x2 - x2f_right < pmb->pcoord->dx2f(je))) {
+      for (int k = pmb->ks; k <= pmb->ke; ++k)
+        for (int i = pmb->is; i <= pmb->ie; ++i) {
+          // if (pmb->pcoord->x1f(i) < 0.2 * wall2_cornerx1) {
           //  continue;
           //}
-	  tanhweight = (1.+tanh((pmb->pcoord->x1f(i)-5.*sigtanh)/sigtanh))/2.0;
+          tanhweight =
+              (1. + tanh((pmb->pcoord->x1f(i) - 5. * sigtanh) / sigtanh)) / 2.0;
 
-          dv1= - ( dt * drag_coef * pmb->phydro->w(IDN, k, jw, i)
-            * pmb->phydro->w(IVX, k, jw, i) * pmb->phydro->w(IVX, k, jw, i)
-            / pmb->pcoord->dx2f(jw));
-          u(IVX, k, jw, i) += dv1; // add drag
-          u(IEN, k, jw, i) += dv1*pmb->phydro->u(IVX, k, jw, i); // subduct energy 
+          dv1 = -(dt * drag_coef * pmb->phydro->w(IDN, k, jw, i) *
+                  pmb->phydro->w(IVX, k, jw, i) *
+                  pmb->phydro->w(IVX, k, jw, i) / pmb->pcoord->dx2f(jw));
+          u(IVX, k, jw, i) += dv1;  // add drag
+          u(IEN, k, jw, i) +=
+              dv1 * pmb->phydro->u(IVX, k, jw, i);  // subduct energy
 
           Ta = pthermo->GetTemp(pmb, k, jw, i);
 
-          p_H2O = (
-            pmb->phydro->w(IDN, k, jw, i) * pmb->phydro->w(iH2O, k, jw, i)
-            * Rd * Ta / pthermo->GetMuRatio(iH2O)
-          );
+          p_H2O =
+              (pmb->phydro->w(IDN, k, jw, i) * pmb->phydro->w(iH2O, k, jw, i) *
+               Rd * Ta / pthermo->GetMuRatio(iH2O));
           z = pmb->pcoord->x1f(i);
-          Tw = Tm * pow(Ts/Tm, (z-x1min)/(wall1_corner_x1-x1min));
+          Tw = Tm * pow(Ts / Tm, (z - x1min) / (wall1_corner_x1 - x1min));
           Pw = sat_vapor_p_H2O(Tw);
 
           csw = sqrt(2 * M_PI * Rd * Tw / pthermo->GetMuRatio(iH2O));
           csa = sqrt(2 * M_PI * Rd * Ta / pthermo->GetMuRatio(iH2O));
 
-          drhoH2O = dt * (Pw/csw - p_H2O/csa) / pmb->pcoord->dx2f(jw);
-	  drhoH2O *= tanhweight;
+          drhoH2O = dt * (Pw / csw - p_H2O / csa) / pmb->pcoord->dx2f(jw);
+          drhoH2O *= tanhweight;
 
           u(iH2O, k, jw, i) += drhoH2O;
 
-          if (drhoH2O<0) {
-              KE= 0.5f*(pmb->phydro->w(IVX,k,jw,i)*pmb->phydro->w(IVX,k,jw,i)
-                      + pmb->phydro->w(IVY,k,jw,i)*pmb->phydro->w(IVY,k,jw,i)
-                      + pmb->phydro->w(IVZ,k,jw,i)*pmb->phydro->w(IVZ,k,jw,i));
-              u(IEN, k, jw, i) += drhoH2O * (
-                KE + (Rd / (gammad - 1.)) * pthermo->GetCvRatioMass(iH2O) * Ta
-              );
-              u(IVZ, k, jw, i) += drhoH2O * pmb->phydro->w(IVZ, k, jw, i);
-              u(IVY, k, jw, i) += drhoH2O * pmb->phydro->w(IVY, k, jw, i);
-              u(IVX, k, jw, i) += drhoH2O * pmb->phydro->w(IVX, k, jw, i);
+          if (drhoH2O < 0) {
+            KE =
+                0.5f *
+                (pmb->phydro->w(IVX, k, jw, i) * pmb->phydro->w(IVX, k, jw, i) +
+                 pmb->phydro->w(IVY, k, jw, i) * pmb->phydro->w(IVY, k, jw, i) +
+                 pmb->phydro->w(IVZ, k, jw, i) * pmb->phydro->w(IVZ, k, jw, i));
+            u(IEN, k, jw, i) +=
+                drhoH2O * (KE + (Rd / (gammad - 1.)) *
+                                    pthermo->GetCvRatioMass(iH2O) * Ta);
+            u(IVZ, k, jw, i) += drhoH2O * pmb->phydro->w(IVZ, k, jw, i);
+            u(IVY, k, jw, i) += drhoH2O * pmb->phydro->w(IVY, k, jw, i);
+            u(IVX, k, jw, i) += drhoH2O * pmb->phydro->w(IVX, k, jw, i);
           } else {
-              u(IEN, k, jw, i) += drhoH2O * (
-                (Rd / (gammad - 1.)) * pthermo->GetCvRatioMass(iH2O) * Tw
-              );
+            u(IEN, k, jw, i) += drhoH2O * ((Rd / (gammad - 1.)) *
+                                           pthermo->GetCvRatioMass(iH2O) * Tw);
           }
-       }
+        }
     }
   }
 }
 
-
 void BottomInjection(MeshBlock *pmb, Real const time, Real const dt,
-                        AthenaArray<Real> const &w, AthenaArray<Real> const &r,
-                        AthenaArray<Real> const &bcc, AthenaArray<Real> &u,
-                        AthenaArray<Real> &s) {
+                     AthenaArray<Real> const &w, AthenaArray<Real> const &r,
+                     AthenaArray<Real> const &bcc, AthenaArray<Real> &u,
+                     AthenaArray<Real> &s) {
   int is = pmb->is;
   int ie = pmb->ie;
 
@@ -226,64 +226,68 @@ void BottomInjection(MeshBlock *pmb, Real const time, Real const dt,
 
   Real x1s = pmb->pcoord->x1f(is);
 
-  if (x1s < x1min+pmb->pcoord->dx1f(is)) {
-      for (int k = pmb->ks; k <= pmb->ke; ++k)
-        for (int j = pmb->js; j <= pmb->je; ++j) {
-          //std::cout << pmb->pcoord->x2v(j) << std::endl;
-          // inject at the center of the bottom boundary
-          if ((pmb->pcoord->x2v(j) < wall1_corner_x2) || pmb->pcoord->x2v(j) > wall2_corner_x2) {
-              continue;
-          }
-            
-	    p = pmb->phydro->w(IPR, k, j, is);
+  if (x1s < x1min + pmb->pcoord->dx1f(is)) {
+    for (int k = pmb->ks; k <= pmb->ke; ++k)
+      for (int j = pmb->js; j <= pmb->je; ++j) {
+        // std::cout << pmb->pcoord->x2v(j) << std::endl;
+        // inject at the center of the bottom boundary
+        if ((pmb->pcoord->x2v(j) < wall1_corner_x2) ||
+            pmb->pcoord->x2v(j) > wall2_corner_x2) {
+          continue;
+        }
 
-	    // add water vapor
-        drhoH2O = (
-            dt * (Ptriple1 - p) / sqrt(2 * M_PI * Rd * Ttriple1 / pthermo->GetMuRatio(iH2O))
-            ) / pmb->pcoord->dx1f(is);
-        u(iH2O, k, j, is) += drhoH2O;
-        u(IEN, k, j, is) += drhoH2O * (Rd / (gammad - 1.)) * pthermo->GetCvRatioMass(iH2O) * Ttriple1;
-	    // add dry air (H2)
-	    drhoH2=drhoH2O*massflux_H2ratio;
+        p = pmb->phydro->w(IPR, k, j, is);
+
+        // add water vapor
+        drhoH2O = (dt * (Ptriple1 - p) /
+                   sqrt(2 * M_PI * Rd * Ttriple1 / pthermo->GetMuRatio(iH2O))) /
+                  pmb->pcoord->dx1f(is);
+
+        // u(iH2O, k, j, is) += drhoH2O;
+        // u(IEN, k, j, is) += drhoH2O * (Rd / (gammad - 1.)) *
+        // pthermo->GetCvRatioMass(iH2O) * Ttriple1;
+
+        // add dry air (H2)
+        drhoH2 = drhoH2O * massflux_H2ratio;
         u(IDN, k, j, is) += drhoH2;
         u(IEN, k, j, is) += drhoH2 * (Rd / (gammad - 1.)) * Ttriple1;
-	    // add CO2
-	    drhoCO2=drhoH2O*massflux_CO2ratio;
-	    u(iCO2, k, j, is) += drhoCO2;
-        u(IEN, k, j, is) += drhoCO2 * (Rd / (gammad - 1.)) * pthermo->GetCvRatioMass(iCO2) * Ttriple1;
-        }
+        // add CO2
+        drhoCO2 = drhoH2O * massflux_CO2ratio;
+        u(iCO2, k, j, is) += drhoCO2;
+        u(IEN, k, j, is) += drhoCO2 * (Rd / (gammad - 1.)) *
+                            pthermo->GetCvRatioMass(iCO2) * Ttriple1;
+      }
   }
-
 }
 
 void Forcing(MeshBlock *pmb, Real const time, Real const dt,
-                        AthenaArray<Real> const &w, AthenaArray<Real> const &r,
-                        AthenaArray<Real> const &bcc, AthenaArray<Real> &u,
-                        AthenaArray<Real> &s) {
+             AthenaArray<Real> const &w, AthenaArray<Real> const &r,
+             AthenaArray<Real> const &bcc, AthenaArray<Real> &u,
+             AthenaArray<Real> &s) {
   BottomInjection(pmb, time, dt, w, r, bcc, u, s);
-  WallInteraction(pmb, time, dt, w, r, bcc, u, s);
+  // WallInteraction(pmb, time, dt, w, r, bcc, u, s);
 }
 
 void reflecting_x2_left(MeshBlock *pmb, Coordinates *pco,
-                     AthenaArray<Real> &prim, FaceField &b,
-                     Real time, Real dt,
-                     int il, int iu, int jl, int ju, int kl, int ku, int ngh)
-{
+                        AthenaArray<Real> &prim, FaceField &b, Real time,
+                        Real dt, int il, int iu, int jl, int ju, int kl, int ku,
+                        int ngh) {
   // copy hydro variables into ghost zones, reflecting v2
-  for (int n=0; n<=NHYDRO; ++n) {
+  for (int n = 0; n <= NHYDRO; ++n) {
     if (n == IVY) {
-      for (int k=kl; k<=ku; ++k) {
-        for (int j=1; j<=ngh; ++j) {
-          for (int i=il; i<=iu; ++i) {
-            prim(IVY,k,jl-j,i) = -prim(IVY,k,jl+j-1,i);  // reflect 2-velocity
+      for (int k = kl; k <= ku; ++k) {
+        for (int j = 1; j <= ngh; ++j) {
+          for (int i = il; i <= iu; ++i) {
+            prim(IVY, k, jl - j, i) =
+                -prim(IVY, k, jl + j - 1, i);  // reflect 2-velocity
           }
         }
       }
     } else {
-      for (int k=kl; k<=ku; ++k) {
-        for (int j=1; j<=ngh; ++j) {
-          for (int i=il; i<=iu; ++i) {
-            prim(n,k,jl-j,i) = prim(n,k,jl+j-1,i);
+      for (int k = kl; k <= ku; ++k) {
+        for (int j = 1; j <= ngh; ++j) {
+          for (int i = il; i <= iu; ++i) {
+            prim(n, k, jl - j, i) = prim(n, k, jl + j - 1, i);
           }
         }
       }
@@ -292,54 +296,52 @@ void reflecting_x2_left(MeshBlock *pmb, Coordinates *pco,
 }
 
 void reflecting_x2_right(MeshBlock *pmb, Coordinates *pco,
-                      AthenaArray<Real> &prim, FaceField &b,
-                      Real time, Real dt,
-                      int il, int iu, int jl, int ju, int kl, int ku, int ngh)
-{
+                         AthenaArray<Real> &prim, FaceField &b, Real time,
+                         Real dt, int il, int iu, int jl, int ju, int kl,
+                         int ku, int ngh) {
   // copy hydro variables into ghost zones, reflecting v2
-  for (int n=0; n<=NHYDRO; ++n) {
+  for (int n = 0; n <= NHYDRO; ++n) {
     if (n == (IVY)) {
-      for (int k=kl; k<=ku; ++k) {
-        for (int j=1; j<=ngh; ++j) {
+      for (int k = kl; k <= ku; ++k) {
+        for (int j = 1; j <= ngh; ++j) {
 #pragma omp simd
-          for (int i=il; i<=iu; ++i) {
-            prim(IVY,k,ju+j,i) = -prim(IVY,k,ju-j+1,i);  // reflect 2-velocity
+          for (int i = il; i <= iu; ++i) {
+            prim(IVY, k, ju + j, i) =
+                -prim(IVY, k, ju - j + 1, i);  // reflect 2-velocity
           }
         }
       }
     } else {
-      for (int k=kl; k<=ku; ++k) {
-        for (int j=1; j<=ngh; ++j) {
+      for (int k = kl; k <= ku; ++k) {
+        for (int j = 1; j <= ngh; ++j) {
 #pragma omp simd
-          for (int i=il; i<=iu; ++i) {
-            prim(n,k,ju+j,i) = prim(n,k,ju-j+1,i);
+          for (int i = il; i <= iu; ++i) {
+            prim(n, k, ju + j, i) = prim(n, k, ju - j + 1, i);
           }
         }
       }
     }
   }
-
 }
 
 void reflecting_x1_left(MeshBlock *pmb, Coordinates *pco,
-                     AthenaArray<Real> &prim, FaceField &b,
-                     Real time, Real dt,
-                     int il, int iu, int jl, int ju, int kl, int ku, int ngh)
-{
-  for (int n=0; n<=NHYDRO; ++n) {
+                        AthenaArray<Real> &prim, FaceField &b, Real time,
+                        Real dt, int il, int iu, int jl, int ju, int kl, int ku,
+                        int ngh) {
+  for (int n = 0; n <= NHYDRO; ++n) {
     if (n == IVX) {
-      for (int k=kl; k<=ku; ++k) {
-        for (int j=jl; j<=jl; ++j) {
-          for (int i=1; i<=ngh; ++i) {
-            prim(n,k,j,il-i) = -prim(n,k,j,il+i-1);
+      for (int k = kl; k <= ku; ++k) {
+        for (int j = jl; j <= jl; ++j) {
+          for (int i = 1; i <= ngh; ++i) {
+            prim(n, k, j, il - i) = -prim(n, k, j, il + i - 1);
           }
         }
       }
     } else {
-      for (int k=kl; k<=ku; ++k) {
-        for (int j=jl; j<=jl; ++j) {
-          for (int i=1; i<=ngh; ++i) {
-            prim(n,k,j,il-i) = prim(n,k,j,il+i-1);
+      for (int k = kl; k <= ku; ++k) {
+        for (int j = jl; j <= jl; ++j) {
+          for (int i = 1; i <= ngh; ++i) {
+            prim(n, k, j, il - i) = prim(n, k, j, il + i - 1);
           }
         }
       }
@@ -348,36 +350,32 @@ void reflecting_x1_left(MeshBlock *pmb, Coordinates *pco,
 }
 
 void reflecting_x1_right(MeshBlock *pmb, Coordinates *pco,
-                      AthenaArray<Real> &prim, FaceField &b,
-                      Real time, Real dt,
-                      int il, int iu, int jl, int ju, int kl, int ku, int ngh)
-{
-  for (int n=0; n<=NHYDRO; ++n) {
+                         AthenaArray<Real> &prim, FaceField &b, Real time,
+                         Real dt, int il, int iu, int jl, int ju, int kl,
+                         int ku, int ngh) {
+  for (int n = 0; n <= NHYDRO; ++n) {
     if (n == (IVX)) {
-      for (int k=kl; k<=ku; ++k) {
-        for (int j=jl; j<=ju; ++j) {
+      for (int k = kl; k <= ku; ++k) {
+        for (int j = jl; j <= ju; ++j) {
 #pragma omp simd
-          for (int i=1; i<=ngh; ++i) {
-            prim(n,k,j,iu + i) = -prim(n,k,j,iu-i+1);
+          for (int i = 1; i <= ngh; ++i) {
+            prim(n, k, j, iu + i) = -prim(n, k, j, iu - i + 1);
           }
         }
       }
     } else {
-      for (int k=kl; k<=ku; ++k) {
-        for (int j=jl; j<=ju; ++j) {
+      for (int k = kl; k <= ku; ++k) {
+        for (int j = jl; j <= ju; ++j) {
 #pragma omp simd
-          for (int i=1; i<=ngh; ++i) {
-            prim(n,k,j,iu + i) = prim(n,k,j,iu-i+1);
+          for (int i = 1; i <= ngh; ++i) {
+            prim(n, k, j, iu + i) = prim(n, k, j, iu - i + 1);
           }
         }
       }
     }
   }
-
 }
-bool fclose(Real x, Real x0) {
-  return std::abs(x - x0) < 1.e-6;
-}
+bool fclose(Real x, Real x0) { return std::abs(x - x0) < 1.e-6; }
 
 void Mesh::InitUserMeshData(ParameterInput *pin) {
   auto pindex = IndexMap::GetInstance();
@@ -387,10 +385,10 @@ void Mesh::InitUserMeshData(ParameterInput *pin) {
   Ptriple1 = pin->GetReal("thermodynamics", "Ptriple1");
   Ttriple1 = pin->GetReal("thermodynamics", "Ttriple1");
   Rd = pin->GetReal("thermodynamics", "Rd");
-  x1min = pin->GetReal("mesh","x1min");
-  x1max = pin->GetReal("mesh","x1max");
-  x2min = pin->GetReal("mesh","x2min");
-  x2max = pin->GetReal("mesh","x2max");
+  x1min = pin->GetReal("mesh", "x1min");
+  x1max = pin->GetReal("mesh", "x1max");
+  x2min = pin->GetReal("mesh", "x2min");
+  x2max = pin->GetReal("mesh", "x2max");
 
   gammad = pin->GetReal("hydro", "gamma");
   // rcp1 = pin->GetReal("thermodynamics", "rcp1");
@@ -407,8 +405,8 @@ void Mesh::InitUserMeshData(ParameterInput *pin) {
 
   rho_bottom = pin->GetReal("initialcondition", "rho_bottom");
   ScaleHeight = pin->GetReal("initialcondition", "ScaleHeight");
-  H2Oratio  = pin->GetReal("initialcondition", "H2Oratio");
-  CO2ratio  = pin->GetReal("initialcondition", "CO2ratio");
+  H2Oratio = pin->GetReal("initialcondition", "H2Oratio");
+  CO2ratio = pin->GetReal("initialcondition", "CO2ratio");
 
   // index
   iH2O = pindex->GetVaporId("H2O");
@@ -420,55 +418,58 @@ void Mesh::InitUserMeshData(ParameterInput *pin) {
   wall1_corner_x2 = pin->GetReal("problem", "wall1_corner_x2");
   wall2_corner_x1 = pin->GetReal("problem", "wall2_corner_x1");
   wall2_corner_x2 = pin->GetReal("problem", "wall2_corner_x2");
-  sigtanh=pin->GetReal("problem", "sigtanh");
+  sigtanh = pin->GetReal("problem", "sigtanh");
 
   EnrollUserExplicitSourceFunction(Forcing);
 }
 
 void MeshBlock::ProblemGenerator(ParameterInput *pin) {
+  auto pthermo = Thermodynamics::GetInstance();
+  Real rho;
+  Real dryratio;
 
-    auto pthermo = Thermodynamics::GetInstance();
-    Real rho;
-    Real dryratio;
+  Real x1minblock = block_size.x1min;
+  Real x1maxblock = block_size.x1max;
+  Real x1c = (x1minblock + x1maxblock) / 2;
+  Real x2minblock = block_size.x2min;
+  Real x2maxblock = block_size.x2max;
+  Real x2c = (x2minblock + x2maxblock) / 2;
 
-    Real x1minblock = block_size.x1min;
-    Real x1maxblock = block_size.x1max;
-    Real x1c = (x1minblock + x1maxblock) / 2;
-    Real x2minblock = block_size.x2min;
-    Real x2maxblock = block_size.x2max;
-    Real x2c = (x2minblock + x2maxblock) / 2;
+  dryratio = 1.0f - H2Oratio - CO2ratio;
 
-    dryratio=1.0f-H2Oratio-CO2ratio;
-
-    for (int k = ks; k <= ke; ++k) {
-        for (int j = js; j <= je; ++j) {
-            for (int i = is; i <= ie; ++i) {
-		//decay from surface
-		rho = rho_bottom;
-		if ( x1c > wall1_corner_x1) {
-			rho = rho_bottom * exp( -(this->pcoord->x1f(i)-wall1_corner_x1) / ScaleHeight);
-		}
-
-
-		//decay from bottom
-		//rho = rho_bottom * exp( -(this->pcoord->x1f(i)-x1min) / ScaleHeight);
-		//if ( (x1c < wall1_corner_x1) && ( (x2c<wall1_corner_x2) || (x2c>wall2_corner_x2)  )){
-		//	rho = rho_bottom * exp( -(wall1_corner_x1-x1min) / ScaleHeight);
-		//}
-                this->phydro->w(IDN, k, j, i) = rho;
-                this->phydro->w(iH2O, k, j, i) = H2Oratio;
-                this->phydro->w(iCO2, k, j, i) = CO2ratio;
-                for (int n = IVX; n < IPR; ++n) {
-                    this->phydro->w(n, k, j, i) = 0.f;
-                }
-                this->phydro->w(IPR, k, j, i) = Ttriple1 * dryratio * rho * Rd;
-                this->phydro->w(IPR, k, j, i) += Ttriple1 * H2Oratio * rho * Rd / pthermo->GetMuRatio(iH2O);
-                this->phydro->w(IPR, k, j, i) += Ttriple1 * CO2ratio * rho * Rd / pthermo->GetMuRatio(iCO2);
-                //std::cout << "IDN"<<IDN<<" iH2O"<<iH2O<<" iCO2"<<iCO2<<" iH2Oc"<<iH2Oc<<" iCO2c"<< iCO2c<< std::endl;
-            }
+  for (int k = ks; k <= ke; ++k) {
+    for (int j = js; j <= je; ++j) {
+      for (int i = is; i <= ie; ++i) {
+        // decay from surface
+        rho = rho_bottom;
+        if (x1c > wall1_corner_x1) {
+          rho = rho_bottom *
+                exp(-(this->pcoord->x1f(i) - wall1_corner_x1) / ScaleHeight);
         }
+
+        // decay from bottom
+        // rho = rho_bottom * exp( -(this->pcoord->x1f(i)-x1min) / ScaleHeight);
+        // if ( (x1c < wall1_corner_x1) && ( (x2c<wall1_corner_x2) ||
+        // (x2c>wall2_corner_x2)  )){ 	rho = rho_bottom * exp(
+        //-(wall1_corner_x1-x1min) / ScaleHeight);
+        //}
+        this->phydro->w(IDN, k, j, i) = rho;
+        this->phydro->w(iH2O, k, j, i) = H2Oratio;
+        this->phydro->w(iCO2, k, j, i) = CO2ratio;
+        for (int n = IVX; n < IPR; ++n) {
+          this->phydro->w(n, k, j, i) = 0.f;
+        }
+        this->phydro->w(IPR, k, j, i) = Ttriple1 * dryratio * rho * Rd;
+        this->phydro->w(IPR, k, j, i) +=
+            Ttriple1 * H2Oratio * rho * Rd / pthermo->GetMuRatio(iH2O);
+        this->phydro->w(IPR, k, j, i) +=
+            Ttriple1 * CO2ratio * rho * Rd / pthermo->GetMuRatio(iCO2);
+        // std::cout << "IDN"<<IDN<<" iH2O"<<iH2O<<" iCO2"<<iCO2<<"
+        // iH2Oc"<<iH2Oc<<" iCO2c"<< iCO2c<< std::endl;
+      }
     }
-    peos->PrimitiveToConserved(phydro->w, pfield->bcc, phydro->u, pcoord, is, ie,
+  }
+  peos->PrimitiveToConserved(phydro->w, pfield->bcc, phydro->u, pcoord, is, ie,
                              js, je, ks, ke);
 
   if (fclose(x2minblock, wall1_corner_x2) && (x1c < wall1_corner_x1)) {
@@ -476,7 +477,8 @@ void MeshBlock::ProblemGenerator(ParameterInput *pin) {
     pbval->block_bcs[BoundaryFace::inner_x2] = BoundaryFlag::user;
     pbval->apply_bndry_fn_[BoundaryFace::inner_x2] = true;
     std::cout << "Boundary left enrolled" << std::endl;
-    pmy_mesh->EnrollUserBoundaryFunction(BoundaryFace::inner_x2, reflecting_x2_left);
+    pmy_mesh->EnrollUserBoundaryFunction(BoundaryFace::inner_x2,
+                                         reflecting_x2_left);
   }
 
   if (fclose(x2maxblock, wall1_corner_x2) && (x1c < wall1_corner_x1)) {
@@ -484,21 +486,24 @@ void MeshBlock::ProblemGenerator(ParameterInput *pin) {
     pbval->block_bcs[BoundaryFace::outer_x2] = BoundaryFlag::user;
     pbval->apply_bndry_fn_[BoundaryFace::outer_x2] = true;
     std::cout << "Boundary right enrolled" << std::endl;
-    pmy_mesh->EnrollUserBoundaryFunction(BoundaryFace::outer_x2, reflecting_x2_right);
+    pmy_mesh->EnrollUserBoundaryFunction(BoundaryFace::outer_x2,
+                                         reflecting_x2_right);
   }
 
   if ((x2c < wall1_corner_x2) && fclose(x1maxblock, wall1_corner_x1)) {
     pmy_mesh->mesh_bcs[BoundaryFace::outer_x1] = BoundaryFlag::user;
     pbval->block_bcs[BoundaryFace::outer_x1] = BoundaryFlag::user;
     pbval->apply_bndry_fn_[BoundaryFace::outer_x1] = true;
-    pmy_mesh->EnrollUserBoundaryFunction(BoundaryFace::outer_x1, reflecting_x1_right);
+    pmy_mesh->EnrollUserBoundaryFunction(BoundaryFace::outer_x1,
+                                         reflecting_x1_right);
   }
 
   if ((x2c < wall1_corner_x2) && fclose(x1minblock, wall1_corner_x1)) {
     pmy_mesh->mesh_bcs[BoundaryFace::inner_x1] = BoundaryFlag::user;
     pbval->block_bcs[BoundaryFace::inner_x1] = BoundaryFlag::user;
     pbval->apply_bndry_fn_[BoundaryFace::inner_x1] = true;
-    pmy_mesh->EnrollUserBoundaryFunction(BoundaryFace::inner_x1, reflecting_x1_left);
+    pmy_mesh->EnrollUserBoundaryFunction(BoundaryFace::inner_x1,
+                                         reflecting_x1_left);
   }
 
   // add a block
@@ -507,7 +512,8 @@ void MeshBlock::ProblemGenerator(ParameterInput *pin) {
     pbval->block_bcs[BoundaryFace::inner_x2] = BoundaryFlag::user;
     pbval->apply_bndry_fn_[BoundaryFace::inner_x2] = true;
     std::cout << "Boundary left enrolled" << std::endl;
-    pmy_mesh->EnrollUserBoundaryFunction(BoundaryFace::inner_x2, reflecting_x2_left);
+    pmy_mesh->EnrollUserBoundaryFunction(BoundaryFace::inner_x2,
+                                         reflecting_x2_left);
   }
 
   if (fclose(x2maxblock, wall2_corner_x2) && (x1c < wall2_corner_x1)) {
@@ -515,21 +521,23 @@ void MeshBlock::ProblemGenerator(ParameterInput *pin) {
     pbval->block_bcs[BoundaryFace::outer_x2] = BoundaryFlag::user;
     pbval->apply_bndry_fn_[BoundaryFace::outer_x2] = true;
     std::cout << "Boundary right enrolled" << std::endl;
-    pmy_mesh->EnrollUserBoundaryFunction(BoundaryFace::outer_x2, reflecting_x2_right);
+    pmy_mesh->EnrollUserBoundaryFunction(BoundaryFace::outer_x2,
+                                         reflecting_x2_right);
   }
 
   if ((x2c > wall2_corner_x2) && fclose(x1maxblock, wall2_corner_x1)) {
     pmy_mesh->mesh_bcs[BoundaryFace::outer_x1] = BoundaryFlag::user;
     pbval->block_bcs[BoundaryFace::outer_x1] = BoundaryFlag::user;
     pbval->apply_bndry_fn_[BoundaryFace::outer_x1] = true;
-    pmy_mesh->EnrollUserBoundaryFunction(BoundaryFace::outer_x1, reflecting_x1_right);
+    pmy_mesh->EnrollUserBoundaryFunction(BoundaryFace::outer_x1,
+                                         reflecting_x1_right);
   }
 
   if ((x2c > wall2_corner_x2) && fclose(x1minblock, wall2_corner_x1)) {
     pmy_mesh->mesh_bcs[BoundaryFace::inner_x1] = BoundaryFlag::user;
     pbval->block_bcs[BoundaryFace::inner_x1] = BoundaryFlag::user;
     pbval->apply_bndry_fn_[BoundaryFace::inner_x1] = true;
-    pmy_mesh->EnrollUserBoundaryFunction(BoundaryFace::inner_x1, reflecting_x1_left);
+    pmy_mesh->EnrollUserBoundaryFunction(BoundaryFace::inner_x1,
+                                         reflecting_x1_left);
   }
-
 }

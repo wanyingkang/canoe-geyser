@@ -39,9 +39,9 @@ x1max       = 1.E3          # maximum value of X1
 ix1_bc      = reflecting    # inner-X1 boundary flag
 ox1_bc      = outflow       # outer-X1 boundary flag
 
-nx2         = 50            # Number of zones in X2-direction
-x2min       = -250.         # minimum value of X2
-x2max       =  250.         # maximum value of X2
+nx2         = 30            # Number of zones in X2-direction
+x2min       = -150.         # minimum value of X2
+x2max       =  150.         # maximum value of X2
 ix2_bc      = outflow      # inner-X2 boundary flag
 ox2_bc      = outflow      # outer-X2 boundary flag
 
@@ -79,8 +79,8 @@ beta2       = 0. 14.99
 Ttriple2    = 216.59
 Ptriple2    = 5.1795e5
 
-massflux_H2ratio=0.01 # injected mass ratio of H2
-massflux_CO2ratio=0.01 # injected mass ratio of CO2
+massflux_H2ratio=1.f # injected mass ratio of H2
+massflux_CO2ratio=0.f # injected mass ratio of CO2
 
 sa.max_iter = 10
 sa.relax    = 0.9
@@ -110,9 +110,5 @@ sigtanh = 30.
 <initialcondition>
 rho_bottom = 4.0e-4
 ScaleHeight = 100.0
-H2Oratio=0.8f
-CO2ratio=0.15f
-
-
-
-
+H2Oratio=0.f
+CO2ratio=0.f
