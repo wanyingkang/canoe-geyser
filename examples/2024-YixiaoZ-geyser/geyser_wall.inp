@@ -21,10 +21,14 @@ file_type   = pnetcdf       # Netcdf format output
 variable    = uov           # diagnostic variables
 dt          = 0.1           # time increment
 
+<output4>
+file_type   = rst           # History data dump
+dt          = 50.           # time increment between outputs
+
 <time>
-cfl_number  = 0.05          # The Courant, Friedrichs, & Lewy (CFL) Number
+cfl_number  = 0.02          # The Courant, Friedrichs, & Lewy (CFL) Number
 nlim        = -1            # cycle limit
-tlim        = 20.           # time limit
+tlim        = 100.           # time limit
 xorder      = 5             # horizontal reconstruction order
 integrator  = rk3           # integration method
 
@@ -38,8 +42,8 @@ ox1_bc      = outflow       # outer-X1 boundary flag
 nx2         = 50            # Number of zones in X2-direction
 x2min       = -250.         # minimum value of X2
 x2max       =  250.         # maximum value of X2
-ix2_bc      = periodic      # inner-X2 boundary flag
-ox2_bc      = periodic      # outer-X2 boundary flag
+ix2_bc      = outflow      # inner-X2 boundary flag
+ox2_bc      = outflow      # outer-X2 boundary flag
 
 nx3         = 1             # Number of zones in X3-direction
 x3min       = -0.5          # minimum value of X3
@@ -55,7 +59,7 @@ nx3         = 1
 <hydro>
 grav_acc1   = -0.113
 gamma      = 1.45        # gamma = C_pd/C_vd
-drag_coef = 500.0
+drag_coef = 2e-3
 
 <species>
 vapor = H2O, CO2
@@ -93,7 +97,7 @@ qt    = 0.0196
 tau   = 1e8
 
 Tm    = 271.0 # melting temperature of ice, water-ice interface temp
-Ts    = 100.0 # ice surface temperature
+Ts    = 200.0 # ice surface temperature
 
 wall1_corner_x1 = 500.
 wall1_corner_x2 = -50.
@@ -105,7 +109,7 @@ sigtanh = 30.
 
 <initialcondition>
 rho_bottom = 4.0e-4
-ScaleHeight = 100.0
+ScaleHeight = 10000.0
 H2Oratio=0.8f
 CO2ratio=0.15f
 

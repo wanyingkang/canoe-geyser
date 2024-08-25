@@ -115,6 +115,7 @@ void WallInteraction(MeshBlock *pmb, Real const time, Real const dt,
     x1f_right = pmb->pcoord->x1f(ie+1);
     x1f_center = (x1f_left+x1f_right)/2;
 
+  // Adding upper wall boundary
     if ( (x2f_center < wall1_corner_x2) || (x2f_center > wall2_corner_x2) ) {
 	    if (x1f_center < wall1_corner_x1){
 		    continue;
@@ -128,26 +129,25 @@ void WallInteraction(MeshBlock *pmb, Real const time, Real const dt,
           Pw = sat_vapor_p_H2O(Ts);
           csw = sqrt(2 * M_PI * Rd * Ts / pthermo->GetMuRatio(iH2O));
           csa = sqrt(2 * M_PI * Rd * Ta / pthermo->GetMuRatio(iH2O));
-          //drhoH2O = dt * (Pw/csw - p_H2O/csa) / pmb->pcoord->dx1f(is);
-          drhoH2O = dt * ( - p_H2O/csa) / pmb->pcoord->dx1f(is);
-          u(iH2O, k, j, is) += drhoH2O;
-	  //std::cout << "x1min" << x1f_left << "x2min" << x2f_left << "Add upper wall" << std::endl;
+          drhoH2O = dt * ( Pw/csw - p_H2O/csa) / pmb->pcoord->dx1f(is);
+  //      u(iH2O, k, j, is) += drhoH2O;
+  //      //std::cout << "x1min" << x1f_left << "x2min" << x2f_left << "Add upper wall" << std::endl;
 
-          if (drhoH2O<0) {
-              KE= 0.5f*(pmb->phydro->w(IVX,k,j,is)*pmb->phydro->w(IVX,k,j,is)
-                      + pmb->phydro->w(IVY,k,j,is)*pmb->phydro->w(IVY,k,j,is)
-                      + pmb->phydro->w(IVZ,k,j,is)*pmb->phydro->w(IVZ,k,j,is));
-              u(IEN, k, j, is) += drhoH2O * (
-                KE + (Rd / (gammad - 1.)) * pthermo->GetCvRatioMass(iH2O) * Ta
-              );
-              u(IVZ, k, j, is) += drhoH2O * pmb->phydro->w(IVZ, k, j, is);
-              u(IVY, k, j, is) += drhoH2O * pmb->phydro->w(IVY, k, j, is);
-              u(IVX, k, j, is) += drhoH2O * pmb->phydro->w(IVX, k, j, is);
-          } else {
-              u(IEN, k, j, is) += drhoH2O * (
-                (Rd / (gammad - 1.)) * pthermo->GetCvRatioMass(iH2O) * Tw
-              );
-          }
+  //    if (drhoH2O<0) {
+  //        KE= 0.5f*(pmb->phydro->w(IVX,k,j,is)*pmb->phydro->w(IVX,k,j,is)
+  //                + pmb->phydro->w(IVY,k,j,is)*pmb->phydro->w(IVY,k,j,is)
+  //                + pmb->phydro->w(IVZ,k,j,is)*pmb->phydro->w(IVZ,k,j,is));
+  //        u(IEN, k, j, is) += drhoH2O * (
+  //          KE + (Rd / (gammad - 1.)) * pthermo->GetCvRatioMass(iH2O) * Ta
+  //        );
+  //        u(IVZ, k, j, is) += drhoH2O * pmb->phydro->w(IVZ, k, j, is);
+  //        u(IVY, k, j, is) += drhoH2O * pmb->phydro->w(IVY, k, j, is);
+  //        u(IVX, k, j, is) += drhoH2O * pmb->phydro->w(IVX, k, j, is);
+  //    } else {
+  //        u(IEN, k, j, is) += drhoH2O * (
+  //          (Rd / (gammad - 1.)) * pthermo->GetCvRatioMass(iH2O) * Tw
+  //        );
+  //    }
 
 
 
@@ -159,6 +159,9 @@ void WallInteraction(MeshBlock *pmb, Real const time, Real const dt,
     if (x1f_center > wall1_corner_x1){
 	    continue;
     }
+    
+    // Adding side wall
+    
     if ( (x2f_left - wall1_corner_x2 < pmb->pcoord->dx2f(js)) || (wall2_corner_x2 - x2f_right < pmb->pcoord->dx2f(je))) {
        for (int k = pmb->ks; k <= pmb->ke; ++k)
           for (int i = pmb->is; i <= pmb->ie; ++i) {
@@ -270,7 +273,7 @@ void reflecting_x2_left(MeshBlock *pmb, Coordinates *pco,
                      int il, int iu, int jl, int ju, int kl, int ku, int ngh)
 {
   // copy hydro variables into ghost zones, reflecting v2
-  for (int n=0; n<=NHYDRO; ++n) {
+  for (int n=0; n<NHYDRO; ++n) {
     if (n == IVY) {
       for (int k=kl; k<=ku; ++k) {
         for (int j=1; j<=ngh; ++j) {
@@ -297,7 +300,7 @@ void reflecting_x2_right(MeshBlock *pmb, Coordinates *pco,
                       int il, int iu, int jl, int ju, int kl, int ku, int ngh)
 {
   // copy hydro variables into ghost zones, reflecting v2
-  for (int n=0; n<=NHYDRO; ++n) {
+  for (int n=0; n<NHYDRO; ++n) {
     if (n == (IVY)) {
       for (int k=kl; k<=ku; ++k) {
         for (int j=1; j<=ngh; ++j) {
@@ -326,10 +329,10 @@ void reflecting_x1_left(MeshBlock *pmb, Coordinates *pco,
                      Real time, Real dt,
                      int il, int iu, int jl, int ju, int kl, int ku, int ngh)
 {
-  for (int n=0; n<=NHYDRO; ++n) {
+  for (int n=0; n<NHYDRO; ++n) {
     if (n == IVX) {
       for (int k=kl; k<=ku; ++k) {
-        for (int j=jl; j<=jl; ++j) {
+        for (int j=jl; j<=ju; ++j) {
           for (int i=1; i<=ngh; ++i) {
             prim(n,k,j,il-i) = -prim(n,k,j,il+i-1);
           }
@@ -337,7 +340,7 @@ void reflecting_x1_left(MeshBlock *pmb, Coordinates *pco,
       }
     } else {
       for (int k=kl; k<=ku; ++k) {
-        for (int j=jl; j<=jl; ++j) {
+        for (int j=jl; j<=ju; ++j) {
           for (int i=1; i<=ngh; ++i) {
             prim(n,k,j,il-i) = prim(n,k,j,il+i-1);
           }
@@ -352,7 +355,7 @@ void reflecting_x1_right(MeshBlock *pmb, Coordinates *pco,
                       Real time, Real dt,
                       int il, int iu, int jl, int ju, int kl, int ku, int ngh)
 {
-  for (int n=0; n<=NHYDRO; ++n) {
+  for (int n=0; n<NHYDRO; ++n) {
     if (n == (IVX)) {
       for (int k=kl; k<=ku; ++k) {
         for (int j=jl; j<=ju; ++j) {
