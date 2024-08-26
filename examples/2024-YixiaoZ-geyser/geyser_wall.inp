@@ -10,26 +10,29 @@ tasklist    = ImplicitHydroTasks
 <output1>
 file_type   = hst           # History data dump
 dt          = 0.1           # time increment between outputs
+# dcycle = 1
 
 <output2>
 file_type   = pnetcdf       # Netcdf format output
 variable    = prim          # variables to be output
 dt          = 0.1           # time increment between outputs
+# dcycle = 1
 
 <output3>
 file_type   = pnetcdf       # Netcdf format output
 variable    = uov           # diagnostic variables
 dt          = 0.1           # time increment
+# dcycle = 1
 
 <output4>
 file_type   = rst           # History data dump
 dt          = 20.           # time increment between outputs
 
 <time>
-cfl_number  = 0.05          # The Courant, Friedrichs, & Lewy (CFL) Number
+cfl_number  = 0.1           # The Courant, Friedrichs, & Lewy (CFL) Number
 nlim        = -1            # cycle limit
 tlim        = 20.           # time limit
-xorder      = 5             # horizontal reconstruction order
+xorder      = 2             # horizontal reconstruction order
 integrator  = rk3           # integration method
 
 <mesh>
@@ -110,8 +113,8 @@ sigtanh = 30.
 <initialcondition>
 rho_bottom = 4.0e-4
 ScaleHeight = 100.0
-H2Oratio=0.8f
-CO2ratio=0.15f
+H2Oratio=0.0f
+CO2ratio=0.0f
 
 
 
