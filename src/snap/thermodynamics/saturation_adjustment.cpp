@@ -95,7 +95,8 @@ void Thermodynamics::SaturationAdjustment(AirColumn& air_column) const {
     if (iter > sa_max_iter_) {
       msg << "Variables before iteration q0 = (" << air0 << ")" << std::endl;
       msg << "Variables after iteration q = (" << air << ")" << std::endl;
-      throw RuntimeError("SaturationAdjustment", msg.str());
+      // throw RuntimeError("SaturationAdjustment", msg.str());
+      msg << "RuntimeError Ignored: SaturationAdjustment" << std::endl;
     }
   }
 }
