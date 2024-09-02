@@ -21,6 +21,10 @@ RealArrayX Thermodynamics::TryEquilibriumTP_VaporCloud(AirParcel const& qfrac,
   Real t = qfrac.w[IDN] / t3_[i];
   std::vector<Real> rates(1 + cloud_index_set_[i].size(), 0.);
 
+  Real qgas = 1.;
+#pragma omp simd reduction(+ : qgas)
+  for (int n = 0; n < NCLOUD; ++n) qgas += -qfrac.c[n];
+
 #pragma omp simd reduction(+ : xg)
   for (int n = 0; n < NCLOUD; ++n) xg += -qfrac.c[n];
 
@@ -29,6 +33,8 @@ RealArrayX Thermodynamics::TryEquilibriumTP_VaporCloud(AirParcel const& qfrac,
     Real xs = svp_func1_[i][n](qfrac, i, j) / qfrac.w[IPR];
     Real xc = qfrac.c[j];
 
+    Real xs_volume = xs * qgas;
+
     if (misty) {  // in a cloudy ambient environment
       rates[0] += xs - xv / (xg + xv);
       continue;
@@ -36,19 +42,19 @@ RealArrayX Thermodynamics::TryEquilibriumTP_VaporCloud(AirParcel const& qfrac,
 
     // if saturation vapor pressure is larger than the total pressure
     // evaporate all condensates
-    if (xs > 1.) {
-      rates[0] += xc;
-      rates[1 + n] = -xc;
-      continue;
-    }
+    // if (xs > 1. - xg) {
+    //   rates[0] += xc;
+    //   rates[1 + n] = -xc;
+    //   continue;
+    // }
 
     Real alpha = 0.;
 
     Real lv = beta_[1 + NVAPOR + j] / t - delta_[1 + NVAPOR + j];
     if (cv_hat > 0.) alpha = (lv - 1.) / cv_hat;
 
-    Real s1 = xs / (1. - xs);
-    Real rate = (s1 * xg - xv) / (1. + alpha * xg * lv * s1 / (1. - xs));
+    // Real s1 = xs / (1. - xs);
+    Real rate = (xs_volume - xv) / (1. + alpha * xs_volume * (lv - 1.));
 
     // condensate at most xv vapor
     if (rate < 0.) {
@@ -57,10 +63,10 @@ RealArrayX Thermodynamics::TryEquilibriumTP_VaporCloud(AirParcel const& qfrac,
     }
 
     // evaporate at most xc cloud
-    if (rate > 0.) {
-      rates[0] += std::min(rate, xc);
-      rates[1 + n] = -std::min(rate, xc);
-    }
+    // if (rate > 0.) {
+    //   rates[0] += std::min(rate, xc);
+    //   rates[1 + n] = -std::min(rate, xc);
+    // }
   }
 
   // scale total rate
