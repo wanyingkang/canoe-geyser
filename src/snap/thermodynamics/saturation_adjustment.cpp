@@ -92,11 +92,20 @@ void Thermodynamics::SaturationAdjustment(AirColumn& air_column) const {
       air.w[IPR] = rmole * qgas * Constants::Rgas * air.w[IDN];
     }
 
+    for (int i = 1; i <= NVAPOR; ++i) {
+      Real qv = air.w[i];
+      for (auto j : cloud_index_set_[i]) {
+          if (air.c[j] < 0) {
+              air.w[i] += air.c[j];
+              air.c[j] = 0.;
+          }
+      }
+    }
+
     if (iter > sa_max_iter_) {
       msg << "Variables before iteration q0 = (" << air0 << ")" << std::endl;
       msg << "Variables after iteration q = (" << air << ")" << std::endl;
-      // throw RuntimeError("SaturationAdjustment", msg.str());
-      msg << "RuntimeError Ignored: SaturationAdjustment" << std::endl;
+      throw RuntimeError("SaturationAdjustment", msg.str());
     }
   }
 }
