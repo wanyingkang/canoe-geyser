@@ -270,7 +270,7 @@ void reflecting_x2_left(MeshBlock *pmb, Coordinates *pco,
                      int il, int iu, int jl, int ju, int kl, int ku, int ngh)
 {
   // copy hydro variables into ghost zones, reflecting v2
-  for (int n=0; n<=NHYDRO; ++n) {
+  for (int n=0; n<NHYDRO; ++n) {
     if (n == IVY) {
       for (int k=kl; k<=ku; ++k) {
         for (int j=1; j<=ngh; ++j) {
@@ -297,7 +297,7 @@ void reflecting_x2_right(MeshBlock *pmb, Coordinates *pco,
                       int il, int iu, int jl, int ju, int kl, int ku, int ngh)
 {
   // copy hydro variables into ghost zones, reflecting v2
-  for (int n=0; n<=NHYDRO; ++n) {
+  for (int n=0; n<NHYDRO; ++n) {
     if (n == (IVY)) {
       for (int k=kl; k<=ku; ++k) {
         for (int j=1; j<=ngh; ++j) {
@@ -326,10 +326,10 @@ void reflecting_x1_left(MeshBlock *pmb, Coordinates *pco,
                      Real time, Real dt,
                      int il, int iu, int jl, int ju, int kl, int ku, int ngh)
 {
-  for (int n=0; n<=NHYDRO; ++n) {
+  for (int n=0; n<NHYDRO; ++n) {
     if (n == IVX) {
       for (int k=kl; k<=ku; ++k) {
-        for (int j=jl; j<=jl; ++j) {
+        for (int j=jl; j<=ju; ++j) {
           for (int i=1; i<=ngh; ++i) {
             prim(n,k,j,il-i) = -prim(n,k,j,il+i-1);
           }
@@ -337,7 +337,7 @@ void reflecting_x1_left(MeshBlock *pmb, Coordinates *pco,
       }
     } else {
       for (int k=kl; k<=ku; ++k) {
-        for (int j=jl; j<=jl; ++j) {
+        for (int j=jl; j<=ju; ++j) {
           for (int i=1; i<=ngh; ++i) {
             prim(n,k,j,il-i) = prim(n,k,j,il+i-1);
           }
@@ -352,7 +352,7 @@ void reflecting_x1_right(MeshBlock *pmb, Coordinates *pco,
                       Real time, Real dt,
                       int il, int iu, int jl, int ju, int kl, int ku, int ngh)
 {
-  for (int n=0; n<=NHYDRO; ++n) {
+  for (int n=0; n<NHYDRO; ++n) {
     if (n == (IVX)) {
       for (int k=kl; k<=ku; ++k) {
         for (int j=jl; j<=ju; ++j) {
