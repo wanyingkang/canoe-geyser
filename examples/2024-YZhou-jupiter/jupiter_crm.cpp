@@ -60,8 +60,8 @@ void MeshBlock::UserWorkBeforeOutput(ParameterInput *pin) {
   for (int k = ks; k <= ke; ++k)
     for (int j = js; j <= je; ++j)
       for (int i = is; i <= ie; ++i) {
-        user_out_var(0, k, j, i) = pthermo->GetTemp(this, k, j, i);
-        user_out_var(1, k, j, i) = pthermo->PotentialTemp(this, P0, k, j, i);
+        user_out_var(0, k, j, i) = pthermo->GetTemp(w.at(k, j, i));
+        user_out_var(1, k, j, i) = pthermo->PotentialTemp(w.at(k, j, i), P0);
         // theta_v
         user_out_var(2, k, j, i) =
             user_out_var(1, k, j, i) * pthermo->RovRd(this, k, j, i);
@@ -150,7 +150,7 @@ void MeshBlock::ProblemGenerator(ParameterInput *pin) {
   Real Ts = T0 - grav / cp * x1min;
   Real Ps = P0 * pow(Ts / T0, cp / Rd);
   Real xH2O = pin->GetReal("problem", "qH2O.ppmv") / 1.E6;
-  Real xNH3 = pin->GetReal("problem", "qNH3.ppmv") / 1.E6;
+  // Real xNH3 = pin->GetReal("problem", "qNH3.ppmv") / 1.E6;
 
   while (iter++ < max_iter) {
     // read in vapors

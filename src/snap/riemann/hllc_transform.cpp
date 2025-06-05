@@ -15,6 +15,12 @@
 // exo3
 #include <exo3/cubed_sphere.hpp>
 
+// snap
+#include <snap/thermodynamics/thermodynamics.hpp>
+
+// microphysics
+#include <microphysics/microphysics.hpp>
+
 // checks
 #include <checks.hpp>
 
@@ -27,8 +33,12 @@ void Hydro::RiemannSolver(const int k, const int j, const int il, const int iu,
                           const int ivx, AthenaArray<Real> &wl,
                           AthenaArray<Real> &wr, AthenaArray<Real> &flx,
                           const AthenaArray<Real> &dxw) {
+  auto pthermo = Thermodynamics::GetInstance();
+  auto pmicro = pmy_block->pimpl->pmicro;
+
   int ivy = IVX + ((ivx - IVX) + 1) % 3;
   int ivz = IVX + ((ivx - IVX) + 2) % 3;
+  int dir = ivx - IVX;
   auto pcoord = pmy_block->pcoord;
 
   Real wli[(NHYDRO)], wri[(NHYDRO)];
@@ -69,6 +79,20 @@ void Hydro::RiemannSolver(const int k, const int j, const int il, const int iu,
     wri[IVZ] = wr(ivz, i);
     wri[IPR] = wr(IPR, i);
 
+    for (int n = 1; n < IVX; ++n) {
+      wli[n] = wl(n, i);
+      wri[n] = wr(n, i);
+    }
+
+    // correction for gamma
+    // left
+    Real gammal = pthermo->GetGamma(wli);
+    Real kappal = 1. / (gammal - 1.);
+
+    // right
+    Real gammar = pthermo->GetGamma(wri);
+    Real kappar = 1. / (gammar - 1.);
+
     //--- Step 2.  Compute middle state estimates with PVRS (Toro 10.5.2)
 
     Real al, ar, el, er, vy, vz, KE_l, KE_r;
@@ -96,8 +120,8 @@ void Hydro::RiemannSolver(const int k, const int j, const int il, const int iu,
       el = pmy_block->peos->EgasFromRhoP(wli[IDN], wli[IPR]) + KE_l;
       er = pmy_block->peos->EgasFromRhoP(wri[IDN], wri[IPR]) + KE_r;
     } else {
-      el = wli[IPR] * igm1 + KE_l;
-      er = wri[IPR] * igm1 + KE_r;
+      el = wli[IPR] * kappal + KE_l;
+      er = wri[IPR] * kappar + KE_r;
     }
     Real rhoa = .5 * (wli[IDN] + wri[IDN]);  // average density
     Real ca = .5 * (cl + cr);                // average sound speed
@@ -121,10 +145,10 @@ void Hydro::RiemannSolver(const int k, const int j, const int il, const int iu,
                : std::sqrt(1.0 + (gr + 1) / (2 * gr) * (pmid / wri[IPR] - 1.0));
     } else {
       ql = (pmid <= wli[IPR]) ? 1.0
-                              : std::sqrt(1.0 + (gamma + 1) / (2 * gamma) *
+                              : std::sqrt(1.0 + (gammal + 1) / (2 * gammal) *
                                                     (pmid / wli[IPR] - 1.0));
       qr = (pmid <= wri[IPR]) ? 1.0
-                              : std::sqrt(1.0 + (gamma + 1) / (2 * gamma) *
+                              : std::sqrt(1.0 + (gammar + 1) / (2 * gammar) *
                                                     (pmid / wri[IPR] - 1.0));
     }
 
@@ -160,8 +184,19 @@ void Hydro::RiemannSolver(const int k, const int j, const int il, const int iu,
     vxl = wli[IVX] - bm;
     vxr = wri[IVX] - bp;
 
-    fl[IDN] = wli[IDN] * vxl;
-    fr[IDN] = wri[IDN] * vxr;
+    Real rdl = 1., rdr = 1.;
+    for (int n = 1; n < IVX; ++n) {
+      rdl -= wli[n];
+      rdr -= wri[n];
+    }
+
+    fl[IDN] = wli[IDN] * vxl * rdl;
+    fr[IDN] = wri[IDN] * vxr * rdr;
+
+    for (int n = 1; n < IVX; ++n) {
+      fl[n] = wli[IDN] * wli[n] * vxl;
+      fr[n] = wri[IDN] * wri[n] * vxr;
+    }
 
     fl[IVX] = wli[IDN] * wli[IVX] * vxl + wli[IPR];
     fr[IVX] = wri[IDN] * wri[IVX] * vxr + wri[IPR];
@@ -192,17 +227,32 @@ void Hydro::RiemannSolver(const int k, const int j, const int il, const int iu,
     // contribution
     // of the flux along the contact
 
-    flxi[IDN] = sl * fl[IDN] + sr * fr[IDN];
+    for (int n = 0; n < IVX; ++n) flxi[n] = sl * fl[n] + sr * fr[n];
     flxi[IVX] = sl * fl[IVX] + sr * fr[IVX] + sm * cp;
     flxi[IVY] = sl * fl[IVY] + sr * fr[IVY];
     flxi[IVZ] = sl * fl[IVZ] + sr * fr[IVZ];
     flxi[IEN] = sl * fl[IEN] + sr * fr[IEN] + sm * cp * am;
 
-    flx(IDN, k, j, i) = flxi[IDN];
+    for (int n = 0; n < IVX; ++n) flx(n, k, j, i) = flxi[n];
     flx(ivx, k, j, i) = flxi[IVX];
     flx(ivy, k, j, i) = flxi[IVY];
     flx(ivz, k, j, i) = flxi[IVZ];
     flx(IEN, k, j, i) = flxi[IEN];
+
+    // sedimentation flux
+    if (ivx == IVX) {
+      if (i == iu) return;
+      Real hr = (wri[IPR] * (kappar + 1.) + KE_r) / wri[IDN];
+      for (int n = 0; n < NCLOUD + NPRECIP; ++n) {
+        Real rho = wri[IDN] * wri[1 + NVAPOR + n];
+        auto vsed = pmicro->vsedf[0](n, k, j, i);
+        flx(1 + NVAPOR + n, k, j, i) += vsed * rho;
+        flx(ivx, k, j, i) += vsed * rho * wri[ivx];
+        flx(ivy, k, j, i) += vsed * rho * wri[ivy];
+        flx(ivz, k, j, i) += vsed * rho * wri[ivz];
+        flx(IEN, k, j, i) += vsed * rho * hr;
+      }
+    }
   }
 
 #if defined(AFFINE) || defined(CUBED_SPHERE)  // need of deprojection

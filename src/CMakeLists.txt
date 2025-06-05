@@ -48,7 +48,7 @@ add_subdirectory(astro)
 add_subdirectory(utils)
 add_subdirectory(snap)
 add_subdirectory(harp)
-add_subdirectory(inversion)
+#add_subdirectory(inversion)
 add_subdirectory(outputs)
 add_subdirectory(opacity)
 add_subdirectory(microphysics)
@@ -58,14 +58,14 @@ add_subdirectory(tasklist)
 add_subdirectory(exo3)
 add_subdirectory(exchanger)
 add_subdirectory(special)
-add_subdirectory(single_column)
+#add_subdirectory(single_column)
 add_subdirectory(diagnostics)
 add_subdirectory(forcing)
 
-if (${Torch_FOUND})
-  add_subdirectory(torch)
-  add_subdirectory(modules)
-endif()
+#if (${Torch_FOUND})
+#  add_subdirectory(torch)
+#  add_subdirectory(modules)
+#endif()
 #add_subdirectory(nbody)
 
 if(UNIX AND NOT APPLE)
@@ -81,7 +81,7 @@ set(CANOE_LIBRARY_${buildu}
   "utils_${buildl}"
   "snap_${buildl}"
   "harp_${buildl}"
-  "inversion_${buildl}"
+  #"inversion_${buildl}"
   "outputs_${buildl}"
   "opacity_${buildl}"
   "dusts_${buildl}"
@@ -91,9 +91,11 @@ set(CANOE_LIBRARY_${buildu}
   "exo3_${buildl}"
   "exchanger_${buildl}"
   #"nbody_${buildl}"
-  "scm_${buildl}"
+  #"scm_${buildl}"
   "diagnostics_${buildl}"
   "forcing_${buildl}"
+  $<$<BOOL:${MINICHEM}>:minichem::minichem++>
+  $<$<BOOL:${EXOFMSRT}>:exofmsrt::exofmsrt++>
   #"modules_${buildl}"
   ${YAML_CPP_LIBRARIES}
   ${CPPDISORT_LIBRARY_${buildu}}

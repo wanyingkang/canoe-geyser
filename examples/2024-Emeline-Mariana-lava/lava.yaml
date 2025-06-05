@@ -1,0 +1,56 @@
+
+phases:
+  - name: atm
+    thermo: ideal-moist
+    species: [dry, Na, SiO, Na(s), SiO(s)]
+    kinetics: condensation
+
+species:
+  - name: dry
+    composition: {C: 1, O: 2}
+    thermo:
+      model: constant-cp
+      cp0: 37.4 J/mol/K
+
+  - name: Na
+    composition: {Na: 1}
+    thermo:
+      model: constant-cp
+      cp0: 24.9 J/mol/K
+
+  - name: SiO
+    composition: {Si: 1, O: 1}
+    thermo:
+      model: constant-cp
+      cp0: 33.2 J/mol/K
+
+  - name: Na(s)
+    composition: {Na: 1}
+    thermo:
+      model: constant-cp
+      T0: 2000.
+      cp0: 24.9 J/mol/K
+      h0: -100.4 kJ/mol  # h0 = - (beta - delta) * R * T0
+    equation-of-state:
+      model: constant-volume
+      molar-volume: 0.0 cm^3/mol
+
+  - name: SiO(s)
+    composition: {Si: 1, O: 1}
+    thermo:
+      model: constant-cp
+      T0: 2000.
+      cp0: 33.2 J/mol/K
+      h0: -411.5 kJ/mol  # h0 = - (beta - delta) * R * T0
+    equation-of-state:
+      model: constant-volume
+      molar-volume: 0.0 cm^3/mol
+
+reactions:
+  - equation: Na <=> Na(s)
+    type: nucleation
+    rate-constant: {formula: ideal, T3: 2000., P3: 22.3, beta: 6.04, delta: 0., minT: 0.}
+
+  - equation: SiO <=> SiO(s)
+    type: nucleation
+    rate-constant: {formula: ideal, T3: 2000., P3: 0.066, beta: 24.76, delta: 0., minT: 0.}

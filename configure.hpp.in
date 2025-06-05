@@ -1,13 +1,16 @@
-#ifndef CONFIGURE_HPP_
-#define CONFIGURE_HPP_
+#pragma once
 
 enum {
+  // dirty cubesphere nblocks data
+  NBLOCKS = @NBLOCKS@,
+
   // thermodynamics data
   NPHASE_LEGACY = @NPHASE_LEGACY@,
 
   // air-parcle data
-  //NVAPOR = @NVAPOR@,
+  NVAPOR = @NVAPOR@,
   NCLOUD = @NCLOUD@,
+  NPRECIP = @NPRECIP@,
   NCHEMISTRY = @NCHEMISTRY@,
   NTRACER = @NTRACER@,
   NTURBULENCE = @NTURBULENCE@,
@@ -50,4 +53,22 @@ enum {
 // python bindings (PYTHON_BINDINGS or NO_PYTHOND_BINDINGS)
 #define @PYTHON_BINDINGS_OPTION@
 
-#endif  // CONFIGURE_HPP_
+// nblocks for exo3 option (USE_NBLOCKS or NOT_USE_NBLOCKS)
+#define @USE_NBLOCKS@
+
+//#define ENABLE_FIX
+
+// logger
+#define SPDLOG_ACTIVE_LEVEL SPDLOG_LEVEL_@LOGGER_LEVEL@
+#define LOG_TRACE(...) SPDLOG_LOGGER_TRACE(__VA_ARGS__)
+#define LOG_DEBUG(...) SPDLOG_LOGGER_DEBUG(__VA_ARGS__)
+#define LOG_INFO(...) SPDLOG_LOGGER_INFO(__VA_ARGS__)
+#define LOG_WARN(...) SPDLOG_LOGGER_WARN(__VA_ARGS__)
+#define LOG_ERROR(...) SPDLOG_LOGGER_ERROR(__VA_ARGS__)
+#define LOG_CRITICAL(...) SPDLOG_LOGGER_CRITICAL(__VA_ARGS__)
+
+#ifdef __CUDACC__
+  #define DISPATCH_MACRO __host__ __device__
+#else
+  #define DISPATCH_MACRO
+#endif
